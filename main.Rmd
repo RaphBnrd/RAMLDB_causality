@@ -1,0 +1,460 @@
+---
+title: "Assess causality"
+output: html_notebook
+---
+
+
+
+
+```{r setup, class.source='fold-show'}
+rm(list = ls())
+
+library(tidyverse)
+library(progress)
+library(foreach) # for parallel computing
+library(doParallel) # for parallel computing
+
+library(rEDM) # For Empircal dynamic modeling (simplex, CCM, block_lnlp...)
+
+source("utils/granger_causality_test.R") # Load the function to assess Granger causality
+```
+
+
+# Parameters
+
+## Input information
+
+```{r parameters_input}
+path_dataframe_input = "data/RAM_timeseries_clean-light.csv"
+df = read.csv(path_dataframe_input)
+
+name_id_timeseries = "stockid"
+name_time = "year"
+
+list_of_causality_tested  = list(
+  # c(cause, consequence)
+  c("sst.z", "prodbest.div"), 
+  c("UdivUmsypref", "prodbest.div"),
+  c("prodbest.div", "sst.z"),
+  c("prodbest.div", "UdivUmsypref")
+)
+
+labels_of_variables = c(
+  "sst.z" = "SST standardized Z-factor", 
+  "prodbest.div" = "Productivity divided by mean TB", 
+  "UdivUmsypref" = "U / Umsy"
+)
+
+all_ids = df %>% pull(all_of(name_id_timeseries)) %>% unique()
+
+```
+
+
+## Execution parameters
+
+```{r parameters_exe}
+# Parameters for the EDM
+E_tested_simplex = 2:10 # embedding dimensions tested in the simplex projection (and used in CCM)
+methods_select_E = list("max_rho" = TRUE, "positive_range_top_x_percent" = c(0.2)) # methods to select the embedding dimension
+method_select_E_prefered = "positive_range_top_20_percent"
+method_select_E_default = "max_rho" # if the prefered method provides NA
+
+tp_tested_simplex = 1:10 # time horizon for prediction tested in the simplex projection
+theta_tested_smap = seq(0, 8, by = 0.4) # non-linearity theta tested in the s-map
+tp_tested_ccm = -5:5 # time horizon for prediction tested in CCM
+methods_strength = c("Smap_Edim_space") # methods to assess the strength of the causality 
+# within c("CCM_max_rho", "CCM_rate_incr_rho", "CCM_AUC", "Smap_Edim_space", "Smap_pair_space", "Smap_full_space")
+
+# Step executed
+exe_simplex_tp1 = TRUE # Simplex projection along E_tested_simplex and with tp = 1 -> assess the optimal embedding dimension
+exe_simplex_Eopt_loop_tp = TRUE # Simplex projection along tp_tested_simplex with E = best E -> check the decrease in forecasting skill with tp
+exe_smap_best_E = TRUE # S-map with the best E along theta_tested_smap -> assess the optimal non-linearity
+exe_ccm_best_E = TRUE # CCM with the best E along tp_tested_ccm -> compute the CCM and assess the causality
+exe_ccm_time_horizon = TRUE # CCM with the best E along tp_tested_ccm -> compute the CCM and assess the causality with a time delay
+exe_strength_causality = TRUE # Assess the strength of the causality
+exe_granger_causality = TRUE # Assess the Granger causality
+```
+
+
+## Output information
+
+```{r parameters_output}
+dir_out = "out/20240923-test/"
+
+file_save_out_simplex_tp1 = paste0(dir_out, "computations/01_a-out_simplex_tp1.csv")
+file_save_out_simplex_tp1_summary_opti_E = paste0(dir_out, "computations/01_b-out_simplex_tp1_summary_opti_E.csv")
+file_save_out_simplex_Eopt_loop_tp = paste0(dir_out, "computations/01_c-out_simplex_Eopt_loop_tp.RData")
+file_save_out_smap_best_E = paste0(dir_out, "computations/01_d-out_smap_best_E.RData")
+
+file_save_out_ccm_best_E = paste0(dir_out, "computations/02_a-out_ccm_best_E.RData")
+file_save_out_ccm_best_E_summary = paste0(dir_out, "computations/02_b-out_ccm_best_E_summary.csv")
+file_save_out_ccm_time_horizon = paste0(dir_out, "computations/02_c-out_ccm_time_horizon.RData")
+file_save_out_ccm_time_horizon_summary = paste0(dir_out, "computations/02_d-out_ccm_time_horizon_summary.csv")
+file_save_out_strength_causality = paste0(dir_out, "computations/03_a-out_strength_causality.csv")
+file_save_out_strength_causality_details_smap = paste0(dir_out, "computations/03_b-out_strength_causality_details_smap.csv")
+
+file_save_out_granger_causality = paste0(dir_out, "computations/04_a-out_granger_causality.csv")
+file_save_out_granger_causality_details = paste0(dir_out, "computations/04_b-out_granger_causality_details.csv")
+
+exe_plots = FALSE
+save_plots = FALSE
+plots_with_titles = FALSE
+types_plots = c("pdf", "png")
+
+
+# Set up the output directories
+if (!dir.exists(dir_out)) dir.create(dir_out) # Create the output directory
+if (save_plots) { 
+  for (typ in types_plots) { 
+    if (!dir.exists(paste0(dir_out, typ))) dir.create(paste0(dir_out, typ)) # Create the directories for each type of plot
+    for (var_plot in variables_of_interest) { # Create the directories for each variable within each type of plot
+      if (!dir.exists(paste0(dir_out, typ, "/", var_plot))) dir.create(paste0(dir_out, typ, "/", var_plot))
+      }
+  }
+}
+# Create the directory where we store the outputs of the computations
+if (!dir.exists(paste0(dir_out, "computations/"))) dir.create(paste0(dir_out, "computations/")) 
+
+```
+
+
+
+# Utils functions
+
+```{r}
+
+source("utils/01-get_optimal_E_simplex.R")
+source("utils/02-CCM_and_tests.R")
+
+# Function to save the outputs, either csv, rds, or RData files
+save_file = function(object, path_file) {
+  
+  if (file.exists(path_file)) {
+    warning("The file ", path_file, " already exists... It will be overwritten.")
+  }
+  
+  if (grepl(".csv", path_file)) { # CSV file
+    write.csv(object, path_file, row.names = FALSE)
+  } else if (grepl(".RData", path_file)) { # RData file
+    save(object, file = path_file)
+  } else if (grepl(".rds", path_file)) { # RDS file
+    saveRDS(object, file = path_file)
+  } else {
+    stop("The file ", path_file, " is not a csv or RData file.")
+  }
+  
+}
+
+# Function to import either csv, rds, or RData files
+import_file = function(path_file) {
+  
+  if (!file.exists(path_file)) {
+    warning("The file ", path_file, " does not exist... The function returns NULL.")
+    return(NULL)
+  } 
+  
+  if (grepl(".csv", path_file)) { # CSV file
+    return(read.csv(path_file))
+  } else if (grepl(".RData", path_file)) { # RData file
+    load(path_file)
+    return(get(ls()[ls() != "path_file"]))
+  } else if (grepl(".rds", path_file)) { # RDS file
+    return(readRDS(path_file))
+  } else {
+    stop("The file ", path_file, " is not a csv or RData file.")
+  }
+  
+}
+
+```
+
+
+
+
+# Estimate the optimal embedding dimension
+
+```{r}
+if (exe_simplex_tp1) {
+  
+  cat(" * * * Simplex projection tp = 1 * * *\n-> assess the optimal embedding dimension with a time horizon = 1\n")
+  
+  
+  # / * / * / * APPLY THE SIMPLEX PROJECTION * \ * \ * \
+  cat("Apply the simplex projection...\n")
+  
+  df_input_simplex = expand.grid(
+    id_timeseries = all_ids, 
+    variable = unique(sapply(list_of_causality_tested, function(x) x[2])) # consequence variables will be libraries
+  )
+  
+  # Prepare parallel computing
+  num_cores <- detectCores()
+  cl <- makeCluster(num_cores)
+  registerDoParallel(cl)
+  pb = progress::progress_bar$new(format = "[:bar] :percent eta: :eta", total = nrow(df_input_simplex))
+  clusterExport(cl, "pb") # Export the progress bar to the parallel backend
+  
+  # Apply the simplex projection in parallel
+  res_simplex_tp1 <- foreach(i = 1:nrow(df_input_simplex), .combine = rbind, .packages = 'rEDM') %dopar% {
+    
+    tryCatch(pb$tick(), error = function(e) NULL) # Update the progress bar
+    
+    this_id <- df_input_simplex$id_timeseries[i]
+    this_var <- as.character(df_input_simplex$variable[i])
+    this_df <- df[df[[name_id_timeseries]] == this_id, c(name_time, this_var)]
+    # Scale the variable (even if it's already done in this version of simplex projection)
+    this_df[[this_var]] <- scale(this_df[[this_var]])[, 1]
+    
+    # Apply the simplex projection
+    out_simp <- simplex(this_df[[this_var]], E = E_tested_simplex, tp = 1, 
+                        silent = TRUE, stats_only = TRUE)
+    
+    data.frame(variable = this_var, id_timeseries = this_id, out_simp)
+  }
+  
+  # Stop the parallel backend when done
+  stopCluster(cl)
+  
+  save_file(res_simplex_tp1, file_save_out_simplex_tp1)
+  
+  
+  
+  
+  # / * / * / * SUMMARY OF THE OPTIMAL EMBEDDING DIMENSION * \ * \ * \
+  cat("Summary of the optimal embedding dimension...\n")
+  
+  num_cores <- detectCores()
+  cl <- makeCluster(num_cores)
+  registerDoParallel(cl)
+  
+  res_simplex_tp1_summary_opti_E = data.frame()
+  
+  for (i in 1:nrow(df_input_simplex)) {
+    
+    this_id <- df_input_simplex$id_timeseries[i]
+    this_var <- as.character(df_input_simplex$variable[i])
+    this_res_simp <- res_simplex_tp1 %>% filter(id_timeseries == this_id, variable == this_var)
+    
+    out_opti_E = get_optimal_E_simplex(this_res_simp, methods_select_E = methods_select_E)
+    
+    res_simplex_tp1_summary_opti_E = res_simplex_tp1_summary_opti_E %>% rbind(
+      data.frame(variable = this_var, id_timeseries = this_id, out_opti_E)
+    )
+    
+  }
+  
+  save_file(res_simplex_tp1_summary_opti_E, file_save_out_simplex_tp1_summary_opti_E)
+  
+} else {
+  
+  res_simplex_tp1 = import_file(file_save_out_simplex_tp1)
+  res_simplex_tp1_summary_opti_E = import_file(file_save_out_simplex_tp1_summary_opti_E)
+  
+}
+
+```
+
+
+
+# Apply the simplex with the time horizon for prediction
+
+```{r}
+if (exe_simplex_Eopt_loop_tp) {
+  
+  cat(" * * * Simplex projection with time delay (tp) * * *\n-> assess the decay in predictability with increasing time horizon\n")
+  
+  # save_file(res_simplex_Eopt_loop_tp, file_save_out_simplex_Eopt_loop_tp)
+  
+} else {
+  
+  # res_simplex_Eopt_loop_tp = import_file(file_save_out_simplex_Eopt_loop_tp)
+  
+}
+
+```
+
+
+
+# Apply the S-map with the best E and assess the non-linearity
+
+```{r}
+if (exe_smap_best_E) {
+  
+  cat(" * * * S-map with the best E * * *\n-> assess the non-linearity parameter theta\n")
+  
+  # save_file(res_smap_best_E, file_save_out_smap_best_E)
+  
+} else {
+  
+  # res_smap_best_E = import_file(file_save_out_smap_best_E)
+  
+}
+
+```
+
+
+
+# Apply the CCM with the best E and assess the causality
+
+
+```{r}
+if (exe_ccm_best_E) {
+  
+  cat(" * * * CCM with the best E * * *\n-> assess the causality\n")
+  
+  # Prepare the inputs of the CCM
+  
+  input.selected.ccm = data.frame()
+  for (k in 1:length(list_of_causality_tested)) {
+    
+    this_var_lib = list_of_causality_tested[[k]][2] # consequence
+    this_var_target = list_of_causality_tested[[k]][1] # cause
+    
+    for (id in all_ids) {
+      
+      this_E = res_simplex_tp1_summary_opti_E %>% 
+        filter(id_timeseries == id, variable == this_var_lib) %>%
+        filter(method_E_opti_simplex == method_select_E_prefered) %>%
+        pull(E_opti_simplex)
+      this_method = method_select_E_prefered
+      
+      if (is.na(E)) { # E with the prefered method can be NA when the forecasting skill is always negative
+        this_E = res_simplex_tp1_summary_opti_E %>% 
+          filter(id_timeseries == id, variable == this_var_lib) %>%
+          filter(method_E_opti_simplex == method_select_E_default) %>%
+          pull(E_opti_simplex)
+        this_method = method_select_E_default
+      }
+      
+      input.selected.ccm = rbind(input.selected.ccm,
+                                 data.frame(stockid = id, var.lib = this_var_lib, var.target = this_var_target, 
+                                            E = this_E, method_E = this_method))
+    }
+  }
+  
+  # Launch the CCM
+  
+  
+  
+  # save_file(res_ccm_best_E, file_save_out_ccm_best_E)
+  # save_file(res_ccm_best_E_summary, file_save_out_ccm_best_E_summary)
+  
+} else {
+  
+  # res_ccm_best_E = import_file(file_save_out_ccm_best_E)
+  # res_ccm_best_E_summary = import_file(file_save_out_ccm_best_E_summary)
+
+}
+
+```
+
+
+
+# Apply CCM with a varying time horizon
+
+```{r}
+if (exe_ccm_time_horizon) {
+  
+  cat(" * * * CCM with time horizon * * *\n-> assess the causality with a time delay\n")
+  
+  # save_file(res_ccm_time_horizon, file_save_out_ccm_time_horizon)
+  # save_file(res_ccm_time_horizon_summary, file_save_out_ccm_time_horizon_summary)
+  
+} else {
+  
+  # res_ccm_time_horizon = import_file(file_save_out_ccm_time_horizon)
+  # res_ccm_time_horizon_summary = import_file(file_save_out_ccm_time_horizon_summary)
+  
+}
+
+```
+
+
+
+# Assess the strength of the causality
+
+```{r}
+if (exe_strength_causality) {
+  
+  cat(" * * * Strength of the causality * * *\n-> assess the strength of the causality\n")
+  
+  # save_file(res_strength_causality, file_save_out_strength_causality)
+  # save_file(res__strength_causality_details_smap, file_save_out_strength_causality_details_smap)
+  
+} else {
+  
+  # res_strength_causality = import_file(file_save_out_strength_causality)
+  # res_strength_causality_details_smap = import_file(file_save_out_strength_causality_details_smap)
+  
+}
+
+```
+
+
+
+
+
+
+# Assess Granger causality
+
+```{r}
+
+if (exe_granger_causality) {
+  
+  # Define the input properly for the causality tested
+  df_causality_tested = data.frame()
+  for (k in 1:length(list_of_causality_tested)) {
+    df_causality_tested = df_causality_tested %>% rbind(
+      data.frame(cause = list_of_causality_tested[[k]][1], 
+                 consequence = list_of_causality_tested[[k]][2])
+    )
+  }
+  
+  # Outputs are stored in these dataframes
+  df_out_gc = data.frame()
+  df_out_gc_detailed = data.frame()
+  
+  pb = progress::progress_bar$new(format = "[:bar] :percent eta: :eta", 
+                                  total = length(all_ids))
+  for (this_stock in all_ids) {
+    
+    this_df = df[which(df[[name_id_timeseries]] == this_stock), c(name_time, unique(unlist(list_of_causality_tested)) ) ]
+    
+    # Scale the variables
+    for (this_var in unique(unlist(list_of_causality_tested))) {
+      this_df[[this_var]] = scale(this_df[[this_var]])[,1]
+    }
+    # Test the Granger causality
+    suppressWarnings({
+      res_gc = granger_causality_assessment_pair(this_df, causality_tested = df_causality_tested, 
+                                                 max_order_tested = 10, silent = TRUE)
+    })
+    df_out_gc = df_out_gc %>% rbind(cbind(stockid = this_stock, res_gc$causality_tested))
+    df_out_gc_detailed = df_out_gc_detailed %>% rbind(cbind(stockid = this_stock, res_gc$causality_tested_detailed))
+    
+    pb$tick() 
+  }
+  
+  # Save the results
+  write.csv(df_out_gc, file_save_out_granger_causality, row.names = FALSE)
+  write.csv(df_out_gc_detailed, file_save_out_granger_causality_details, row.names = FALSE)
+
+} else {
+  if (file.exists(file_save_out_granger_causality)) {
+    df_out_gc = read.csv(file_save_out_granger_causality)
+  } else {
+    message("The file ", file_save_out_granger_causality, " does not exist...\n",
+            "The execution continues without it.")
+  }
+  if (file.exists(file_save_out_granger_causality_details)) {
+    df_out_gc_detailed = read.csv(file_save_out_granger_causality_details)
+  } else {
+    message("The file ", file_save_out_granger_causality_details, " does not exist...\n",
+            "The execution continues without it.")
+  }
+}
+
+```
+
+
+
