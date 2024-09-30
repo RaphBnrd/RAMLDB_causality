@@ -19,6 +19,7 @@ test_the_functions = FALSE
 #   - var_target: name of the variable to use as the target (predicted, cause of the phenomenon tested)
 #   - E: embedding dimension(s) to test
 #   - libs: library sizes to test
+#   - tp: time horizon for prediction (time to predict, positive or negative integer)
 #   - num_boot_origin: number of bootstraps to compute the original CCM (num_samples in ccm function)
 #   - num_shuffle_null: number of shuffles considered as the null model
 #   - rd_seed: seed for the random number generator (RNGseed in ccm function)
