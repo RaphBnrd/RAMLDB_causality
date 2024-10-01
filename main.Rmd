@@ -13,6 +13,8 @@ library(tidyverse)
 library(progress)
 library(foreach) # for parallel computing
 library(doParallel) # for parallel computing
+library(ggplot2)
+library(ggrepel) # for labels on ggplots (like geom_text_repel)
 
 library(rEDM) # For Empircal dynamic modeling (simplex, CCM, block_lnlp...)
 
@@ -40,9 +42,9 @@ list_of_causality_tested  = list(
 )
 
 labels_of_variables = c(
-  "sst.z" = "SST standardized Z-factor", 
-  "prodbest.div" = "Productivity divided by mean TB", 
-  "UdivUmsypref" = "U / Umsy"
+  "sst.z" = "SST", 
+  "prodbest.div" = "Surplus of productivity", 
+  "UdivUmsypref" = "Harvest rate"
 )
 
 all_ids = df %>% pull(all_of(name_id_timeseries)) %>% unique()
@@ -122,6 +124,10 @@ source("utils/02-CCM_and_tests.R")
 source("utils/03-strength_of_causality_smap.R")
 source("utils/04-granger_causality_test.R")
 
+source("utils/plots_timeseries.R")
+source("utils/plots_rEDM.R")
+
+
 # Function to save the outputs, either csv, rds, or RData files
 save_file = function(object, path_file) {
   
@@ -166,8 +172,26 @@ import_file = function(path_file) {
 
 
 
+# Plots dataset
+
+```{r plots_dataset}
+# Timeseries for 1 stock
+this_id = all_ids[1]
+variables = unique(unlist(list_of_causality_tested))
+ggplot_timeseries_one_stock(df[df[[name_id_timeseries]] == this_id, ], variables, 
+                            labels_of_variables, id = this_id, time = name_time, scale = TRUE)
+
+# Durations of the timeseries
+ggplot_timeseries_durations(df, name_id_timeseries, time = name_time)
+```
+
+
+
+
 
 # Estimate the optimal embedding dimension
+
+## Computations
 
 ```{r simplex_projection}
 if (exe_simplex_tp1) {
@@ -268,6 +292,24 @@ if (exe_simplex_tp1) {
 }
 
 ```
+
+## Plots
+
+```{r plots_simplex}
+
+# Single id and variable -> rho depending on E
+this_id = all_ids[1]
+this_var = as.character(df_input_simplex$variable[1])
+ggplot_simplex_rho_E(res_simplex_tp1, res_simplex_tp1_summary_opti_E, this_id, this_var, labels_of_variables)
+
+# Single variable and method selection E -> histogram of E
+this_var = as.character(df_input_simplex$variable[1])
+this_method = method_select_E_prefered
+ggplot_simplex_hist_E(res_simplex_tp1_summary_opti_E, this_var, this_method, labels_of_variables)
+
+```
+
+
 
 
 
@@ -394,6 +436,44 @@ if (exe_ccm_best_E_and_tp) {
   res_ccm_best_E_assessment = import_file(file_save_out_ccm_best_E_and_tp_assessment)
 
 }
+
+```
+
+## Plots
+
+```{r plots_ccm}
+
+# Single id and causal relationship -> rho depending on lib size
+this_id = all_ids[12]
+this_causal_rel = list_of_causality_tested[[1]]
+this_tp = tp_tested_causality[6]
+ggplot_convergence_ccm_one_dir(res_ccm_best_E_summaries, this_id, this_causal_rel, this_tp, labels_of_variables)
+
+this_causal_rel = list_of_causality_tested[[3]]
+ggplot_convergence_ccm_one_dir(res_ccm_best_E_summaries, this_id, this_causal_rel, this_tp, labels_of_variables)
+
+these_vars = list_of_causality_tested[[1]]
+
+ggplot_convergence_ccm_two_dir(res_ccm_best_E_summaries, this_id, these_vars, this_tp, labels_of_variables)
+
+
+# Histogram of the causality
+id_removed = res_simplex_tp1_summary_opti_E %>% 
+  filter(is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered) %>% 
+  pull(id_timeseries) %>% as.character() # we remove the stocks where the forecasting skill is always negative
+
+ggplot_ccm_hist_causality_one_tp(res_ccm_best_E_assessment, this_tp, labels_of_variables, 
+                                 id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
+
+these_tp = tp_tested_causality
+ggplot_ccm_hist_causality_multiple_tp(res_ccm_best_E_assessment, these_tp, labels_of_variables, 
+                                      id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
+
+ggplot_ccm_alluvial_causality_multiple_tp(res_ccm_best_E_assessment, these_tp, labels_of_variables, 
+                                          id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
+
+# ggsave(paste0(dir_out, "ccm_alluvial_causality_multiple_tp.png"), width = 6, height = 10)
+
 
 ```
 
@@ -574,8 +654,17 @@ if (exe_strength_causality) {
 
 ```
 
+## Plots
+
+```{r plots_strength_causality}
+
+# Single id and causal relationship -> strength depending on time
+this_id = all_ids[12]
+this_causal_rel = list_of_causality_tested[[1]]
+this_tp = tp_tested_causality[6]
 
 
+```
 
 
 

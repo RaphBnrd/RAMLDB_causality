@@ -3,7 +3,7 @@ library(ggplot2)
 
 
 
-ggplot_timeseries_one_stock = function(data, variables, labels_of_variables,
+ggplot_timeseries_one_stock = function(data, variables, labels_of_variables, id = NA, 
                                        time = "year", scale = TRUE) {
   
   data = data[, c(time, variables)]
@@ -21,7 +21,8 @@ ggplot_timeseries_one_stock = function(data, variables, labels_of_variables,
     
     ggplot(aes(x = time, y = value, color = variable)) +
     geom_line() +
-    labs(title = "Time series", x = "Time", y = "Value", color = "Variable") +
+    labs(title = paste0("Time series", ifelse(is.na(id), "", paste0(" (id = ", id, ")"))),
+         x = "Time", y = "Value", color = "Variable") +
     theme_light() + 
     theme(legend.position = "bottom")
     
@@ -47,6 +48,10 @@ ggplot_timeseries_durations = function(data, id_timeseries, time = "year") {
   return(p)
   
 }
+
+
+
+
 
 
 
