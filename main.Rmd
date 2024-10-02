@@ -18,7 +18,6 @@ library(ggrepel) # for labels on ggplots (like geom_text_repel)
 
 library(rEDM) # For Empircal dynamic modeling (simplex, CCM, block_lnlp...)
 
-source("utils/granger_causality_test.R") # Load the function to assess Granger causality
 ```
 
 
@@ -69,10 +68,10 @@ methods_strength = c("Smap_Edim_space") # methods to assess the strength of the 
 # within c("CCM_max_rho", "CCM_rate_incr_rho", "CCM_AUC", "Smap_Edim_space", "Smap_pair_space", "Smap_full_space")
 
 # Step executed
-exe_simplex_tp1 = TRUE # Simplex projection along E_tested_simplex and with tp = 1 -> assess the optimal embedding dimension
-exe_ccm_best_E_and_tp = TRUE # CCM with the best E along tp_tested_causality -> compute the CCM and assess the causality
-exe_strength_causality = TRUE # Assess the strength of the causality
-exe_granger_causality = TRUE # Assess the Granger causality
+exe_simplex_tp1 = FALSE # Simplex projection along E_tested_simplex and with tp = 1 -> assess the optimal embedding dimension
+exe_ccm_best_E_and_tp = FALSE # CCM with the best E along tp_tested_causality -> compute the CCM and assess the causality
+exe_strength_causality = FALSE # Assess the strength of the causality
+exe_granger_causality = FALSE # Assess the Granger causality
 ```
 
 
@@ -299,11 +298,11 @@ if (exe_simplex_tp1) {
 
 # Single id and variable -> rho depending on E
 this_id = all_ids[1]
-this_var = as.character(df_input_simplex$variable[1])
+this_var = as.character(res_simplex_tp1$variable[1])
 ggplot_simplex_rho_E(res_simplex_tp1, res_simplex_tp1_summary_opti_E, this_id, this_var, labels_of_variables)
 
 # Single variable and method selection E -> histogram of E
-this_var = as.character(df_input_simplex$variable[1])
+this_var = as.character(res_simplex_tp1$variable[1])
 this_method = method_select_E_prefered
 ggplot_simplex_hist_E(res_simplex_tp1_summary_opti_E, this_var, this_method, labels_of_variables)
 
@@ -433,6 +432,7 @@ if (exe_ccm_best_E_and_tp) {
 } else {
   
   res_ccm_best_E_summaries = import_file(file_save_out_ccm_best_E_and_tp_summaries)
+  colnames(res_ccm_best_E_summaries) = gsub("^X(\\d+)\\.$", "\\1%", colnames(res_ccm_best_E_summaries))
   res_ccm_best_E_assessment = import_file(file_save_out_ccm_best_E_and_tp_assessment)
 
 }
@@ -462,9 +462,13 @@ id_removed = res_simplex_tp1_summary_opti_E %>%
   filter(is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered) %>% 
   pull(id_timeseries) %>% as.character() # we remove the stocks where the forecasting skill is always negative
 
+# At a precise tp
 ggplot_ccm_hist_causality_one_tp(res_ccm_best_E_assessment, this_tp, labels_of_variables, 
                                  id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
+ggplot_ccm_alluvial_causality_one_tp_both_dir(res_ccm_best_E_assessment, this_tp, labels_of_variables, 
+                                              id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
 
+# Histograms and flow for multiple tp
 these_tp = tp_tested_causality
 ggplot_ccm_hist_causality_multiple_tp(res_ccm_best_E_assessment, these_tp, labels_of_variables, 
                                       id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
@@ -472,8 +476,15 @@ ggplot_ccm_hist_causality_multiple_tp(res_ccm_best_E_assessment, these_tp, label
 ggplot_ccm_alluvial_causality_multiple_tp(res_ccm_best_E_assessment, these_tp, labels_of_variables, 
                                           id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
 
-# ggsave(paste0(dir_out, "ccm_alluvial_causality_multiple_tp.png"), width = 6, height = 10)
+# At tp with the maximum rho (assess causality if causality for this tp and tp <= 0)
+ggplot_ccm_hist_causality_tp_max_rho(res_ccm_best_E_assessment, labels_of_variables, 
+                                     id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
+ggplot_ccm_alluvial_causality_tp_max_rho_both_dir(res_ccm_best_E_assessment, labels_of_variables, 
+                                                  id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
 
+# Compare the methods
+ggplot_ccm_alluvial_causality_one_tp_and_tp_max_rho(res_ccm_best_E_assessment, this_tp, labels_of_variables, 
+                                                    id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
 
 ```
 
@@ -663,6 +674,12 @@ this_id = all_ids[12]
 this_causal_rel = list_of_causality_tested[[1]]
 this_tp = tp_tested_causality[6]
 
+ggplot_strength_one_stock(res_strength_causality_details_smap, res_strength_causality, this_id, this_causal_rel, this_tp)
+
+
+# Summary of the strength of the causality (qualitative analysis)
+ggplot_strength_summary(res_strength_causality, labels_of_variables, this_tp, list_of_causality_tested)
+  
 
 ```
 

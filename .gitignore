@@ -1,5 +1,10 @@
 main.nb.html
-out/
+
+# Remove outputs except the folder out/20240923-test/computations
+out/*
+!out/20240923-test/
+out/20240923-test/*
+!out/20240923-test/computations/
 
 
 # History files
