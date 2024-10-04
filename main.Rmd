@@ -26,7 +26,8 @@ library(rEDM) # For Empircal dynamic modeling (simplex, CCM, block_lnlp...)
 ## Input information
 
 ```{r parameters_input}
-path_dataframe_input = "data/RAM_timeseries_clean-light.csv"
+# path_dataframe_input = "data/RAM_timeseries_clean-light.csv"
+path_dataframe_input = "data/RAM_timeseries_clean.csv"
 df = read.csv(path_dataframe_input)
 
 name_id_timeseries = "stockid"
@@ -78,7 +79,7 @@ exe_granger_causality = FALSE # Assess the Granger causality
 ## Output information
 
 ```{r parameters_output}
-dir_out = "out/20240923-test/"
+dir_out = "out/20241003-full/"
 
 file_save_out_simplex_tp1 = paste0(dir_out, "computations/01_a-out_simplex_tp1.csv")
 file_save_out_simplex_tp1_summary_opti_E = paste0(dir_out, "computations/01_b-out_simplex_tp1_summary_opti_E.csv")
@@ -510,14 +511,14 @@ if (exe_strength_causality) {
       # E is the optimal embedding dimension from the simplex projection with tp = 1... (even if we use it for various tp in the ccm)
       # we could provide multiple E for the function CCM_vs_null, but we will only provide the best one here
       this_E = res_simplex_tp1_summary_opti_E %>% 
-        filter(id_timeseries == id, variable == this_var_lib) %>%
+        filter(id_timeseries == id, variable == this_var_consequence) %>%
         filter(method_E_opti_simplex == method_select_E_prefered) %>%
         pull(E_opti_simplex)
       this_method = method_select_E_prefered
       
       if (is.na(this_E)) { # E with the prefered method can be NA when the forecasting skill is always negative
         this_E = res_simplex_tp1_summary_opti_E %>% 
-          filter(id_timeseries == id, variable == this_var_lib) %>%
+          filter(id_timeseries == id, variable == this_var_consequence) %>%
           filter(method_E_opti_simplex == method_select_E_default) %>%
           pull(E_opti_simplex)
         this_method = method_select_E_default
