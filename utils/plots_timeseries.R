@@ -31,7 +31,7 @@ ggplot_timeseries_one_stock = function(data, variables, labels_of_variables, id 
 }
 
 
-ggplot_timeseries_durations = function(data, id_timeseries, time = "year") {
+ggplot_timeseries_durations = function(data, id_timeseries, time = "year", size_y_axis = 8) {
   
   data = data %>% 
     group_by_at(id_timeseries) %>%
@@ -41,9 +41,10 @@ ggplot_timeseries_durations = function(data, id_timeseries, time = "year") {
     
   p = ggplot(data, aes(x = min_time, xend = max_time, 
                    y = reorder(id_timeseries, min_time), yend = reorder(id_timeseries, min_time))) +
-    geom_segment(linewidth = 0.8) + 
-    labs(title = "Time series durations", x = "Start time", y = "End time") +
-    theme_light()
+    geom_segment(linewidth = 1) + 
+    labs(title = "Time series durations", x = "Time range", y = "Stock") +
+    theme_light() + 
+    theme(axis.text.y = element_text(size = size_y_axis))
     
   return(p)
   
