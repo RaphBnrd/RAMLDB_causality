@@ -448,23 +448,24 @@ ggplot_strength_one_stock = function(res_strength_causality_details_smap, res_st
     "P-value slope = ", sprintf("%4.2e", this_row$this_trend_p_val)
   )
   
-  p = res_strength_causality_details_smap %>% 
+  this_df = res_strength_causality_details_smap %>% 
     filter(id_timeseries == this_id, tp == this_tp,
            var_cause == this_causal_rel[1], var_consequence == this_causal_rel[2],
            var_cause_jacobian == paste0(
              this_causal_rel[1], "_t", 
              ifelse(this_tp == 0, "", ifelse(this_tp > 0, paste0("_plus_", this_tp), paste0("_minus_", abs(this_tp))) ) 
-           ) ) %>% 
-    
-    ggplot(aes(t, value)) + 
-    geom_line() + geom_point() + 
-    geom_smooth(method = "lm") + 
+           ) )
+  p = ggplot(this_df) + 
+    geom_hline(yintercept = mean(this_df$value, na.rm=T), linetype = "dashed", color = "royalblue") +
+    annotate("text", x = min(this_df$t), y = mean(this_df$value, na.rm=T), hjust = 0, vjust = -0.5, label = "Mean", color = "royalblue") +
+    geom_line(aes(t, value)) + geom_point(aes(t, value)) + 
+    geom_smooth(aes(t, value), method = "lm", color = "royalblue") +
     # annotate("text", x = Inf, y = -Inf, hjust = 1.1, vjust = -0.5, label = annot) +
-    labs(title = paste0("Strength of causality (id = ", this_id, ")"),
+    labs(title = paste0("S-map coefficients (id = ", this_id, ")"),
          subtitle = paste0(labels_of_variables[this_causal_rel[1]], 
                            "(t", ifelse(this_tp == 0, "", ifelse(this_tp > 0, paste0("+", this_tp), paste0("-", abs(this_tp))) ), ")",
                            " -> ", labels_of_variables[this_causal_rel[2]], "(t+1)"),
-         x = "Time", y = "Strength of the causality", 
+         x = "Time", y = "S-map coefficients", 
          caption = annot) +
     theme_light()
   
@@ -511,8 +512,8 @@ ggplot_strength_summary = function(res_strength_causality, res_ccm_best_E_assess
     geom_tile() +
     geom_text(aes(label = n), vjust = 0.5) +
     scale_fill_gradient(low = "#cccccc", high = "royalblue") +
-    labs(title = "Strength of the causality", fill = "Number of\nstocks",
-         x = "Significance of the trend", y = "Significance of the mean strength") +
+    labs(title = "S-map coefficients", fill = "Number of\nstocks",
+         x = "Significance of the trend", y = "Significance of the mean s-map coefficients") +
     theme_light() +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
           strip.text = element_text(size = 8))

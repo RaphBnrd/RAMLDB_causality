@@ -14,14 +14,15 @@ library(plotly)
 # Import objects ----------------------------------------------------------
 
 
-path_dataframe_input = "data/RAM_timeseries_clean.csv"
+# path_dataframe_input = "data/RAM_timeseries_clean.csv"
+path_dataframe_input = "data/20241029-RAM_timeseries_clean-prod_and_recruitment.csv"
 df = read.csv(path_dataframe_input)
 
 name_id_timeseries = "stockid"
 name_time = "year"
 
 
-dir_out = "out/20241003-full/"
+dir_out = "out/20241029-full-prod_and_recruitment/"
 
 file_save_out_simplex_tp1 = paste0(dir_out, "computations/01_a-out_simplex_tp1.csv")
 file_save_out_simplex_tp1_summary_opti_E = paste0(dir_out, "computations/01_b-out_simplex_tp1_summary_opti_E.csv")
