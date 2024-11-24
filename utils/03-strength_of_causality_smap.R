@@ -50,14 +50,19 @@ jacobian_smap <- function(data, thetas=seq(0, 20, 0.2), first_column_time=TRUE, 
   
   for (i in 1:length(variables)) {
     for (j in 1:length(variables_target)) {
+      
+      # if variables_target[j] ends with "_t", then remove the "_t" to get the real variable name
+      real_name_var_consequence_jacobian = ifelse(grepl("_t$", variables_target[j]), 
+                                                  substr(variables_target[j], 1, nchar(variables_target[j])-2), 
+                                                  variables_target[j])
       df_out_smap_coefs = rbind(
         df_out_smap_coefs,
         data.frame(
           t = value_time_indices,
           var_cause_jacobian = variables[i],
-          var_consequence_jacobian = ifelse(tp_smap == 0, paste0(variables_target[j], "_t"), 
-                                            ifelse(tp_smap > 0, paste0(variables_target[j], "_t_plus_", tp_smap),
-                                                   paste0(variables_target[j], "_t_minus_", abs(tp_smap)))),
+          var_consequence_jacobian = ifelse(tp_smap == 0, paste0(real_name_var_consequence_jacobian, "_t"), 
+                                            ifelse(tp_smap > 0, paste0(real_name_var_consequence_jacobian, "_t_plus_", tp_smap),
+                                                   paste0(real_name_var_consequence_jacobian, "_t_minus_", abs(tp_smap)))),
           theta = best_average_theta,
           value = df_all_smap_output %>% 
             filter(consequence == variables_target[j], theta == best_average_theta) %>% 

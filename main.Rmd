@@ -66,13 +66,25 @@ labels_of_variables = c(
   "R" = "Recruitment"
 )
 
-all_ids = df %>% pull(all_of(name_id_timeseries)) %>% unique()
+
+# IDs that will be used for computations
+# all_ids = df %>% pull(all_of(name_id_timeseries)) %>% unique()
+all_ids = df %>% 
+  group_by_at(vars(all_of(name_id_timeseries))) %>%
+  summarise(n = n()) %>%
+  filter(n >= 40) %>%
+  pull(all_of(name_id_timeseries)) %>% unique()
+
+# IDs that will be used for plots (it could be modified later in the script)
 all_ids_plots = df %>% 
   group_by_at(vars(all_of(name_id_timeseries))) %>%
   summarise(n = n()) %>%
   filter(n >= 40) %>%
   pull(all_of(name_id_timeseries)) %>% unique()
-  
+
+# IDs for plots with a single ID
+ids_single_plots = c("CALSCORPSCAL", "CHROCKSPCOAST", "BRNROCKPCOAST")
+
 
 ```
 
@@ -87,7 +99,7 @@ method_select_E_prefered = "positive_range_top_20_percent"
 method_select_E_default = "max_rho" # if the prefered method provides NA
 
 tp_tested_simplex = 1:10 # time horizon for prediction tested in the simplex projection
-theta_tested_smap = seq(0, 8, by = 0.4) # non-linearity theta tested in the s-map
+# theta_tested_smap = seq(0, 8, by = 0.4) # non-linearity theta tested in the s-map
 # tp_tested_causality = c(0, -5:-1, 1:5) # time horizon for prediction tested in CCM
 tp_tested_causality = 0 # time horizon for prediction tested in CCM
 methods_strength = c("Smap_Edim_space") # methods to assess the strength of the causality 
@@ -104,7 +116,7 @@ exe_granger_causality = FALSE # Assess the Granger causality
 ## Output information
 
 ```{r parameters_output}
-dir_out = "out/20241028-full/"
+dir_out = "out/20241124-prod_SST_U/"
 # dir_out = "out/20241029-full-prod_and_recruitment/"
 
 file_save_out_simplex_tp1 = paste0(dir_out, "computations/01_a-out_simplex_tp1.csv")
@@ -119,7 +131,7 @@ file_save_out_granger_causality = paste0(dir_out, "computations/04_a-out_granger
 file_save_out_granger_causality_details = paste0(dir_out, "computations/04_b-out_granger_causality_details.csv")
 
 exe_plots = TRUE
-save_plots = FALSE
+save_plots = TRUE
 plots_with_titles = FALSE
 types_plots = c("pdf", "png")
 
@@ -202,44 +214,52 @@ import_file = function(path_file) {
 ```{r plots_dataset}
 
 if (exe_plots) {
-  # Durations of the timeseries
-  p.fig1a = ggplot_timeseries_durations(df %>% filter( .data[[name_id_timeseries]] %in% all_ids_plots),
-                                        name_id_timeseries, time = name_time, size_y_axis = 4)
+  
+  # Durations of the timeseries histogram
+  p.fig1a = ggplot_timeseries_durations_hist(df %>% filter( .data[[name_id_timeseries]] %in% all_ids_plots),
+                                             name_id_timeseries, time = name_time)
   if (!plots_with_titles) p.fig1a = p.fig1a + labs(title = NULL, subtitle = NULL)
   print(p.fig1a)
   
+  # Durations of the timeseries
+  p.figS1 = ggplot_timeseries_durations(df %>% filter( .data[[name_id_timeseries]] %in% all_ids_plots),
+                                        name_id_timeseries, time = name_time, size_y_axis = 4)
+  if (!plots_with_titles) p.figS1 = p.figS1 + labs(title = NULL, subtitle = NULL)
+  print(p.figS1)
+  
+  # Pie chart of the regions
+  p.fig1b = ggplot_timeseries_piechart(df %>% filter( .data[[name_id_timeseries]] %in% all_ids_plots),
+                                       name_id_timeseries, "region", labels_of_variable = "Regions", 
+                                       size_legend = 7)
+  if (!plots_with_titles) p.fig1b = p.fig1b + labs(title = NULL, subtitle = NULL)
+  print(p.fig1b)
+  
   # Timeseries for 1 stock
-  # this_id.p1 = all_ids[1]
   variables = unique(unlist(list_of_causality_tested))
-  this_id.p1 = "CALSCORPSCAL"
-  p.fig1b.p1 = ggplot_timeseries_one_stock(df[df[[name_id_timeseries]] == this_id.p1, ], variables, 
-                                           labels_of_variables, id = this_id.p1, time = name_time, scale = TRUE)
-  if (!plots_with_titles) p.fig1b.p1 = p.fig1b.p1 + labs(title = NULL, subtitle = NULL)
-  print(p.fig1b.p1)
-  
-  this_id.p2 = "CHROCKSPCOAST"
-  p.fig1b.p2 = ggplot_timeseries_one_stock(df[df[[name_id_timeseries]] == this_id.p2, ], variables, 
-                                           labels_of_variables, id = this_id.p2, time = name_time, scale = TRUE)
-  if (!plots_with_titles) p.fig1b.p2 = p.fig1b.p2 + labs(title = NULL, subtitle = NULL)
-  print(p.fig1b.p2)
-  
-  this_id.p3 = "BRNROCKPCOAST"
-  p.fig1b.p3 = ggplot_timeseries_one_stock(df[df[[name_id_timeseries]] == this_id.p3, ], variables, 
-                                           labels_of_variables, id = this_id.p3, time = name_time, scale = TRUE)
-  if (!plots_with_titles) p.fig1b.p3 = p.fig1b.p3 + labs(title = NULL, subtitle = NULL)
-  print(p.fig1b.p3)
+  lst_p.fig1c = list()
+  # this_id.p.fig1c = all_ids[1]
+  for (this_id.p.fig1c in ids_single_plots) {
+    p.fig1c = ggplot_timeseries_one_stock(df[df[[name_id_timeseries]] == this_id.p.fig1c, ], variables, 
+                                          labels_of_variables, id = this_id.p.fig1c, time = name_time, scale = TRUE)
+    if (!plots_with_titles) p.fig1c = p.fig1c + labs(title = NULL, subtitle = NULL)
+    print(p.fig1c)
+    lst_p.fig1c[[this_id.p.fig1c]] = p.fig1c
+  }
   
   # Save the plots
   if (save_plots) {
     for (typ in types_plots) {
-      ggsave(p.fig1a, filename = paste0(dir_out, typ, "/fig1a-timeseries_durations.", typ), device = typ,
+      ggsave(p.fig1a, filename = paste0(dir_out, typ, "/fig1a-timeseries_durations_hist.", typ), device = typ,
+             width = 4, height = 3)
+      ggsave(p.figS1, filename = paste0(dir_out, typ, "/figS1-timeseries_durations.", typ), device = typ,
              width = 6, height = 8)
-      ggsave(p.fig1b.p1, filename = paste0(dir_out, typ, "/fig1b-timeseries_one_stock-", this_id.p1,".", typ), device = typ,
-             width = 6, height = 3.5)
-      ggsave(p.fig1b.p2, filename = paste0(dir_out, typ, "/fig1b-timeseries_one_stock-", this_id.p2,".", typ), device = typ,
-             width = 6, height = 3.5)
-      ggsave(p.fig1b.p3, filename = paste0(dir_out, typ, "/fig1b-timeseries_one_stock-", this_id.p3,".", typ), device = typ,
-             width = 6, height = 3.5)
+      ggsave(p.fig1b, filename = paste0(dir_out, typ, "/fig1b-timeseries_piechart_region.", typ), device = typ,
+             width = 7, height = 5)
+      for (this_id.p.fig1c in ids_single_plots) {
+        ggsave(lst_p.fig1c[[this_id.p.fig1c]], 
+               filename = paste0(dir_out, typ, "/fig1c-timeseries_one_stock-", this_id.p.fig1c, ".", typ), device = typ,
+               width = 6, height = 3.5)
+      }
     }
   }
   
@@ -361,34 +381,32 @@ if (exe_simplex_tp1) {
 
 if (exe_plots) {
   # Single id and variable -> rho depending on E
-  # this_id.p1 = all_ids[1]
   this_var = as.character(res_simplex_tp1$variable[1])
-  
-  this_id.p1 = "CALSCORPSCAL"
-  p.figS1.p1 = ggplot_simplex_rho_E(res_simplex_tp1, res_simplex_tp1_summary_opti_E, this_id.p1, this_var, labels_of_variables)
-  if (!plots_with_titles) p.figS1.p1 = p.figS1.p1 + labs(title = NULL, subtitle = NULL)
-  print(p.figS1.p1)
-  
-  this_id.p2 = "CHROCKSPCOAST"
-  p.figS1.p2 = ggplot_simplex_rho_E(res_simplex_tp1, res_simplex_tp1_summary_opti_E, this_id.p2, this_var, labels_of_variables)
-  if (!plots_with_titles) p.figS1.p2 = p.figS1.p2 + labs(title = NULL, subtitle = NULL)
-  print(p.figS1.p2)
+  lst_p.figS2 = list()
+  # this_id.pS2 = all_ids[1]
+  for (this_id.p.figS2 in ids_single_plots) {
+    p.figS2 = ggplot_simplex_rho_E(res_simplex_tp1, res_simplex_tp1_summary_opti_E, this_id.p.figS2, this_var, labels_of_variables)
+    if (!plots_with_titles) p.figS2 = p.figS2 + labs(title = NULL, subtitle = NULL)
+    print(p.figS2)
+    lst_p.figS2[[this_id.p.figS2]] = p.figS2
+  }
   
   # Single variable and method selection E -> histogram of E
   this_method = method_select_E_prefered
-  p.figS2 = ggplot_simplex_hist_E(res_simplex_tp1_summary_opti_E %>% filter(id_timeseries %in% all_ids_plots),
+  p.figS3 = ggplot_simplex_hist_E(res_simplex_tp1_summary_opti_E %>% filter(id_timeseries %in% all_ids_plots),
                                   this_var, this_method, labels_of_variables)
-  if (!plots_with_titles) p.figS2 = p.figS2 + labs(title = NULL, subtitle = NULL)
-  print(p.figS2)
+  if (!plots_with_titles) p.figS3 = p.figS3 + labs(title = NULL, subtitle = NULL)
+  print(p.figS3)
 
   # Save the plots
   if (save_plots) {
     for (typ in types_plots) {
-      ggsave(p.figS1.p1, filename = paste0(dir_out, typ, "/figS1-simplex_rho_E-", this_id.p1, ".", typ), device = typ,
-             width = 6, height = 4)
-      ggsave(p.figS1.p2, filename = paste0(dir_out, typ, "/figS1-simplex_rho_E-", this_id.p2, ".", typ), device = typ,
-             width = 6, height = 4)
-      ggsave(p.figS2, filename = paste0(dir_out, typ, "/figS2-simplex_hist_E-", this_var, "-", this_method, ".", typ), device = typ,
+      for (this_id.pS2 in ids_single_plots) {
+        ggsave(lst_p.figS2[[this_id.pS2]], 
+               filename = paste0(dir_out, typ, "/figS2-simplex_rho_E-", this_id.pS2, ".", typ), device = typ,
+               width = 6, height = 4)
+      }
+      ggsave(p.figS3, filename = paste0(dir_out, typ, "/figS3-simplex_hist_E-", this_var, "-", this_method, ".", typ), device = typ,
              width = 5, height = 4)
     }
   }
@@ -476,7 +494,7 @@ if (exe_ccm_best_E_and_tp) {
     
     # Test the causality
     out_test_ccm = test_causality(out_ccm$summary.origin, out_ccm$summary.null, 
-                                  val.origin.compare = "50%", val.null.compare = "95%", val.origin.kendall = "50%",
+                                  val.origin.compare = "rho_50", val.null.compare = "rho_95", val.origin.kendall = "rho_50",
                                   criterium_compare = "90%_above_null", libs_for_crit = NULL,
                                   threshold_p_val_kendall = 0.05, full_output = TRUE, silent = TRUE)
     
@@ -502,7 +520,7 @@ if (exe_ccm_best_E_and_tp) {
       kendall_tau = out_test_ccm$kendall.tau,
       kendall_p_val = out_test_ccm$kendall.p_val,
       rate.libsizes = mean(out_test_ccm$vect_compare.origin.null),
-      max_median_rho_ccm_with_libs = max(out_ccm$summary.origin$`50%`)
+      max_median_rho_ccm_with_libs = max(out_ccm$summary.origin$rho_50)
     )
     colnames(additionnal_df)[colnames(additionnal_df) == "rate.libsizes"] = 
       paste0("rate.libsizes_", colnames(out_test_ccm$compare.origin.null)[2], "_above_", colnames(out_test_ccm$compare.origin.null)[3])
@@ -521,7 +539,7 @@ if (exe_ccm_best_E_and_tp) {
 } else {
   
   res_ccm_best_E_summaries = import_file(file_save_out_ccm_best_E_and_tp_summaries)
-  colnames(res_ccm_best_E_summaries) = gsub("^X(\\d+)\\.$", "\\1%", colnames(res_ccm_best_E_summaries))
+  # colnames(res_ccm_best_E_summaries) = gsub("^X(\\d+)\\.$", "\\1%", colnames(res_ccm_best_E_summaries))
   res_ccm_best_E_assessment = import_file(file_save_out_ccm_best_E_and_tp_assessment)
 
 }
@@ -535,124 +553,135 @@ if (exe_ccm_best_E_and_tp) {
 if (exe_plots) {
            
   
-  # Single id and causal relationship -> rho depending on lib size
-  # this_id = all_ids[12]
   this_tp = tp_tested_causality[1]
   
-  for (this_id in c("CALSCORPSCAL", "CHROCKSPCOAST")) {
-    # this_causal_rel_3a = list_of_causality_tested[[1]]
-    for (idx_cause in c(1,2)) {
-      this_causal_rel_3a = list_of_causality_tested[[idx_cause]]
-      p.figS3a = ggplot_convergence_ccm_one_dir(res_ccm_best_E_summaries, this_id, this_causal_rel_3a, this_tp, labels_of_variables)
-      if (!plots_with_titles) p.figS3a = p.figS3a + labs(title = NULL, subtitle = NULL)
-      print(p.figS3a)
-      
-      # this_causal_rel_3b = list_of_causality_tested[[3]]
-      this_causal_rel_3b = list_of_causality_tested[[idx_cause+2]]
-      p.figS3b = ggplot_convergence_ccm_one_dir(res_ccm_best_E_summaries, this_id, this_causal_rel_3b, this_tp, labels_of_variables)
-      if (!plots_with_titles) p.figS3b = p.figS3b + labs(title = NULL, subtitle = NULL)
-      print(p.figS3b)
-      
-      # these_vars = list_of_causality_tested[[1]]
-      these_vars = list_of_causality_tested[[idx_cause]]
-      p.fig2a = ggplot_convergence_ccm_two_dir(res_ccm_best_E_summaries, this_id, these_vars, this_tp, labels_of_variables)
-      if (!plots_with_titles) p.fig2a = p.fig2a + labs(title = NULL, subtitle = NULL)
-      print(p.fig2a)
-      
-      
-      if (save_plots) {
-        for (typ in types_plots) {
-          ggsave(p.figS3a, filename = paste0(dir_out, typ, "/figS3a-convergence_ccm_one_dir-", 
-                                             paste0(this_causal_rel_3a, collapse = "_to_"), "-", this_id, ".", typ), 
-                 device = typ, width = 5, height = 4)
-          ggsave(p.figS3b, filename = paste0(dir_out, typ, "/figS3b-convergence_ccm_one_dir-", 
-                                             paste0(this_causal_rel_3b, collapse = "_to_"), "-", this_id, ".", typ),
-                 device = typ, width = 5, height = 4)
-          ggsave(p.fig2a, filename = paste0(dir_out, typ, "/fig2a-convergence_ccm_two_dir-", 
-                                            paste0(these_vars, collapse = "_to_"), "-", this_id, ".", typ),
-                 device = typ, width = 5, height = 4)
+  # Single id and causal relationship -> rho depending on lib size
+  # this_id = all_ids[12]
+  lst_p.fig2a = list()
+  lst_p.figS4 = list()
+  # this_id.p.fig2aS4 = all_ids[1]
+  for (this_id.p.fig2aS4 in ids_single_plots) {
+    for (i in 1:length(list_of_causality_tested)) {
+      for (this_metric in c("rho", "mae", "rmse")) {
+      # for (this_metric in c("rho")) {
+
+        # Plot 1 direction
+        this_causal_rel_2aS4 = list_of_causality_tested[[i]]
+        this_key = paste0(this_metric, "-", this_causal_rel_2aS4[1], "_to_", this_causal_rel_2aS4[2], "-", this_id.p.fig2aS4)
+        p.fig2a = ggplot_convergence_ccm_one_dir(res_ccm_best_E_summaries, this_id.p.fig2aS4,
+                                                 this_causal_rel_2aS4, this_tp, labels_of_variables,
+                                                 metric = this_metric)
+        if (!plots_with_titles) p.fig2a = p.fig2a + labs(title = NULL, subtitle = NULL)
+        print(p.fig2a)
+        lst_p.fig2a[[this_key]] = p.fig2a
+
+        # Plot both directions on the same plot
+        reverse_causal_rel_2aS4 = c(this_causal_rel_2aS4[2], this_causal_rel_2aS4[1])
+        if (i < length(list_of_causality_tested)) { # We check if the reverse causality is in the remaining list
+          remaining_list = list_of_causality_tested[(i + 1):length(list_of_causality_tested)]
+          is_reverse_present_in_remaining = any(sapply(remaining_list, function(x) all(x == reverse_causal_rel_2aS4)))
+        } else {
+          is_reverse_present_in_remaining = FALSE  # No remaining elements to check
         }
+        if (!is_reverse_present_in_remaining) {
+          p.figS4 = ggplot_convergence_ccm_two_dir(res_ccm_best_E_summaries, this_id.p.fig2aS4,
+                                                   this_causal_rel_2aS4, this_tp, labels_of_variables,
+                                                   metric = this_metric)
+          if (!plots_with_titles) p.figS4 = p.figS4 + labs(title = NULL, subtitle = NULL)
+          print(p.figS4)
+          lst_p.figS4[[this_key]] = p.figS4
+        }
+
       }
     }
   }
   
+  
+  # We remove the stocks where the forecasting skill is always negative (i.e. method_select_E_prefered is not NA if it is positive_range_top_x_percent)
+  df_ids_kept_from_E = res_simplex_tp1_summary_opti_E %>% 
+    filter(id_timeseries %in% all_ids_plots) %>% 
+    filter(!is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered)
+  
+  print("Number of stocks kept for the causality assessment (for var_lib, i.e. consequence):") 
+  print(df_ids_kept_from_E %>% group_by(variable) %>% summarise(n = n()))
+  
+  
   # Histogram of the causality
-  id_removed = res_simplex_tp1_summary_opti_E %>% filter(id_timeseries %in% all_ids_plots) %>% 
-    filter(is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered) %>% 
-    pull(id_timeseries) %>% as.character() # we remove the stocks where the forecasting skill is always negative
-  # At a precise tp
-  p.fig3.v1 = ggplot_ccm_hist_causality_one_tp(res_ccm_best_E_assessment %>% filter(id_timeseries %in% all_ids_plots), this_tp, 
-                                            labels_of_variables, id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
-  if (!plots_with_titles) p.fig3.v1 = p.fig3.v1 + labs(title = NULL, subtitle = NULL)
-  print(p.fig3.v1)
+  p.fig3 = ggplot_ccm_hist_causality_one_tp(res_ccm_best_E_assessment, this_tp, labels_of_variables, 
+                                            list_of_causality_tested = list_of_causality_tested, 
+                                            df_ids_kept_from_E = df_ids_kept_from_E)
+  if (!plots_with_titles) p.fig3 = p.fig3 + labs(title = NULL, subtitle = NULL)
+  print(p.fig3)
   
-  p.fig3.v3 = ggplot_ccm_hist_causality_one_tp(res_ccm_best_E_assessment %>% filter(id_timeseries %in% all_ids_plots, !id_timeseries %in% id_removed), 
-                                               this_tp, labels_of_variables, id_removed = c(), list_of_causality_tested = list_of_causality_tested)
-  p.fig3.v3 + labs(title = "Causality assessment", subtitle = paste0("tp = ", this_tp ," and Stocks with a forecasting skill > 0"))
-  print(p.fig3.v3)
-  if (save_plots) {
-    for (typ in types_plots) {
-      ggsave(p.fig3.v3, filename = paste0(dir_out, typ, "/fig3-v3-ccm_hist_causality_one_tp.", typ), 
-             device = typ, width = 5, height = 5)
-    }
-  }
-  
-  p.figS4.v1 = ggplot_ccm_alluvial_causality_one_tp_both_dir(res_ccm_best_E_assessment %>% filter(id_timeseries %in% all_ids_plots), 
-                                                            this_tp, labels_of_variables, 
-                                                            id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
-  if (!plots_with_titles) p.figS4.v1 = p.figS4.v1 + labs(title = NULL, subtitle = NULL)
-  print(p.figS4.v1)
+  # Alluvial diagram of the causality (one tp and check the link between both directions)
+  p.figS5a = ggplot_ccm_alluvial_causality_one_tp_both_dir(res_ccm_best_E_assessment, this_tp, labels_of_variables,
+                                                          list_of_causality_tested = list_of_causality_tested,
+                                                          df_ids_kept_from_E = df_ids_kept_from_E)
+  if (!plots_with_titles) p.figS5a = p.figS5a + labs(title = NULL, subtitle = NULL)
+  print(p.figS5a)
 
   # Histograms and flow for multiple tp
   these_tp = tp_tested_causality
-  p.figS5a = ggplot_ccm_hist_causality_multiple_tp(res_ccm_best_E_assessment %>% filter(id_timeseries %in% all_ids_plots), 
-                                                    these_tp, labels_of_variables, 
-                                                    id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
-  if (!plots_with_titles) p.figS5a = p.figS5a + labs(title = NULL, subtitle = NULL)
-  print(p.figS5a)
-  
-  p.figS5b = ggplot_ccm_alluvial_causality_multiple_tp(res_ccm_best_E_assessment %>% filter(id_timeseries %in% all_ids_plots), 
-                                                        these_tp, labels_of_variables, 
-                                                        id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
+  p.figS5b = ggplot_ccm_hist_causality_multiple_tp(res_ccm_best_E_assessment, these_tp, labels_of_variables,
+                                                   list_of_causality_tested = list_of_causality_tested,
+                                                   df_ids_kept_from_E = df_ids_kept_from_E)
   if (!plots_with_titles) p.figS5b = p.figS5b + labs(title = NULL, subtitle = NULL)
   print(p.figS5b)
   
-  # At tp with the maximum rho (assess causality if causality for this tp and tp <= 0)
-  p.fig3.v2 = ggplot_ccm_hist_causality_tp_max_rho(res_ccm_best_E_assessment %>% filter(id_timeseries %in% all_ids_plots), 
-                                                  labels_of_variables, 
-                                                  id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
-  if (!plots_with_titles) p.fig3.v2 = p.fig3.v2 + labs(title = NULL, subtitle = NULL)
-  print(p.fig3.v2)
+  p.figS5c = ggplot_ccm_alluvial_causality_multiple_tp(res_ccm_best_E_assessment, these_tp, labels_of_variables,
+                                                       list_of_causality_tested = list_of_causality_tested,
+                                                       df_ids_kept_from_E = df_ids_kept_from_E)
+  if (!plots_with_titles) p.figS5c = p.figS5c + labs(title = NULL, subtitle = NULL)
+  print(p.figS5c)
 
-  p.figS4.v2 = ggplot_ccm_alluvial_causality_tp_max_rho_both_dir(res_ccm_best_E_assessment %>% filter(id_timeseries %in% all_ids_plots), 
-                                                               labels_of_variables, 
-                                                               id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
-  if (!plots_with_titles) p.figS4.v2 = p.figS4.v2 + labs(title = NULL, subtitle = NULL)
-  print(p.figS4.v2)
+  # At tp with the maximum rho (assess causality if causality for this tp and tp <= 0)
+  p.figS5d = ggplot_ccm_hist_causality_tp_max_rho(res_ccm_best_E_assessment, labels_of_variables,
+                                                  list_of_causality_tested = list_of_causality_tested,
+                                                  df_ids_kept_from_E = df_ids_kept_from_E)
+  if (!plots_with_titles) p.figS5d = p.figS5d + labs(title = NULL, subtitle = NULL)
+  print(p.figS5d)
+
+  p.figS5e = ggplot_ccm_alluvial_causality_tp_max_rho_both_dir(res_ccm_best_E_assessment, labels_of_variables,
+                                                               list_of_causality_tested = list_of_causality_tested,
+                                                               df_ids_kept_from_E = df_ids_kept_from_E)
+  if (!plots_with_titles) p.figS5e = p.figS5e + labs(title = NULL, subtitle = NULL)
+  print(p.figS5e)
 
   # Compare the methods
-  p.figS5 = ggplot_ccm_alluvial_causality_one_tp_and_tp_max_rho(res_ccm_best_E_assessment %>% filter(id_timeseries %in% all_ids_plots), 
-                                                                 this_tp, labels_of_variables, 
-                                                                 id_removed = id_removed, list_of_causality_tested = list_of_causality_tested)
-  if (!plots_with_titles) p.figS5 = p.figS5 + labs(title = NULL, subtitle = NULL)
-  print(p.figS5)
+  p.figS5f = ggplot_ccm_alluvial_causality_one_tp_and_tp_max_rho(res_ccm_best_E_assessment, this_tp, labels_of_variables,
+                                                                 list_of_causality_tested = list_of_causality_tested,
+                                                                 df_ids_kept_from_E = df_ids_kept_from_E)
+  if (!plots_with_titles) p.figS5f = p.figS5f + labs(title = NULL, subtitle = NULL)
+  print(p.figS5f)
   
   # Save the plots
   if (save_plots) {
     for (typ in types_plots) {
-      ggsave(p.fig3.v1, filename = paste0(dir_out, typ, "/fig3-v1-ccm_hist_causality_one_tp.", typ), 
-             device = typ, width = 6, height = 5)
-      ggsave(p.figS4.v1, filename = paste0(dir_out, typ, "/figS4-v1-ccm_alluvial_causality_one_tp_both_dir.", typ), 
+
+      for (this_key_2a in names(lst_p.fig2a)) {
+        ggsave(lst_p.fig2a[[this_key_2a]],
+               filename = paste0(dir_out, typ, "/fig2a-convergence_ccm_one_dir-", this_key_2a, ".", typ),
+               device = typ, width = 5, height = 4)
+      }
+      for (this_key_S4 in names(lst_p.figS4)) {
+        ggsave(lst_p.figS4[[this_key_S4]],
+               filename = paste0(dir_out, typ, "/figS4-convergence_ccm_two_dir-", this_key_S4, ".", typ),
+               device = typ, width = 5, height = 4)
+      }
+      
+      ggsave(p.fig3, filename = paste0(dir_out, typ, "/fig3-ccm_hist_causality_one_tp.", typ),
+             device = typ, width = 5, height = 5)
+      ggsave(p.figS5a, filename = paste0(dir_out, typ, "/figS5a-ccm_alluvial_causality_one_tp_both_dir.", typ),
              device = typ, width = 6, height = 4)
-      ggsave(p.figS5a, filename = paste0(dir_out, typ, "/figS5a-ccm_hist_causality_multiple_tp.", typ),
+      ggsave(p.figS5b, filename = paste0(dir_out, typ, "/figS5b-ccm_hist_causality_multiple_tp.", typ),
              device = typ, width = 8, height = 6)
-      ggsave(p.figS5b, filename = paste0(dir_out, typ, "/figS5b-ccm_alluvial_causality_multiple_tp.", typ),
+      ggsave(p.figS5c, filename = paste0(dir_out, typ, "/figS5c-ccm_alluvial_causality_multiple_tp.", typ),
              device = typ, width = 7, height = 10)
-      ggsave(p.fig3.v2, filename = paste0(dir_out, typ, "/fig3-v2-ccm_hist_causality_tp_max_rho.", typ),
+      ggsave(p.figS5d, filename = paste0(dir_out, typ, "/figS5d-ccm_hist_causality_tp_max_rho.", typ),
              device = typ, width = 4, height = 5)
-      ggsave(p.figS4.v2, filename = paste0(dir_out, typ, "/figS4-v2-ccm_alluvial_causality_tp_max_rho_both_dir.", typ),
+      ggsave(p.figS5e, filename = paste0(dir_out, typ, "/figS5e-ccm_alluvial_causality_tp_max_rho_both_dir.", typ),
              device = typ, width = 6, height = 4)
-      ggsave(p.figS5, filename = paste0(dir_out, typ, "/figS5-ccm_alluvial_causality_one_tp_and_tp_max_rho.", typ),
+      ggsave(p.figS5f, filename = paste0(dir_out, typ, "/figS5f-ccm_alluvial_causality_one_tp_and_tp_max_rho.", typ),
              device = typ, width = 6, height = 4)
     }
   }
@@ -681,8 +710,7 @@ if (exe_strength_causality) {
     
     for (id in all_ids) {
       
-      # E is the optimal embedding dimension from the simplex projection with tp = 1... (even if we use it for various tp in the ccm)
-      # we could provide multiple E for the function CCM_vs_null, but we will only provide the best one here
+      # E is the optimal embedding dimension from the simplex projection with tp = 1
       this_E = res_simplex_tp1_summary_opti_E %>% 
         filter(id_timeseries == id, variable == this_var_consequence) %>%
         filter(method_E_opti_simplex == method_select_E_prefered) %>%
@@ -729,7 +757,7 @@ if (exe_strength_causality) {
     
     
     # * * * We build the embedding space of dimension E * * *
-    # including the cause, and other significant drivers and the consequence with its lags
+    # including the cause, the consequence, eventually other significant drivers and the lags of the consequence
     
     this_df = data.frame(time = df[which(df[[name_id_timeseries]] == this_id), name_time])
     
@@ -738,7 +766,7 @@ if (exe_strength_causality) {
     this_consequence_vect_scaled = scale(df[which(df[[name_id_timeseries]] == this_id), this_var_consequence])[,1]
     
     # First dimension = consequence at t
-    this_df[[this_var_consequence]] = this_consequence_vect_scaled
+    this_df[[paste0(this_var_consequence, "_t")]] = this_consequence_vect_scaled
     
     # Second dimension = cause at t + this_tp
     if (this_tp == 0) { # actually we don't need to shift the cause
@@ -792,7 +820,7 @@ if (exe_strength_causality) {
     
     # * * * Compute the multivariate S-map * * *
     out_strength = jacobian_smap(this_df, thetas=seq(0, 20, 0.2), first_column_time=TRUE, 
-                                 single_target=this_var_consequence)
+                                 single_target=paste0(this_var_consequence, "_t"))
     
     
     # * * * Sum up the information for this stock * * *
@@ -845,7 +873,7 @@ if (exe_strength_causality) {
 ```
 
 ## Plots
-```{r}
+```{r plots_strength_causality_different_examples}
 
 this_tp = 0
 
@@ -896,77 +924,100 @@ for (this_id in ids_2) {
 
 
 if (exe_plots) {
+  
   # Single id and causal relationship -> strength depending on time
-  # this_id = all_ids[12]
-  for (this_id in c("CALSCORPSCAL", "CHROCKSPCOAST", "BRNROCKPCOAST")) {
-    for (idx_cause in c(1,2)) {
-      this_causal_rel = list_of_causality_tested[[idx_cause]]
-      # this_causal_rel = list_of_causality_tested[[1]]
-      this_tp = tp_tested_causality[1]
-    
-      p.fig.2b = ggplot_strength_one_stock(res_strength_causality_details_smap, res_strength_causality, this_id, this_causal_rel, this_tp)
-      if (!plots_with_titles) p.fig.2b = p.fig.2b + labs(title = NULL, subtitle = NULL)
-      print(p.fig.2b)
+  
+  this_tp = tp_tested_causality[1]
+  
+  lst_p.fig2b = list()
+  # this_id.p.fig2b = all_ids[1]
+  for (this_id.p.fig2b in ids_single_plots) {
+    for (i in 1:length(list_of_causality_tested)) {
+      this_causal_rel_2b = list_of_causality_tested[[i]]
       
-      if (save_plots) {
-        for (typ in types_plots) {
-          ggsave(p.fig.2b, filename = paste0(dir_out, typ, "/fig2b-strength_one_stock-", 
-                                             paste0(this_causal_rel, collapse = "_to_"), "-", this_id, ".", typ), 
-                 device = typ, width = 6, height = 4)
-        }
+      is_causal_rel = res_ccm_best_E_assessment %>% 
+        filter(id_timeseries == this_id.p.fig2b, var_lib == this_causal_rel_2b[2], var_target == this_causal_rel_2b[1], tp == this_tp) %>% 
+        pull(causality)
+      
+      if (is_causal_rel) {
+        p.fig.2b = ggplot_strength_one_stock(res_strength_causality_details_smap, res_strength_causality, 
+                                             this_id.p.fig2b, this_causal_rel_2b, this_tp)
+        if (!plots_with_titles) p.fig.2b = p.fig.2b + labs(title = NULL, subtitle = NULL)
+        print(p.fig.2b)
+        lst_p.fig2b[[paste0(this_causal_rel_2b[1], "_to_", this_causal_rel_2b[2], "-", this_id.p.fig2b)]] = p.fig.2b
       }
+      
+      
     }
   }
 
-  # Summary of the strength of the causality (qualitative analysis)
-  id_removed = res_simplex_tp1_summary_opti_E %>% filter(id_timeseries %in% all_ids_plots) %>% 
-    filter(is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered) %>% 
-    pull(id_timeseries) %>% as.character() # we remove the stocks where the forecasting skill is always negative
   
-  p.fig.4 = ggplot_strength_summary(res_strength_causality %>% filter(id_timeseries %in% all_ids_plots), 
-                                    res_ccm_best_E_assessment, labels_of_variables, this_tp, list_of_causality_tested,
-                                    id_removed = id_removed)
+  
+  # We remove the stocks where the forecasting skill is always negative (i.e. method_select_E_prefered is not NA if it is positive_range_top_x_percent)
+  df_ids_kept_from_E = res_simplex_tp1_summary_opti_E %>% 
+    filter(id_timeseries %in% all_ids_plots) %>% 
+    filter(!is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered)
+  
+  
+  # Summary of the strength of the causality (qualitative analysis)
+  p.fig.4 = ggplot_strength_summary(res_strength_causality, res_ccm_best_E_assessment, 
+                                    labels_of_variables, this_tp, list_of_causality_tested[1:2],
+                                    df_ids_kept_from_E = df_ids_kept_from_E)
   if (!plots_with_titles) p.fig.4 = p.fig.4 + labs(title = NULL, subtitle = NULL)
   print(p.fig.4)
   
-  p.fig.4.v2 = ggplot_strength_summary(
-    res_strength_causality %>% filter(id_timeseries %in% all_ids_plots, var_consequence == "prodbest.div"),
-    res_ccm_best_E_assessment, labels_of_variables, this_tp, list_of_causality_tested, id_removed = id_removed)
-  print(p.fig.4.v2)
-  if (save_plots) {
-    for (typ in types_plots) {
-      ggsave(p.fig.4.v2, filename = paste0(dir_out, typ, "/fig4-v2-strength_summary.", typ), 
-             device = typ, width = 7, height = 3.5)
-    }
-  }
+  p.fig.S6 = ggplot_strength_summary(res_strength_causality, res_ccm_best_E_assessment, 
+                                    labels_of_variables, this_tp, list_of_causality_tested,
+                                    df_ids_kept_from_E = df_ids_kept_from_E)
+  if (!plots_with_titles) p.fig.S6 = p.fig.S6 + labs(title = NULL, subtitle = NULL)
+  print(p.fig.S6)
+  
+  
   
   # Boxplot strength
-  order_labels_causal_rel = c()
-  for (i in 1:length(list_of_causality_tested)) {
-    order_labels_causal_rel = c(order_labels_causal_rel, 
-                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], "\n->\n", labels_of_variables[list_of_causality_tested[[i]][2]]))
-  }
-    
+  
   df_plot = res_strength_causality %>% rename(E_CCM = E) %>%
-    filter(id_timeseries %in% all_ids_plots & !id_timeseries %in% id_removed) %>%
-    left_join(res_ccm_best_E_assessment, 
+    filter(id_timeseries %in% all_ids_plots) %>%
+    left_join(res_ccm_best_E_assessment,
               by = c("id_timeseries" = "id_timeseries", "var_cause" = "var_target", "var_consequence" = "var_lib", "tp" = "tp"))
-    
+  
+  df_plot$kept = TRUE
+  for (this_var_consequence in unique(res_strength_causality$var_consequence)) {
+    these_ids_kept = df_ids_kept_from_E %>% filter(variable == this_var_consequence) %>% 
+      pull(id_timeseries) %>% as.character()
+    df_plot = df_plot %>% 
+      mutate(kept = ifelse((var_consequence == this_var_consequence) & !(id_timeseries %in% these_ids_kept), 
+                           FALSE, kept))
+  }
+
+  df_plot = df_plot %>% filter(kept)
   df_plot = df_plot %>%
-    left_join(res_ccm_best_E_assessment %>% 
-                filter(id_timeseries %in% all_ids_plots & !id_timeseries %in% id_removed) %>%
-                group_by(var_lib, var_target, tp) %>%
+    left_join(df_plot %>% 
+                group_by(var_cause, var_consequence, tp) %>%
                 summarise(n = sum(causality), .groups = "drop"),
-              by = c("var_cause" = "var_target", "var_consequence" = "var_lib", "tp" = "tp")) %>%
-    mutate(label_causal_rel = paste0(labels_of_variables[var_cause], "\n->\n", labels_of_variables[var_consequence])) %>% 
-    # mutate(label_causal_rel = factor(label_causal_rel, levels = order_labels_causal_rel)) %>%
-    mutate(label_causal_rel = paste0(label_causal_rel, "\n(n = ", n, ")")) %>% 
-    
+              by = c("var_cause" = "var_cause", "var_consequence" = "var_consequence", "tp" = "tp")) %>%
+    mutate(label_causal_rel = paste0(labels_of_variables[var_cause], "\n->\n", labels_of_variables[var_consequence])) %>%
+    mutate(label_causal_rel = paste0(label_causal_rel, "\n(n = ", n, ")")) %>%
     filter(tp == 0, causality)
   
+  
+  order_labels_causal_rel = c()
+  for (i in 1:length(list_of_causality_tested)) {
+    this_n = df_plot %>% 
+      filter(var_cause == list_of_causality_tested[[i]][1], var_consequence == list_of_causality_tested[[i]][2]) %>% 
+      pull(n) %>% unique()
+    order_labels_causal_rel = c(order_labels_causal_rel,
+                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], "\n->\n",
+                                       labels_of_variables[list_of_causality_tested[[i]][2]], 
+                                       "\n(n = ", this_n, ")"))
+    
+  }
+  df_plot = df_plot %>% 
+    mutate(label_causal_rel = factor(label_causal_rel, levels = order_labels_causal_rel))
+
   p.figS7 = ggplot(df_plot, aes(x = label_causal_rel, y = this_mean_strength)) +
     geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
-    geom_boxplot() + 
+    geom_boxplot() +
     labs(x = "Causal relationship", y = "Mean strength of the causality") +
     theme_light()
   if (!plots_with_titles) p.figS7 = p.figS7 + labs(title = NULL, subtitle = NULL)
@@ -976,9 +1027,18 @@ if (exe_plots) {
   # Save the plots
   if (save_plots) {
     for (typ in types_plots) {
+      
+      for (this_key_2b in names(lst_p.fig2b)) {
+        ggsave(lst_p.fig2b[[this_key_2b]], 
+               filename = paste0(dir_out, typ, "/fig2b-strength_one_stock-", this_key_2b, ".", typ), 
+               device = typ, width = 6, height = 4)
+      }
+      
       ggsave(p.fig.4, filename = paste0(dir_out, typ, "/fig4-strength_summary.", typ), 
+             device = typ, width = 7, height = 3.5)
+      ggsave(p.fig.S6, filename = paste0(dir_out, typ, "/figS6-strength_summary.", typ), 
              device = typ, width = 7, height = 5)
-      ggsave(p.figS7, filename = paste0(dir_out, typ, "/figS7-strength_boxplot.", typ), 
+      ggsave(p.figS7, filename = paste0(dir_out, typ, "/figS7-strength_boxplot.", typ),
              device = typ, width = 8, height = 5)
     }
   }
@@ -988,38 +1048,46 @@ if (exe_plots) {
 ```
 
 
-```{r}
+# Recap for one stock 
+
+```{r recap_for_one_stock}
 
 causal_rel_test = c("UdivUmsypref", "prodbest.div")
-ids_decreasing_strength = res_strength_causality %>% 
-           filter(tp == 0, var_cause == causal_rel_test[1], var_consequence == causal_rel_test[2],
-                  this_trend_p_val < 0.05, this_trend_slope < 0) %>%
-           pull(id_timeseries)
 
-ids_clean = res_ccm_best_E_assessment %>% 
-  filter(id_timeseries %in% all_ids_plots) %>%
-  filter(tp == 0, causality, var_lib == causal_rel_test[2], var_target == causal_rel_test[1]) %>%
-  filter(id_timeseries %in% ids_decreasing_strength) %>% 
-  pull(id_timeseries)
+# ids_decreasing_strength = res_strength_causality %>% 
+#            filter(tp == 0, var_cause == causal_rel_test[1], var_consequence == causal_rel_test[2],
+#                   this_trend_p_val < 0.05, this_trend_slope < 0) %>%
+#            pull(id_timeseries)
+# 
+# ids_clean = res_ccm_best_E_assessment %>% 
+#   filter(id_timeseries %in% all_ids_plots) %>%
+#   filter(tp == 0, causality, var_lib == causal_rel_test[2], var_target == causal_rel_test[1]) %>%
+#   filter(id_timeseries %in% ids_decreasing_strength) %>% 
+#   pull(id_timeseries)
+
 ids_clean = c("ANCHMEDGSA6")
 
 for (this_id in ids_clean) {
   
   variables = unique(unlist(list_of_causality_tested))
-  p.fig1b.p1 = ggplot_timeseries_one_stock(df[df[[name_id_timeseries]] == this_id, ], variables, 
+  
+  p1 = ggplot_timeseries_one_stock(df[df[[name_id_timeseries]] == this_id, ], variables, 
                                            labels_of_variables, id = this_id, time = name_time, scale = TRUE)
-  print(p.fig1b.p1)
+  print(p1)
   
-  p.figS3a = ggplot_convergence_ccm_one_dir(res_ccm_best_E_summaries, this_id, causal_rel_test, 0,
-                                            labels_of_variables)
-  print(p.figS3a)
-  p.figS3a = ggplot_convergence_ccm_one_dir(res_ccm_best_E_summaries, this_id, causal_rel_test, 0,
-                                            labels_of_variables)
-  print(p.figS3a)
+  p2_rho = ggplot_convergence_ccm_one_dir(res_ccm_best_E_summaries, this_id, causal_rel_test, 0,
+                                      labels_of_variables, metric = "rho")
+  print(p2_rho)
+  p2_mae = ggplot_convergence_ccm_one_dir(res_ccm_best_E_summaries, this_id, causal_rel_test, 0,
+                                      labels_of_variables, metric = "mae")
+  print(p2_mae)
+  p2_rmse = ggplot_convergence_ccm_one_dir(res_ccm_best_E_summaries, this_id, causal_rel_test, 0,
+                                      labels_of_variables, metric = "rmse")
+  print(p2_rmse)
   
-  p.fig.2b = ggplot_strength_one_stock(res_strength_causality_details_smap, res_strength_causality, this_id,
-                                       causal_rel_test, 0)
-  print(p.fig.2b)
+  p3 = ggplot_strength_one_stock(res_strength_causality_details_smap, res_strength_causality, this_id,
+                                 causal_rel_test, 0)
+  print(p3)
   
 }
 
@@ -1091,25 +1159,40 @@ if (exe_plots) {
   
   library(ggalluvial)
   
-  id_removed = res_simplex_tp1_summary_opti_E %>% filter(id_timeseries %in% all_ids_plots) %>% 
-    filter(is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered) %>% 
-    pull(id_timeseries) %>% as.character() # we remove the stocks where the forecasting skill is always negative
   
-  p.figS6 = res_granger_causality %>% 
+  # We remove the stocks where the forecasting skill is always negative (i.e. method_select_E_prefered is not NA if it is positive_range_top_x_percent)
+  df_ids_kept_from_E = res_simplex_tp1_summary_opti_E %>% 
+    filter(id_timeseries %in% all_ids_plots) %>% 
+    filter(!is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered)
+  
+  # id_removed = res_simplex_tp1_summary_opti_E %>% filter(id_timeseries %in% all_ids_plots) %>% 
+  #   filter(is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered) %>% 
+  #   pull(id_timeseries) %>% as.character() # we remove the stocks where the forecasting skill is always negative
+  
+  df_plot = res_granger_causality %>% 
     filter(id_timeseries %in% all_ids_plots) %>% rename(causality_granger = causality) %>%
     left_join(res_ccm_best_E_assessment %>% 
                 filter(id_timeseries %in% all_ids_plots, tp == 0) %>% rename(causality_ccm = causality),
               by = c("id_timeseries" = "id_timeseries", "consequence" = "var_lib", "cause" = "var_target")) %>% 
-    mutate(label_causal_rel = paste0(labels_of_variables[.[["cause"]]], " -> ", labels_of_variables[.[["consequence"]]])) %>%
-    
-    filter(!id_timeseries %in% id_removed) %>%
-    
+    mutate(label_causal_rel = paste0(labels_of_variables[.[["cause"]]], " -> ", labels_of_variables[.[["consequence"]]]))
+  
+  df_plot$kept = TRUE
+  for (this_var_consequence in unique(res_granger_causality$consequence)) {
+    these_ids_kept = df_ids_kept_from_E %>% filter(variable == this_var_consequence) %>% 
+      pull(id_timeseries) %>% as.character()
+    df_plot = df_plot %>% 
+      mutate(kept = ifelse((consequence == this_var_consequence) & !(id_timeseries %in% these_ids_kept), 
+                           FALSE, kept))
+  }
+  
+  df_plot = df_plot %>% 
+    filter(kept) %>% 
     group_by(label_causal_rel, causality_ccm, causality_granger) %>%
     summarise(n = n()) %>%
-    ungroup() %>%
-    
-    # allivial plot causality ccm granger
-    ggplot(aes(axis1 = causality_ccm, axis2 = causality_granger, y = n)) +
+    ungroup()
+  
+  # allivial plot causality ccm granger
+  p.figS8 = ggplot(df_plot, aes(axis1 = causality_ccm, axis2 = causality_granger, y = n)) +
     facet_wrap(~ label_causal_rel, scales = "free_y") +
     geom_alluvium(aes(fill = label_causal_rel)) +
     geom_stratum() +
@@ -1124,7 +1207,7 @@ if (exe_plots) {
   
   if (save_plots) {
     for (typ in types_plots) {
-      ggsave(p.figS6, filename = paste0(dir_out, typ, "/figS6-comparison_causality_ccm_granger.", typ),
+      ggsave(p.figS8, filename = paste0(dir_out, typ, "/figS8-comparison_causality_ccm_granger.", typ),
              device = typ, width = 7, height = 5)
     }
   }

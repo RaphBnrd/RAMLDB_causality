@@ -51,6 +51,64 @@ ggplot_timeseries_durations = function(data, id_timeseries, time = "year", size_
 }
 
 
+ggplot_timeseries_durations_hist = function(data, id_timeseries, time = "year") {
+  
+  data = data %>% 
+    group_by_at(id_timeseries) %>%
+    summarise(min_time = min(!!sym(time)), max_time = max(!!sym(time))) %>%
+    arrange(min_time)
+  colnames(data)[colnames(data) == id_timeseries] = "id_timeseries"
+  
+  data = data %>% 
+    mutate(duration = max_time - min_time)
+  
+  p = ggplot(data, aes(x = duration)) +
+    geom_histogram(fill = "#aaaaaa", color = "#555555", bins = 15) +
+    labs(title = "Time series durations", x = "Duration", y = "Count") +
+    theme_light()
+    
+  return(p)
+  
+}
+
+
+
+ggplot_timeseries_piechart = function(data, id_timeseries, variable, labels_of_variable = NULL,
+                                      size_legend = 10) {
+  
+  if (is.null(labels_of_variable)) {
+    labels_of_variable = variable
+  }
+  
+  data = data %>% 
+    group_by_at(id_timeseries) %>%
+    slice_tail(n = 1) %>% # keep only the last value of the time series
+    ungroup() %>%
+    dplyr::select(all_of(id_timeseries), all_of(variable)) %>%
+    group_by(!!sym(variable)) %>%
+    summarise(count = n()) %>%
+    arrange(desc(count))
+  colnames(data)[colnames(data) == variable] = "variable"
+  
+  # data$variable = factor(paste0(data$variable, " (n=", data$count, ")"),
+  #                        levels = paste0(data$variable, " (n=", data$count, ")"))
+  data$variable = factor(paste0(data$variable, " (n=", data$count, ")"))
+  
+  p = ggplot(data, aes(x = "", y = count, fill = variable)) +
+    geom_bar(stat = "identity", color = "#555555") +
+    # Number per slice
+    geom_text(aes(label = count), position = position_stack(vjust = 0.5)) +
+    coord_polar("y") +
+    labs(title = paste0("Time series repartition of ", labels_of_variable),
+         fill = labels_of_variable) +
+    theme_void() + 
+    theme(legend.text = element_text(size = size_legend))
+    
+  return(p)
+  
+}
+
+
 
 
 

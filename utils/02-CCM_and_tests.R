@@ -78,16 +78,41 @@ CCM_vs_null = function(data, var_lib, var_target,
     out.origin = out.origin %>% rbind(out_CCM_origin_this_E)
     
     # Summary df of the original data
-    summary.origin = summary.origin %>% rbind(
-      cbind(out_CCM_origin_this_E %>% group_by(lib_size) %>% 
-              summarise(mean = mean(rho, na.rm = T), 
-                        mean.m.sd = mean(rho, na.rm = T) - sd(rho, na.rm = T), 
-                        mean.p.sd = mean(rho, na.rm = T) + sd(rho, na.rm = T)),
-            as.matrix(aggregate(out_CCM_origin_this_E$rho, by = list(as.factor(out_CCM_origin_this_E$lib_size)), 
-                                quantile, probs = quantiles_summary, na.rm = T)[,'x']) ) %>% 
-        as.data.frame() %>% 
-        add_column(E = this_E, .before = 1)
+    new_rows_summary.origin = cbind(
+        # Rho
+        out_CCM_origin_this_E %>% group_by(lib_size) %>% 
+          summarise(rho_mean = mean(rho, na.rm = T), 
+                    rho_mean.m.sd = mean(rho, na.rm = T) - sd(rho, na.rm = T), 
+                    rho_mean.p.sd = mean(rho, na.rm = T) + sd(rho, na.rm = T)),
+        as.matrix(aggregate(out_CCM_origin_this_E$rho, by = list(as.factor(out_CCM_origin_this_E$lib_size)), 
+                            quantile, probs = quantiles_summary, na.rm = T)[,'x']) %>%
+          as.data.frame() %>%
+          setNames(paste0("rho_", quantiles_summary * 100)),
+        # MAE
+        out_CCM_origin_this_E %>% group_by(lib_size) %>% 
+          summarise(mae_mean = mean(mae, na.rm = T), 
+                    mae_mean.m.sd = mean(mae, na.rm = T) - sd(mae, na.rm = T), 
+                    mae_mean.p.sd = mean(mae, na.rm = T) + sd(mae, na.rm = T)) %>% 
+          dplyr::select(-lib_size),
+        as.matrix(aggregate(out_CCM_origin_this_E$mae, by = list(as.factor(out_CCM_origin_this_E$lib_size)), 
+                            quantile, probs = quantiles_summary, na.rm = T)[,'x']) %>%
+          as.data.frame() %>%
+          setNames(paste0("mae_", quantiles_summary * 100)),
+        # RMSE
+        out_CCM_origin_this_E %>% group_by(lib_size) %>% 
+          summarise(rmse_mean = mean(rmse, na.rm = T), 
+                    rmse_mean.m.sd = mean(rmse, na.rm = T) - sd(rmse, na.rm = T), 
+                    rmse_mean.p.sd = mean(rmse, na.rm = T) + sd(rmse, na.rm = T)) %>% 
+          dplyr::select(-lib_size),
+        as.matrix(aggregate(out_CCM_origin_this_E$rmse, by = list(as.factor(out_CCM_origin_this_E$lib_size)), 
+                            quantile, probs = quantiles_summary, na.rm = T)[,'x']) %>%
+          as.data.frame() %>%
+          setNames(paste0("rmse_", quantiles_summary * 100))
       )
+    summary.origin = summary.origin %>% rbind(
+      new_rows_summary.origin %>% 
+        add_column(E = this_E, .before = 1)
+    )
     
     
     # On the null model
@@ -104,14 +129,39 @@ CCM_vs_null = function(data, var_lib, var_target,
     out_CCM_all_null_this_E = out.null %>% filter(E == this_E)
     
     # Summary df of the null model
+    new_rows_summary.null = cbind(
+      # Rho
+      out_CCM_all_null_this_E %>% group_by(lib_size) %>% 
+        summarise(rho_mean = mean(rho, na.rm = T), 
+                  rho_mean.m.sd = mean(rho, na.rm = T) - sd(rho, na.rm = T), 
+                  rho_mean.p.sd = mean(rho, na.rm = T) + sd(rho, na.rm = T)),
+      as.matrix(aggregate(out_CCM_all_null_this_E$rho, by = list(as.factor(out_CCM_all_null_this_E$lib_size)), 
+                          quantile, probs = quantiles_summary, na.rm = T)[,'x']) %>%
+        as.data.frame() %>%
+        setNames(paste0("rho_", quantiles_summary * 100)),
+      # MAE
+      out_CCM_all_null_this_E %>% group_by(lib_size) %>%
+        summarise(mae_mean = mean(mae, na.rm = T), 
+                  mae_mean.m.sd = mean(mae, na.rm = T) - sd(mae, na.rm = T), 
+                  mae_mean.p.sd = mean(mae, na.rm = T) + sd(mae, na.rm = T)) %>% 
+        dplyr::select(-lib_size),
+      as.matrix(aggregate(out_CCM_all_null_this_E$mae, by = list(as.factor(out_CCM_all_null_this_E$lib_size)), 
+                          quantile, probs = quantiles_summary, na.rm = T)[,'x']) %>%
+        as.data.frame() %>%
+        setNames(paste0("mae_", quantiles_summary * 100)),
+      # RMSE
+      out_CCM_all_null_this_E %>% group_by(lib_size) %>%
+        summarise(rmse_mean = mean(rmse, na.rm = T), 
+                  rmse_mean.m.sd = mean(rmse, na.rm = T) - sd(rmse, na.rm = T), 
+                  rmse_mean.p.sd = mean(rmse, na.rm = T) + sd(rmse, na.rm = T)) %>% 
+        dplyr::select(-lib_size),
+      as.matrix(aggregate(out_CCM_all_null_this_E$rmse, by = list(as.factor(out_CCM_all_null_this_E$lib_size)), 
+                          quantile, probs = quantiles_summary, na.rm = T)[,'x']) %>%
+        as.data.frame() %>%
+        setNames(paste0("rmse_", quantiles_summary * 100))
+    )
     summary.null = summary.null %>% rbind(
-      cbind(out_CCM_all_null_this_E %>% group_by(lib_size) %>% 
-              summarise(mean = mean(rho, na.rm = T), 
-                        mean.m.sd = mean(rho, na.rm = T) - sd(rho, na.rm = T), 
-                        mean.p.sd = mean(rho, na.rm = T) + sd(rho, na.rm = T)),
-            as.matrix(aggregate(out_CCM_all_null_this_E$rho, by = list(as.factor(out_CCM_all_null_this_E$lib_size)), 
-                                quantile, probs = quantiles_summary, na.rm = T)[,'x']) ) %>% 
-        as.data.frame() %>% 
+      new_rows_summary.null %>% 
         add_column(E = this_E, .before = 1)
     )
     
@@ -186,8 +236,8 @@ if (test_the_functions) {
 #      . values_call: list with the values of the function call
 
 test_causality = function (summary.origin.one.E, summary.null.one.E, 
-                           val.origin.compare = "50%", val.null.compare = "95%",
-                           val.origin.kendall = "50%",
+                           val.origin.compare = "rho_50", val.null.compare = "rho_95",
+                           val.origin.kendall = "rho_50",
                            criterium_compare = "strictly_above_null", libs_for_crit = NULL,
                            threshold_p_val_kendall = 0.05,
                            full_output = TRUE, silent = FALSE) {

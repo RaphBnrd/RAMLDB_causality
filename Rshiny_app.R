@@ -14,15 +14,16 @@ library(plotly)
 # Import objects ----------------------------------------------------------
 
 
-# path_dataframe_input = "data/RAM_timeseries_clean.csv"
-path_dataframe_input = "data/20241029-RAM_timeseries_clean-prod_and_recruitment.csv"
+path_dataframe_input = "data/RAM_timeseries_clean.csv"
+# path_dataframe_input = "data/20241029-RAM_timeseries_clean-prod_and_recruitment.csv"
 df = read.csv(path_dataframe_input)
 
 name_id_timeseries = "stockid"
 name_time = "year"
 
 
-dir_out = "out/20241029-full-prod_and_recruitment/"
+# dir_out = "out/20241029-full-prod_and_recruitment/"
+dir_out = "out/20241124-prod_SST_U/"
 
 file_save_out_simplex_tp1 = paste0(dir_out, "computations/01_a-out_simplex_tp1.csv")
 file_save_out_simplex_tp1_summary_opti_E = paste0(dir_out, "computations/01_b-out_simplex_tp1_summary_opti_E.csv")
@@ -59,7 +60,7 @@ res_simplex_tp1 = import_file(file_save_out_simplex_tp1)
 res_simplex_tp1_summary_opti_E = import_file(file_save_out_simplex_tp1_summary_opti_E)
 
 res_ccm_best_E_summaries = import_file(file_save_out_ccm_best_E_and_tp_summaries)
-colnames(res_ccm_best_E_summaries) = gsub("^X(\\d+)\\.$", "\\1%", colnames(res_ccm_best_E_summaries))
+# colnames(res_ccm_best_E_summaries) = gsub("^X(\\d+)\\.$", "\\1%", colnames(res_ccm_best_E_summaries))
 res_ccm_best_E_assessment = import_file(file_save_out_ccm_best_E_and_tp_assessment)
 
 res_strength_causality = import_file(file_save_out_strength_causality)
@@ -208,7 +209,9 @@ ui <- fluidPage(
                    plotlyOutput("plot_simplex_projection", width = 700),
                    tags$h1("Convergent cross-mapping"),
                    htmlOutput("text_ccm"),
-                   plotlyOutput("plot_ccm", height = 600, width = 700),
+                   plotlyOutput("plot_ccm_rho", height = 600, width = 700),
+                   plotlyOutput("plot_ccm_mae", height = 600, width = 700),
+                   plotlyOutput("plot_ccm_rmse", height = 600, width = 700),
                    tags$h1("Strength of causality along time"),
                    plotlyOutput("plot_strength_caus_time", height = 500),
           )
@@ -279,16 +282,27 @@ server <- function(input, output) {
   
   output$plot_summary_causality <- renderPlotly({
     
-    id_removed = res_simplex_tp1_summary_opti_E %>% filter(id_timeseries %in% all_ids_plots) %>% 
-      filter(is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered) %>% 
-      pull(id_timeseries) %>% as.character() # we remove the stocks where the forecasting skill is always negative
+    # We remove the stocks where the forecasting skill is always negative (i.e. method_select_E_prefered is not NA if it is positive_range_top_x_percent)
+    df_ids_kept_from_E = res_simplex_tp1_summary_opti_E %>% 
+      filter(id_timeseries %in% all_ids_plots) %>% 
+      filter(!is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered)
     
     df_plot_count = res_ccm_best_E_assessment %>% rename(E_CCM = E) %>% 
       left_join(df %>% group_by_at(vars(all_of(name_id_timeseries))) %>% summarise(n.obs = n(), .groups = "drop"),
                 by = c("id_timeseries" = name_id_timeseries)) %>%
       filter(n.obs >= 40) %>% 
-      filter(tp == input$tp) %>%
-      mutate(remove = ifelse(id_timeseries %in% id_removed, TRUE, FALSE)) %>% 
+      filter(tp == input$tp)
+    
+    df_plot_count$remove = FALSE
+    for (this_var_lib in unique(res_ccm_best_E_assessment$var_lib)) {
+      these_ids_kept = df_ids_kept_from_E %>% filter(variable == this_var_lib) %>% 
+        pull(id_timeseries) %>% as.character()
+      df_plot_count = df_plot_count %>% 
+        mutate(remove = ifelse((var_lib == this_var_lib) & !(id_timeseries %in% these_ids_kept), 
+                               TRUE, remove))
+    }
+    
+    df_plot_count = df_plot_count %>% 
       mutate(status = case_when(
         remove ~ "NA", 
         causality & !remove ~ "Causality", 
@@ -317,27 +331,37 @@ server <- function(input, output) {
   
   output$plot_summary_strength_box <- renderPlotly({
     
-    id_removed = res_simplex_tp1_summary_opti_E %>% filter(id_timeseries %in% all_ids_plots) %>% 
-      filter(is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered) %>% 
-      pull(id_timeseries) %>% as.character() # we remove the stocks where the forecasting skill is always negative
+    # We remove the stocks where the forecasting skill is always negative (i.e. method_select_E_prefered is not NA if it is positive_range_top_x_percent)
+    df_ids_kept_from_E = res_simplex_tp1_summary_opti_E %>% 
+      filter(id_timeseries %in% all_ids_plots) %>% 
+      filter(!is.na(E_opti_simplex), method_E_opti_simplex == method_select_E_prefered)
     
     df_plot = res_strength_causality %>% rename(E_CCM = E) %>%
-      filter(id_timeseries %in% all_ids_plots & !id_timeseries %in% id_removed) %>%
+      filter(id_timeseries %in% all_ids_plots) %>%
       left_join(res_ccm_best_E_assessment, 
                 by = c("id_timeseries" = "id_timeseries", "var_cause" = "var_target", "var_consequence" = "var_lib", "tp" = "tp"))
     
-    df_plot %>%
-      left_join(res_ccm_best_E_assessment %>% 
-                  filter(id_timeseries %in% all_ids_plots & !id_timeseries %in% id_removed) %>%
-                  group_by(var_lib, var_target, tp) %>%
+    df_plot$kept = TRUE
+    for (this_var_consequence in unique(res_strength_causality$var_consequence)) {
+      these_ids_kept = df_ids_kept_from_E %>% filter(variable == this_var_consequence) %>% 
+        pull(id_timeseries) %>% as.character()
+      df_plot = df_plot %>% 
+        mutate(kept = ifelse((var_consequence == this_var_consequence) & !(id_timeseries %in% these_ids_kept), 
+                             FALSE, kept))
+    }
+    
+    df_plot = df_plot %>%
+      filter(kept) %>%
+      left_join(df_plot %>% 
+                  group_by(var_cause, var_consequence, tp) %>%
                   summarise(n = sum(causality), .groups = "drop"),
-                by = c("var_cause" = "var_target", "var_consequence" = "var_lib", "tp" = "tp")) %>%
+                by = c("var_cause" = "var_cause", "var_consequence" = "var_consequence", "tp" = "tp")) %>%
       mutate(label_pair = paste0(labels_of_variables[var_consequence], "\nxmap\n", labels_of_variables[var_cause])) %>% 
       mutate(label_pair_full = paste0(label_pair, "\n(n = ", n, ")")) %>% 
       
-      filter(tp == input$tp, causality) %>%
+      filter(tp == input$tp, causality)
     
-      plot_ly() %>%
+    plot_ly(df_plot) %>%
       add_trace(x = ~label_pair_full, y = ~this_mean_strength,
                 type = "box", boxpoints = "outliers", marker = list(opacity = 0.7),
                 line = list(width = 1.5), showlegend = FALSE) %>%
@@ -598,7 +622,7 @@ server <- function(input, output) {
                 "Significance: ", ifelse(this_res %>% pull(kendall_p_val) < 0.05 & this_res %>% pull(kendall_tau) > 0, 
                                          "Significantly increasing", "Not significantly increasing"), "<br><br>",
                 
-                "Original above null for ", round(this_res %>% pull(rate.libsizes_50..origin_above_95..null)*100, 2), " % of the library sizes<br><br>",
+                "Original above null for ", round(this_res %>% pull(rate.libsizes_rho_50.origin_above_rho_95.null)*100, 2), " % of the library sizes<br><br>",
                 # "Original under null for the following library sizes: ", 
                 # paste(names(which(!this_test_CCM[[E_str]]$vect_compare.origin.null)), collapse = ", "), "<br><br>",
                 
@@ -611,7 +635,7 @@ server <- function(input, output) {
   
   # Convergent cross-mapping (rho along library sizes)
   
-  output$plot_ccm <- renderPlotly({ 
+  output$plot_ccm_rho <- renderPlotly({ 
     
     if (input$with_or_without_causality == "with") {
       this_id = input$ids_with_causality
@@ -632,10 +656,73 @@ server <- function(input, output) {
     
     this_df_CCM = res_ccm_best_E_summaries %>% 
       filter(id_timeseries == this_id, var_lib == key_var_consequence(), var_target == key_var_cause(), tp == input$tp)
-      # filter(id_timeseries == this_id, var_lib == "prodbest.div", var_target == "sst.z", tp == 0)
+    # filter(id_timeseries == this_id, var_lib == "prodbest.div", var_target == "sst.z", tp == 0)
     
-    values_origin = c("5%", "50%", "95%")
-    values_null = c("5%", "50%", "95%")
+    values_origin = c("rho_5", "rho_50", "rho_95")
+    values_null = c("rho_5", "rho_50", "rho_95")
+    
+    df_plot = this_df_CCM %>% 
+      dplyr::select(c("var_lib", "var_target", "E", "dataset", "lib_size", unique(c(values_origin, values_null))))
+    
+    y_range = c(min(0, min(df_plot[[values_origin[1]]]), min(df_plot[[values_null[1]]])),
+                max(1, max(df_plot[[values_origin[3]]]), max(df_plot[[values_null[3]]])))
+    
+    suffix_title = ""
+    
+    subtitle = paste0("Grey: null model (", gsub(".*_", "", values_origin[2]), "% quantile and ",
+                      gsub(".*_", "", values_origin[1]), "%-", gsub(".*_", "", values_origin[3]), "% quantile)  ;  ",
+                      "Red: original data (", gsub(".*_", "", values_null[2]), "% quantile and ",
+                      gsub(".*_", "", values_null[1]), "%-", gsub(".*_", "", values_null[3]), "% quantiles)")
+    
+    plot_ly(x = ~lib_size) %>%
+      add_lines(data = df_plot %>% filter(dataset == "null"), y = ~get(values_null[2]), line = list(color = "#4D4D4D"),
+                name = paste0("Null model (", values_null[2], ")")) %>%
+      add_ribbons(data = df_plot %>% filter(dataset == "null"), y = ~get(values_null[2]), ymin = ~get(values_null[1]), 
+                  ymax = ~get(values_null[3]), fillcolor = "#4D4D4D", opacity = 0.3, line = list(color = "#4D4D4D"),
+                  name = paste0("Null model (", values_null[1], "-", values_null[3], ")")) %>%
+      add_lines(data = df_plot %>% filter(dataset == "origin"), y = ~get(values_origin[2]), line = list(color = "#EE2C2C"), 
+                name = paste0("Original data (", values_origin[2], ")")) %>%
+      add_lines(data = df_plot %>% filter(dataset == "origin"), y = ~get(values_origin[1]), line = list(color = "#EE2C2C", dash = "dash"),
+                name = paste0("Original data (", values_origin[1], ")")) %>%
+      add_lines(data = df_plot %>% filter(dataset == "origin"), y = ~get(values_origin[3]), line = list(color = "#EE2C2C", dash = "dash"),
+                name = paste0("Original data (", values_origin[3], ")")) %>%
+      layout(title = paste0("Predictive skill vs library size - ", this_id, "\n",
+                            input$var_consequence, " XMAP ", input$var_cause),
+             xaxis = list(title = "Library size"), yaxis = list(title = "Forecasting skill (rho)", range = y_range),
+             margin = list(t = 50, b = 70), legend = list(orientation = "h", xanchor = "center", x = 0.5, y = -0.15))
+    
+  })
+  
+  
+  
+  
+  # Convergent cross-mapping (mae along library sizes)
+  
+  output$plot_ccm_mae <- renderPlotly({ 
+    
+    if (input$with_or_without_causality == "with") {
+      this_id = input$ids_with_causality
+    } else {
+      this_id = input$ids_without_causality
+    }
+    
+    E = res_simplex_tp1_summary_opti_E %>%
+      filter(id_timeseries == this_id, variable == key_var_consequence(), method_E_opti_simplex == method_select_E_prefered) %>%
+      # filter(id_timeseries == this_id, variable == "prodbest.div", method_E_opti_simplex == method_select_E_prefered) %>%
+      pull(E_opti_simplex)
+    if (is.na(E)) {
+      E = res_simplex_tp1_summary_opti_E %>%
+        filter(id_timeseries == this_id, variable == key_var_consequence(), method_E_opti_simplex == method_select_E_default) %>%
+        pull(E_opti_simplex)
+    }
+    E_str = as.character(E)
+    
+    this_df_CCM = res_ccm_best_E_summaries %>% 
+      filter(id_timeseries == this_id, var_lib == key_var_consequence(), var_target == key_var_cause(), tp == input$tp)
+    # filter(id_timeseries == this_id, var_lib == "prodbest.div", var_target == "sst.z", tp == 0)
+    
+    values_origin = c("mae_5", "mae_50", "mae_95")
+    values_null = c("mae_5", "mae_50", "mae_95")
     
     df_plot = this_df_CCM %>% 
       dplyr::select(c("var_lib", "var_target", "E", "dataset", "lib_size", unique(c(values_origin, values_null))))
@@ -664,7 +751,70 @@ server <- function(input, output) {
                 name = paste0("Original data (", values_origin[3], ")")) %>%
       layout(title = paste0("Predictive skill vs library size - ", this_id, "\n",
                             input$var_consequence, " XMAP ", input$var_cause),
-             xaxis = list(title = "Library size"), yaxis = list(title = "Forecasting skill (rho)", range = y_range),
+             xaxis = list(title = "Library size"), yaxis = list(title = "Mean Absolute Error (MAE)", range = y_range),
+             margin = list(t = 50, b = 70), legend = list(orientation = "h", xanchor = "center", x = 0.5, y = -0.15))
+    
+  })
+  
+  
+  
+  
+  # Convergent cross-mapping (rmse along library sizes)
+  
+  output$plot_ccm_rmse <- renderPlotly({ 
+    
+    if (input$with_or_without_causality == "with") {
+      this_id = input$ids_with_causality
+    } else {
+      this_id = input$ids_without_causality
+    }
+    
+    E = res_simplex_tp1_summary_opti_E %>%
+      filter(id_timeseries == this_id, variable == key_var_consequence(), method_E_opti_simplex == method_select_E_prefered) %>%
+      # filter(id_timeseries == this_id, variable == "prodbest.div", method_E_opti_simplex == method_select_E_prefered) %>%
+      pull(E_opti_simplex)
+    if (is.na(E)) {
+      E = res_simplex_tp1_summary_opti_E %>%
+        filter(id_timeseries == this_id, variable == key_var_consequence(), method_E_opti_simplex == method_select_E_default) %>%
+        pull(E_opti_simplex)
+    }
+    E_str = as.character(E)
+    
+    this_df_CCM = res_ccm_best_E_summaries %>% 
+      filter(id_timeseries == this_id, var_lib == key_var_consequence(), var_target == key_var_cause(), tp == input$tp)
+    # filter(id_timeseries == this_id, var_lib == "prodbest.div", var_target == "sst.z", tp == 0)
+    
+    values_origin = c("rmse_5", "rmse_50", "rmse_95")
+    values_null = c("rmse_5", "rmse_50", "rmse_95")
+    
+    df_plot = this_df_CCM %>% 
+      dplyr::select(c("var_lib", "var_target", "E", "dataset", "lib_size", unique(c(values_origin, values_null))))
+    
+    y_range = c(min(0, min(df_plot[[values_origin[1]]]), min(df_plot[[values_null[1]]])),
+                max(1, max(df_plot[[values_origin[3]]]), max(df_plot[[values_null[3]]])))
+    
+    suffix_title = ""
+    
+    subtitle = paste0("Grey: null model (", values_origin[2], " quantile and ",
+                      values_origin[1], "-", values_origin[3], " quantile)  ;  ",
+                      "Red: original data (", values_null[2], " quantile and ",
+                      values_null[1], "-", values_null[3], " quantiles)")
+    
+    plot_ly(x = ~lib_size) %>%
+      add_lines(data = df_plot %>% filter(dataset == "null"), y = ~get(values_null[2]), line = list(color = "#4D4D4D"),
+                name = paste0("Null model (", values_null[2], ")")) %>%
+      add_ribbons(data = df_plot %>% filter(dataset == "null"), y = ~get(values_null[2]), ymin = ~get(values_null[1]), 
+                  ymax = ~get(values_null[3]), fillcolor = "#4D4D4D", opacity = 0.3, line = list(color = "#4D4D4D"),
+                  name = paste0("Null model (", values_null[1], "-", values_null[3], ")")) %>%
+      add_lines(data = df_plot %>% filter(dataset == "origin"), y = ~get(values_origin[2]), line = list(color = "#EE2C2C"), 
+                name = paste0("Original data (", values_origin[2], ")")) %>%
+      add_lines(data = df_plot %>% filter(dataset == "origin"), y = ~get(values_origin[1]), line = list(color = "#EE2C2C", dash = "dash"),
+                name = paste0("Original data (", values_origin[1], ")")) %>%
+      add_lines(data = df_plot %>% filter(dataset == "origin"), y = ~get(values_origin[3]), line = list(color = "#EE2C2C", dash = "dash"),
+                name = paste0("Original data (", values_origin[3], ")")) %>%
+      layout(title = paste0("Predictive skill vs library size - ", this_id, "\n",
+                            input$var_consequence, " XMAP ", input$var_cause),
+             xaxis = list(title = "Library size"), yaxis = list(title = "Root Mean Squared Error (RMSE)", range = y_range),
              margin = list(t = 50, b = 70), legend = list(orientation = "h", xanchor = "center", x = 0.5, y = -0.15))
     
   })
@@ -679,7 +829,7 @@ server <- function(input, output) {
     if (input$with_or_without_causality == "with") {
       this_id = input$ids_with_causality
     } else {
-      this_id = input$ids_without_causality
+      return(NULL)
     }
     
     name_cause_delayed = paste0(key_var_cause(), "_t")
@@ -691,11 +841,12 @@ server <- function(input, output) {
     
     this_df_clean = res_strength_causality_details_smap %>% 
       filter(id_timeseries == this_id, var_cause == key_var_cause(), var_consequence == key_var_consequence(), tp == input$tp,
-             var_cause_jacobian == name_cause_delayed, var_consequence_jacobian == paste0(key_var_consequence(), "_t_plus_1")) %>% 
+             var_cause_jacobian == name_cause_delayed, 
+             var_consequence_jacobian == paste0(key_var_consequence(), "_t_plus_1")) %>% 
       # filter(id_timeseries == this_id, var_cause == "sst.z", var_consequence == "prodbest.div", tp == -1, 
       #        var_cause_jacobian == "sst.z_t_minus_1", var_consequence_jacobian == "prodbest.div_t_plus_1") %>% 
       filter(!is.na(value))
-    
+
     # Fit a linear model for value ~ t
     lm_fit <- lm(value ~ t, data = this_df_clean)
     slope <- coef(lm_fit)[2]  # Slope of the linear model
