@@ -1,6 +1,7 @@
 
 library(ggplot2)
 library(ggalluvial)
+library(ggtext)
 
 
 
@@ -23,7 +24,7 @@ ggplot_simplex_rho_E = function(res_simplex_tp1, res_simplex_tp1_summary_opti_E,
     geom_text_repel(data = these_best_E, color = "#666666", segment.color = "#666666",
                     aes(x = E_opti_simplex, y = rho_E_opti_simplex, label = clean_name_method)) +
     labs(title = paste0("Simplex projection for ", labels_of_variables[this_var], " (id = ", this_id, ")"),
-         x = "Embedding dimension (E)", y = "Forecastinf skill (rho)") + 
+         x = "Embedding dimension (E)", y = "Forecasting skill (rho)") + 
     theme_light()
   
   return(p)
@@ -92,14 +93,14 @@ ggplot_convergence_ccm_one_dir = function(res_ccm_best_E_summaries, this_id, thi
     geom_line(data = this_summary_null, aes(x = lib_size, y = !!sym(values_null[2])), color = "grey30", linewidth = 1) +
     geom_ribbon(data = this_summary_null, aes(x = lib_size, ymin = !!sym(values_null[1]), ymax = !!sym(values_null[3])), 
                 fill = "grey30", alpha = 0.3) +
-    labs(title = paste0("Predictive skill vs library size (id = ", this_id, ")\n", 
-                        "Causal relationship: ", labels_of_variables[this_causal_rel[2]], " -> ", labels_of_variables[this_causal_rel[1]],
+    labs(title = paste0("Predictive skill vs library size (id = ", this_id, ")<br>", 
+                        "Causal relationship: ", labels_of_variables[this_causal_rel[2]], " &rarr; ", labels_of_variables[this_causal_rel[1]],
                         " (tp = ", this_tp, ")"),
          subtitle = subtitle, 
          x = "Library size", y = y_title) +
     ylim(y_range) +
     theme_light() +
-    theme(plot.subtitle = element_text(size = 6.5))
+    theme(plot.subtitle = element_text(size = 6), plot.title = element_markdown(size = 12))
   
   return(p)
   
@@ -130,7 +131,9 @@ ggplot_convergence_ccm_two_dir = function(res_ccm_best_E_summaries, this_id, the
     y_title = metric
   }
   
-  p = ggplot(these_summary_origin, aes(x = lib_size, color = label_causal_rel, fill = label_causal_rel)) +
+  p = these_summary_origin %>% 
+    mutate(label_causal_rel = str_replace_all(label_causal_rel, "->", "&rarr;")) %>%
+    ggplot(aes(x = lib_size, color = label_causal_rel, fill = label_causal_rel)) +
     geom_line(aes(y = !!sym(values_origin[2])), linewidth = 1) +
     geom_line(aes(y = !!sym(values_origin[1])), linewidth = 1, linetype = "dashed") +
     geom_line(aes(y = !!sym(values_origin[3])), linewidth = 1, linetype = "dashed") +
@@ -143,7 +146,8 @@ ggplot_convergence_ccm_two_dir = function(res_ccm_best_E_summaries, this_id, the
          x = "Library size", y = y_title) +
     ylim(y_range) +
     theme_light() +
-    theme(plot.subtitle = element_text(size = 6.5), legend.position = "bottom")
+    theme(plot.subtitle = element_text(size = 6.5), plot.title = element_text(size = 11),
+          legend.position = "bottom", legend.text = element_markdown())
   
   return(p)
   
@@ -153,6 +157,10 @@ ggplot_ccm_hist_causality_one_tp = function(res_ccm_best_E_assessment, this_tp, 
                                             list_of_causality_tested = list_of_causality_tested, 
                                             df_ids_kept_from_E = NULL) {
   
+  # symbol_x_legend_cause = "<br>&darr;<br>"
+  # symbol_x_legend_cause = "<br>to<br>"
+  symbol_x_legend_cause = " to "
+  
   if (is.null(df_ids_kept_from_E)) {
     df_ids_kept_from_E = res_ccm_best_E_assessment %>% 
       dplyr::select(var_lib, id_timeseries) %>% rename(variable = var_lib)
@@ -161,7 +169,7 @@ ggplot_ccm_hist_causality_one_tp = function(res_ccm_best_E_assessment, this_tp, 
   order_labels_causal_rel = c()
   for (i in 1:length(list_of_causality_tested)) {
     order_labels_causal_rel = c(order_labels_causal_rel, 
-                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], "\n->\n", 
+                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], symbol_x_legend_cause, 
                                        labels_of_variables[list_of_causality_tested[[i]][2]]))
   }
   
@@ -179,7 +187,9 @@ ggplot_ccm_hist_causality_one_tp = function(res_ccm_best_E_assessment, this_tp, 
   
   p = res_ccm_best_E_assessment %>% 
     filter(kept, tp == this_tp) %>%
-    mutate(label_causal_rel = factor(paste0(labels_of_variables[var_target], "\n->\n", labels_of_variables[var_lib]),
+    filter(paste0(labels_of_variables[var_target], symbol_x_legend_cause, labels_of_variables[var_lib])
+             %in% order_labels_causal_rel) %>%
+    mutate(label_causal_rel = factor(paste0(labels_of_variables[var_target], symbol_x_legend_cause, labels_of_variables[var_lib]),
                                      levels = order_labels_causal_rel)) %>%
     mutate(causality = factor(ifelse(causality, "Yes", "No"), levels = c("Yes", "No"))) %>%
     
@@ -190,7 +200,8 @@ ggplot_ccm_hist_causality_one_tp = function(res_ccm_best_E_assessment, this_tp, 
     labs(title = paste0("Causality assessment (tp = ", this_tp, ")"),
          x = "Causal relationship", y = "Count", fill = "Causality?") +
     theme_light() + 
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+    # theme(axis.text.x = element_markdown(angle = 90, vjust = 0.5)) 
+    theme(axis.text.x = element_markdown(angle = 30, hjust = .7, vjust = .7))
   
   return(p)
   
@@ -208,7 +219,7 @@ ggplot_ccm_hist_causality_multiple_tp = function(res_ccm_best_E_assessment, thes
   order_labels_causal_rel = c()
   for (i in 1:length(list_of_causality_tested)) {
     order_labels_causal_rel = c(order_labels_causal_rel, 
-                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], " -> ", 
+                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], " &rarr; ", 
                                        labels_of_variables[list_of_causality_tested[[i]][2]]))
   }
   
@@ -224,7 +235,7 @@ ggplot_ccm_hist_causality_multiple_tp = function(res_ccm_best_E_assessment, thes
   
   p = res_ccm_best_E_assessment %>% 
     filter(kept, tp %in% these_tp) %>%
-    mutate(label_causal_rel = factor(paste0(labels_of_variables[var_target], " -> ", labels_of_variables[var_lib]),
+    mutate(label_causal_rel = factor(paste0(labels_of_variables[var_target], " &rarr; ", labels_of_variables[var_lib]),
                                      levels = order_labels_causal_rel)) %>%
     mutate(causality = factor(ifelse(causality, "Yes", "No"), levels = c("Yes", "No"))) %>%
     
@@ -235,7 +246,7 @@ ggplot_ccm_hist_causality_multiple_tp = function(res_ccm_best_E_assessment, thes
     scale_fill_manual(values = c("Yes" = "#97d89a", "No" = "#de7371")) +
     labs(title = "Causality assessment",
          x = "Time horizon of prediction in the CCM (tp)", y = "Count", fill = "Causality?") +
-    theme_light()
+    theme_light() + theme(strip.text = element_markdown())
   
   return(p)
   
@@ -253,7 +264,7 @@ ggplot_ccm_alluvial_causality_multiple_tp = function(res_ccm_best_E_assessment, 
   order_labels_causal_rel = c()
   for (i in 1:length(list_of_causality_tested)) {
     order_labels_causal_rel = c(order_labels_causal_rel, 
-                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], " -> ", 
+                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], " &rarr; ", 
                                        labels_of_variables[list_of_causality_tested[[i]][2]]))
   }
   
@@ -269,7 +280,7 @@ ggplot_ccm_alluvial_causality_multiple_tp = function(res_ccm_best_E_assessment, 
   
   alluvial_data  = res_ccm_best_E_assessment %>%
     filter(kept, tp %in% these_tp) %>%
-    mutate(label_causal_rel = factor(paste0(labels_of_variables[var_target], " -> ", labels_of_variables[var_lib]),
+    mutate(label_causal_rel = factor(paste0(labels_of_variables[var_target], " &rarr; ", labels_of_variables[var_lib]),
                                      levels = order_labels_causal_rel)) %>%
     mutate(causality = factor(ifelse(causality, "Yes", "No"), levels = c("Yes", "No"))) %>%
     dplyr::select(label_causal_rel, id_timeseries, tp, causality) %>% 
@@ -278,7 +289,8 @@ ggplot_ccm_alluvial_causality_multiple_tp = function(res_ccm_best_E_assessment, 
   axes_mapping <- setNames(lapply(these_tp, function(tp) sym(paste0("tp_", tp))), paste0("axis", seq_along(these_tp)))
 
   # Create alluvial plot with multiple axes (one per tp)
-  p = ggplot(alluvial_data, aes(y = 1, !!!axes_mapping)) + 
+  p = alluvial_data %>% 
+    ggplot(aes(y = 1, !!!axes_mapping)) + 
     geom_alluvium(aes(fill = tp_0), width = 1/12) +  # Adjust 'fill' as per your choice
     geom_stratum(width = 1/4, color = "#444444", linewidth = 0.2) +
     geom_text(stat = "stratum", aes(label = after_stat(stratum)), size = 2, color = "black") +
@@ -287,7 +299,8 @@ ggplot_ccm_alluvial_causality_multiple_tp = function(res_ccm_best_E_assessment, 
     labs(title = "Causality assessment across time horizons",
          x = "Time horizons (tp)", y = "Count", fill = "Causality at tp=0?") +
     theme_light() +
-    facet_wrap(~label_causal_rel, scales = "free_y", ncol = 1)
+    facet_wrap(~label_causal_rel, scales = "free_y", ncol = 1) + 
+    theme(strip.text = element_markdown())
   
   return(p)
   
@@ -306,7 +319,7 @@ ggplot_ccm_hist_causality_tp_max_rho = function(res_ccm_best_E_assessment, label
   order_labels_causal_rel = c()
   for (i in 1:length(list_of_causality_tested)) {
     order_labels_causal_rel = c(order_labels_causal_rel, 
-                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], "\n->\n", 
+                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], "<br>&darr;<br>", 
                                        labels_of_variables[list_of_causality_tested[[i]][2]]))
   }
   
@@ -330,7 +343,7 @@ ggplot_ccm_hist_causality_tp_max_rho = function(res_ccm_best_E_assessment, label
       causality ~ "Yes",
       TRUE ~ "No"
     )) %>%
-    mutate(label_causal_rel = factor(paste0(labels_of_variables[var_target], "\n->\n", labels_of_variables[var_lib]),
+    mutate(label_causal_rel = factor(paste0(labels_of_variables[var_target], "<br>&darr;<br>", labels_of_variables[var_lib]),
                                      levels = order_labels_causal_rel)) %>%
     mutate(causality = factor(causality, levels = c("Yes", "No", "Inconsistent\ncausality\n(tp > 0)"))) %>%
     
@@ -342,7 +355,7 @@ ggplot_ccm_hist_causality_tp_max_rho = function(res_ccm_best_E_assessment, label
     labs(title = paste0("Causality assessment (found for an optimal tp <= 0)"),
          x = "Causal relationship", y = "Count", fill = "Causality?") +
     theme_light() + 
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+    theme(axis.text.x = element_markdown(angle = 90, vjust = 0.5))
   
   return(p)
   
@@ -360,7 +373,7 @@ ggplot_ccm_alluvial_causality_one_tp_and_tp_max_rho = function(res_ccm_best_E_as
   order_labels_causal_rel = c()
   for (i in 1:length(list_of_causality_tested)) {
     order_labels_causal_rel = c(order_labels_causal_rel, 
-                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], " -> ", 
+                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], " &rarr; ", 
                                        labels_of_variables[list_of_causality_tested[[i]][2]]))
   }
   
@@ -384,7 +397,7 @@ ggplot_ccm_alluvial_causality_one_tp_and_tp_max_rho = function(res_ccm_best_E_as
       causality ~ "Yes",
       TRUE ~ "No"
     )) %>%
-    mutate(label_causal_rel = factor(paste0(labels_of_variables[var_target], " -> ", labels_of_variables[var_lib]),
+    mutate(label_causal_rel = factor(paste0(labels_of_variables[var_target], " &rarr; ", labels_of_variables[var_lib]),
                                      levels = order_labels_causal_rel))
   
   this_df_one_tp = res_ccm_best_E_assessment %>% 
@@ -393,7 +406,7 @@ ggplot_ccm_alluvial_causality_one_tp_and_tp_max_rho = function(res_ccm_best_E_as
       causality ~ "Yes",
       TRUE ~ "No"
     )) %>% 
-    mutate(label_causal_rel = factor(paste0(labels_of_variables[var_target], " -> ", labels_of_variables[var_lib]),
+    mutate(label_causal_rel = factor(paste0(labels_of_variables[var_target], " &rarr; ", labels_of_variables[var_lib]),
                                      levels = order_labels_causal_rel))
   
   alluvial_data = left_join(this_df_one_tp %>% dplyr::select(label_causal_rel, id_timeseries, causality_one_tp), 
@@ -415,7 +428,7 @@ ggplot_ccm_alluvial_causality_one_tp_and_tp_max_rho = function(res_ccm_best_E_as
     labs(title = paste0("Causality assessment at tp = ", this_tp, " and for an optimal tp <= 0"),
          y = "Count", fill = "Causality at tp = 0") +
     theme_light() + 
-    theme(axis.title.x = element_blank(), strip.text = element_text(size = 6))
+    theme(axis.title.x = element_blank(), strip.text = element_markdown(size = 6))
   
   return(p)
   
@@ -598,19 +611,20 @@ ggplot_strength_one_stock = function(res_strength_causality_details_smap, res_st
     labs(title = paste0("S-map coefficients (id = ", this_id, ")"),
          subtitle = paste0(labels_of_variables[this_causal_rel[1]], 
                            "(t", ifelse(this_tp == 0, "", ifelse(this_tp > 0, paste0("+", this_tp), paste0("-", abs(this_tp))) ), ")",
-                           " -> ", labels_of_variables[this_causal_rel[2]], "(t+1)"),
+                           " &rarr; ", labels_of_variables[this_causal_rel[2]], "(t+1)"),
          x = "Time", y = "S-map coefficients", 
          caption = annot) +
-    theme_light()
+    theme_light() + theme(plot.subtitle = element_markdown())
   
   return(p)
   
 }
 
 
-ggplot_strength_summary = function(res_strength_causality, res_ccm_best_E_assessment, 
-                                   labels_of_variables, this_tp, list_of_causality_tested,
-                                   df_ids_kept_from_E = NULL) {
+ggplot_and_csv_strength_summary = function(res_strength_causality, res_ccm_best_E_assessment, 
+                                           labels_of_variables, this_tp, list_of_causality_tested,
+                                           df_ids_kept_from_E = NULL,
+                                           save_csv_path = NULL) {
   
   if (is.null(df_ids_kept_from_E)) {
     df_ids_kept_from_E = res_ccm_best_E_assessment %>% 
@@ -620,7 +634,7 @@ ggplot_strength_summary = function(res_strength_causality, res_ccm_best_E_assess
   order_labels_causal_rel = c()
   for (i in 1:length(list_of_causality_tested)) {
     order_labels_causal_rel = c(order_labels_causal_rel, 
-                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], " -> ", labels_of_variables[list_of_causality_tested[[i]][2]]))
+                                paste0(labels_of_variables[list_of_causality_tested[[i]][1]], " &rarr; ", labels_of_variables[list_of_causality_tested[[i]][2]]))
   }
   
   # Filter out the ids that were removed from the E assessment (id per var_consequence)
@@ -633,7 +647,7 @@ ggplot_strength_summary = function(res_strength_causality, res_ccm_best_E_assess
                            FALSE, kept))
   }
   
-  p = res_strength_causality %>% 
+  df_plot = res_strength_causality %>% 
     filter(kept, tp == this_tp) %>% 
     mutate(sign = ifelse(this_t_test_p_val >= 0.05, "Not significant", 
                          ifelse(this_mean_strength > 0, "Positive", "Negative")),
@@ -650,26 +664,45 @@ ggplot_strength_summary = function(res_strength_causality, res_ccm_best_E_assess
     group_by(var_cause, var_consequence, sign, trend) %>%
     summarise(n = n()) %>% 
     ungroup() %>%
-    add_column(label_causal_rel = paste0(labels_of_variables[.[["var_cause"]]], " -> ", labels_of_variables[.[["var_consequence"]]])) %>%
+    add_column(label_causal_rel = paste0(labels_of_variables[.[["var_cause"]]], " &rarr; ", labels_of_variables[.[["var_consequence"]]])) %>%
     filter(label_causal_rel %in% order_labels_causal_rel) %>%
     mutate(label_causal_rel = factor(label_causal_rel, levels = order_labels_causal_rel)) %>%
-    dplyr::select(label_causal_rel, sign, trend, n) %>% 
+    dplyr::select(label_causal_rel, sign, trend, n)
+  
+  # Save the data to a CSV file
+  if (!is.null(save_csv_path)) {
+    write_csv(df_plot %>% mutate(label_causal_rel = str_replace_all(label_causal_rel, "&rarr;", "->")),
+              save_csv_path)
+    for (lab_caus in unique(str_replace_all(df_plot$label_causal_rel, "&rarr;", "->")) ) {
+      this_subdf_plot = df_plot %>% 
+        mutate(label_causal_rel = str_replace_all(label_causal_rel, "&rarr;", "->")) %>% 
+        filter(label_causal_rel == lab_caus) %>% 
+        pivot_wider(names_from = trend, values_from = n) %>% 
+        arrange(desc(sign))
+      write_csv(
+        this_subdf_plot, 
+        paste0(substr(save_csv_path, 1, nchar(save_csv_path)-4), "-", 
+               str_replace_all(lab_caus, " -> ", "_"), ".csv") 
+      )
+    }
+  }
     
+  # Plot
+  p = df_plot %>% 
     ggplot(aes(x = trend, y = sign, fill = n)) +
     facet_wrap(~label_causal_rel, scales = "free") +
     geom_tile() +
     geom_text(aes(label = n), vjust = 0.5) +
     scale_fill_gradient(low = "#cccccc", high = "royalblue") +
     labs(title = "S-map coefficients", fill = "Number of\nstocks",
-         x = "Significance of the trend", y = "Significance of the\nmean S-map coefficients") +
+         x = "Significance of the trend of the S-map coefficients", 
+         y = "Significance of the sign\nof the S-map coefficients") +
     theme_light() +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
-          strip.text = element_text(size = 8))
+          strip.text = element_markdown(size = 8))
   
   return(p)
   
 }
-
-
 
 

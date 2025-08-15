@@ -72,9 +72,21 @@ CCM_vs_null = function(data, var_lib, var_target,
   for (this_E in E) {
     
     # On the original data
-    out_CCM_origin_this_E <- ccm(data, E = this_E, tp = tp, lib_column = var_lib, target_column = var_target, 
-                                       lib_sizes = libs, num_samples = num_boot_origin, replace = T, 
-                                       RNGseed = rd_seed, stats_only = stats_only)
+    if (packageVersion("rEDM") < "1") { # For instance version 0.7.4
+      out_CCM_origin_this_E <- ccm(data, E = this_E, tp = tp, 
+                                   lib_column = var_lib, target_column = var_target, 
+                                   lib_sizes = libs, num_samples = num_boot_origin, 
+                                   replace = T, RNGseed = rd_seed, stats_only = stats_only)
+    } else { # For instance version 1.15.4
+      out_CCM_origin_this_E <- CCM(dataFrame = data, E = this_E, Tp = tp, 
+                                   columns = var_lib, target = var_target, 
+                                   libSizes = paste0(libs, collapse = " "), sample = num_boot_origin,
+                                   seed = ifelse(is.null(rd_seed), 0, rd_seed),
+                                   includeData=TRUE)#, showPlot = TRUE)
+      out_CCM_origin_this_E = out_CCM_origin_this_E[["CCM1_PredictStat"]] %>% 
+        rename(lib_size = LibSize, mae = MAE, rmse = RMSE)
+    }
+    
     out.origin = out.origin %>% rbind(out_CCM_origin_this_E)
     
     # Summary df of the original data
@@ -117,15 +129,35 @@ CCM_vs_null = function(data, var_lib, var_target,
     
     # On the null model
     for (i in 1:num_shuffle_null) {
-      out_CCM_this_null_this_E = ccm(dat.shuffle, E = this_E, tp = tp, 
-                                     lib_column = paste0(var_lib, ".s", formatC(i, width = nchar(num_shuffle_null), flag = "0")), 
-                                     target_column = paste0(var_target, ".s", formatC(i, width = nchar(num_shuffle_null), flag = "0")),
-                                     lib_sizes = libs, num_samples = 1, replace = T, RNGseed = rd_seed)
+      
+      this_col_lib_shuffle = paste0(var_lib, ".s", formatC(i, width = nchar(num_shuffle_null), flag = "0"))
+      this_col_target_shuffle = paste0(var_target, ".s", formatC(i, width = nchar(num_shuffle_null), flag = "0"))
+      
+      if (packageVersion("rEDM") < "1") { # For instance version 0.7.4
+        out_CCM_this_null_this_E <- ccm(dat.shuffle[, c(this_col_lib_shuffle, this_col_target_shuffle)], 
+                                        E = this_E, tp = tp,
+                                        lib_column = this_col_lib_shuffle, 
+                                        target_column = this_col_target_shuffle,
+                                        lib_sizes = libs, num_samples = 1, 
+                                        replace = T, RNGseed = rd_seed)
+      } else { # For instance version 1.15.4
+        out_CCM_this_null_this_E <- CCM(dataFrame = dat.shuffle[, c(this_col_lib_shuffle, this_col_target_shuffle)], 
+                                        E = this_E, Tp = tp, 
+                                        columns = this_col_target_shuffle, 
+                                        target = this_col_target_shuffle,
+                                        libSizes = paste0(libs, collapse = " "), sample = 1,
+                                        seed = ifelse(is.null(rd_seed), 0, rd_seed),
+                                        includeData=TRUE, noTime = TRUE)#, showPlot = TRUE)
+        out_CCM_this_null_this_E = out_CCM_this_null_this_E[["CCM1_PredictStat"]] %>% 
+          rename(lib_size = LibSize, mae = MAE, rmse = RMSE)
+      }
+      
       out.null = out.null %>% rbind(
         out_CCM_this_null_this_E %>% 
           mutate(shuffle = i, lib_column = var_lib, target_column = var_target)
       )
     }
+    
     out_CCM_all_null_this_E = out.null %>% filter(E == this_E)
     
     # Summary df of the null model

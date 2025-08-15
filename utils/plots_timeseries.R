@@ -4,7 +4,7 @@ library(ggplot2)
 
 
 ggplot_timeseries_one_stock = function(data, variables, labels_of_variables, id = NA, 
-                                       time = "year", scale = TRUE) {
+                                       time = "year", scale = TRUE, hide_ylabel = FALSE) {
   
   data = data[, c(time, variables)]
   colnames(data)[1] = "time"
@@ -22,9 +22,11 @@ ggplot_timeseries_one_stock = function(data, variables, labels_of_variables, id 
     ggplot(aes(x = time, y = value, color = variable)) +
     geom_line() +
     labs(title = paste0("Time series", ifelse(is.na(id), "", paste0(" (id = ", id, ")"))),
-         x = "Time", y = "Value", color = "Variable") +
+         x = "Year", y = "Value", color = "Variable") +
     theme_light() + 
     theme(legend.position = "bottom")
+  
+  if (hide_ylabel) p = p + theme(axis.text.y = element_blank())
     
   return(p)
   
@@ -64,7 +66,7 @@ ggplot_timeseries_durations_hist = function(data, id_timeseries, time = "year") 
   
   p = ggplot(data, aes(x = duration)) +
     geom_histogram(fill = "#aaaaaa", color = "#555555", bins = 15) +
-    labs(title = "Time series durations", x = "Duration", y = "Count") +
+    labs(title = "Time series durations", x = "Duration (years)", y = "Count") +
     theme_light()
     
   return(p)
@@ -107,9 +109,6 @@ ggplot_timeseries_piechart = function(data, id_timeseries, variable, labels_of_v
   return(p)
   
 }
-
-
-
 
 
 
