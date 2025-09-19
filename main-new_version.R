@@ -22,10 +22,10 @@ source("utils/plots_map.R")
 
 # * * * Choose the parameters * * *
 
-import_CCM = TRUE
-import_smap = TRUE
-# import_CCM = FALSE
-# import_smap = FALSE
+# import_CCM = TRUE
+# import_smap = TRUE
+import_CCM = FALSE
+import_smap = FALSE
 
 suffix_name_exe = "article-SProd-RAMv4_66"
 list_of_causality_tested = list(
@@ -34,7 +34,7 @@ list_of_causality_tested = list(
   c("prodbest.divTB", "sst.z"),
   c("prodbest.divTB", "UdivUmsypref")
 )
-date_time_exe = "20250801_141300"
+# date_time_exe = "20250801_141300"
 
 # suffix_name_exe = "article-Recruitment-RAMv4_66"
 # list_of_causality_tested = list(
@@ -56,7 +56,7 @@ types_plots = c("pdf", "png")
 
 # date_time_exe = "20250728_145828"
 # date_time_exe = "20250729_213416"
-# date_time_exe = format(Sys.time(), "%Y%m%d_%H%M%S")
+date_time_exe = format(Sys.time(), "%Y%m%d_%H%M%S")
 
 # * * * Automatically set up some parameters * * *
 
