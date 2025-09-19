@@ -363,11 +363,11 @@ if (!import_CCM) {
           scale_color_manual(values = c("red", "#444")) +
           scale_fill_manual(values = c("red", "#444")) +
           labs(title = paste0("CCM for ", this_id, ": ", labels_of_variables[[var_target]], 
-                              " (quasi)causing ", labels_of_variables[[var_lib]]), 
+                              " causing ", labels_of_variables[[var_lib]]), 
                x = "Library Size", y = "Cross Mapping Skill (rho)", 
                color = "Timeseries", fill = "Timeseries") + 
           annotate("text", x = Inf, y = -Inf, vjust = -1.3, hjust = 1.1, size = 3.5, 
-                   label = paste0(labels_of_variables[[var_target]], " (quasi)causing ", labels_of_variables[[var_lib]])) +
+                   label = paste0(labels_of_variables[[var_target]], " causing ", labels_of_variables[[var_lib]])) +
           theme_light() + coord_cartesian(clip = "off") + 
           theme(plot.title = element_text(size = 10), legend.position = "top") + 
           guides(fill = "none", color = "none")
@@ -459,11 +459,26 @@ write.csv(res_causality, paste0(dir_out, "computations/03-res_causality.csv"), r
 
 # * * * Plot causality * * *
 
-order_rel = list_of_causality_tested %>% 
-  map_chr(~ paste0(labels_of_variables[[.x[1]]], " to ", labels_of_variables[[.x[2]]]))
+if (identical(list_of_causality_tested, list(c("sst.z", "prodbest.divTB"),
+                                             c("UdivUmsypref", "prodbest.divTB"),
+                                             c("prodbest.divTB", "sst.z"),
+                                             c("prodbest.divTB", "UdivUmsypref")) ) ) {
+  order_rel = c("HRate\ncausing\nSProd", "SProd\ncausing\nHRate", "SST\ncausing\nSProd", "SProd\ncausing\nSST")
+  x_positions <- c(
+    "HRate\ncausing\nSProd" = 1,
+    "SProd\ncausing\nHRate" = 2,
+    "SST\ncausing\nSProd"   = 3.7,  # Gap after x=2
+    "SProd\ncausing\nSST"   = 4.7
+  )
+} else {
+  order_rel = list_of_causality_tested %>%
+    map_chr(~ paste0(labels_of_variables[[.x[1]]], "\ncausing\n", labels_of_variables[[.x[2]]]))
+  x_positions <- setNames(1:length(order_rel), order_rel)
+}
+
 
 tmp = res_causality %>% 
-  mutate(rel = paste0(labels_of_variables[var_cause], " to ", labels_of_variables[var_consequence])) %>%
+  mutate(rel = paste0(labels_of_variables[var_cause], "\ncausing\n", labels_of_variables[var_consequence])) %>%
   mutate(rel = factor(rel, levels = unique(order_rel))) %>%
   group_by(rel, causality) %>%
   summarise(n = n(), .groups = "drop")
@@ -474,30 +489,39 @@ for (i in 1:nrow(tmp)) {
     tmp %>% filter( (rel == tmp$rel[i]) & (causality %in% c("Yes", "No")) ) %>% 
     pull(n) %>% sum()
 }
-  
+
 p.fig4 = tmp %>% filter(causality %in% c("Yes", "No")) %>% 
-  ggplot(aes(x = rel, y = n, fill = causality)) +
+  mutate(x_pos = x_positions[as.character(rel)]) %>% 
+  ggplot(aes(x = x_pos, y = n, fill = causality)) +
   geom_bar(stat = "identity", position = position_stack(reverse = TRUE), color = "#444444") +
   geom_text(aes(label = paste0(round(percentage, 1), "%")), color = "#444444", 
             position = position_stack(vjust = 0.5, reverse = TRUE), size = 3) +
   scale_fill_manual(values = c("Yes" = "#97d89a", "No" = "#de7371", "Not relevant" = "#999999")) +
-  labs(title = "Causality tests results", x = "Causality relation", y = "Count", fill = "Causality?") +
+  labs(title = "Causality tests results", x = "Causal relationship", y = "Count", fill = "Causality?") +
   theme_light() + 
-  theme(axis.text.x = element_markdown(angle = 30, hjust = .7, vjust = .7)) + 
+  # theme(axis.text.x = element_text(angle = 45, hjust = .7, vjust = .7)) + 
   annotate("text", x = -Inf, y = Inf, label = "(a)", vjust = 0.7, hjust = 2, size = 5, fontface = "bold") + 
   # annotate("text", x = Inf, y = Inf, label = "(a)", vjust = 1.5, hjust = -1.5, size = 5, fontface = "bold") + 
-  coord_cartesian(clip = "off")
+  coord_cartesian(clip = "off") + 
+  scale_x_continuous(breaks = x_positions, labels = names(x_positions), limits = c(min(x_positions)-0.5, max(x_positions)+0.5)) +
+  theme(axis.text.x = element_text(angle = 0, hjust = .5, vjust = .5)) + 
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
 
-  
 if (!plots_with_titles) p.fig4 = p.fig4 + labs(title = NULL, subtitle = NULL)
 print(p.fig4)
 
 for (typ in types_plots) {
   ggsave(p.fig4, filename = paste0(dir_out, typ, "/fig4-causality_tests_results.", typ),
-         device = typ, width = 5, height = 4)
+         device = typ, width = 5.5, height = 4)
 }
 
 
+
+print(
+  res_causality %>% mutate(rel = paste0(var_cause, " to ", var_consequence)) %>% 
+    filter(causality != "Not relevant") %>% 
+    group_by(rel) %>% summarize(n = n())
+)
 
 
 
@@ -749,6 +773,7 @@ for (this_id in all_ids) {
       #                "P-value slope = ", sprintf("%4.2e", this_trend_p_val) )
       annot = paste0("Mean strength = ", sprintf("%4.2e", this_mean_strength), " (p-val = ", sprintf("%4.2e", this_t_test_p_val), ")\n",
                      "Linear slope = ", sprintf("%4.2e", this_trend_slope), " (p-val = ", sprintf("%4.2e", this_trend_p_val), ")" )
+      txt_rel = paste0(labels_of_variables[this_var_cause], " causing ", labels_of_variables[this_var_consequence])
       color_mean = ifelse(this_t_test_p_val >= 0.05, "#444444", 
                           ifelse(this_mean_strength > 0, "royalblue", "#ef8004"))
       color_slope = ifelse(this_trend_p_val >= 0.05, "#444444", 
@@ -759,6 +784,7 @@ for (this_id in all_ids) {
         geom_line() + geom_point() +
         geom_hline(yintercept = this_mean_strength, linetype = "dashed", color = color_mean) +
         annotate("text", x = min(this_smap$time, na.rm=T), y = mean(this_smap$strength, na.rm=T), hjust = 0, vjust = -0.5, label = "Mean", color = color_mean) +
+        annotate("text", x = Inf, y = Inf, vjust = 2.7, hjust = 1.05, size = 3.5, label = txt_rel) +
         geom_label(aes(x = x, y = y, label = txt), data = data.frame(x = -Inf, y = -Inf, txt = annot), 
                    hjust = -0.03, vjust = -0.3, size = 3.5, color = "#444444",
                    fill = "white", label.padding = unit(0.4, "lines")) +
@@ -877,23 +903,26 @@ p.fig5 = res_test_smap %>%
   group_by(var_cause, var_consequence, mean, trend) %>%
   summarise(n = n(), .groups = "drop") %>% 
   mutate(rel = paste0(labels_of_variables[var_cause], " to ", labels_of_variables[var_consequence])) %>%
-  mutate(rel = factor(rel, levels = order_rel)) %>%
+  mutate(rel = factor(rel, levels = order_rel[1:2])) %>%
   
   mutate(trend = factor(ifelse(trend == "Positive", "Increasing", 
                                ifelse(trend == "Negative", "Decreasing", "Stable")),
                         levels = c("Decreasing", "Stable", "Increasing")),
          mean = factor(ifelse(mean == "Not significant", "Neutral", mean),
                        levels = c("Negative", "Neutral", "Positive"))) %>%
+  # Add row if there is no data
+  complete(rel, mean, trend, fill = list(n = 0)) %>% 
   
   
   ggplot(aes(x = trend, y = mean, fill = n)) +
   facet_wrap(~rel, scales = "free") +
   geom_tile() + geom_text(aes(label = n), vjust = 0.5) +
-  scale_fill_gradient(low = "#cccccc", high = "royalblue") +
+  scale_fill_gradient(low = "#ffffff", high = "royalblue") +
   labs(title = "S-map coefficients", fill = "Number of\nstocks", x = "Trend", y = "Sign") +
   theme_light() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
-        strip.text = element_markdown(size = 8))
+        strip.text = element_markdown(size = 8),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank())
 p.fig5 = p.fig5 + plot_annotation(tag_levels = list("(a)")) &
   theme(plot.tag = element_text(size = 14, face = "bold"), plot.tag.position = c(0.03, 0.98))
 if (!plots_with_titles) p.fig5 = p.fig5 + labs(title = NULL, subtitle = NULL)
@@ -999,6 +1028,145 @@ for (typ in types_plots) {
 }
 
 
+
+# * * * Links between causalities * * *
+if (identical(list_of_causality_tested, list(c("sst.z", "prodbest.divTB"),
+                                             c("UdivUmsypref", "prodbest.divTB"),
+                                             c("prodbest.divTB", "sst.z"),
+                                             c("prodbest.divTB", "UdivUmsypref")) ) ) {
+  df_biplot = left_join(
+    res_causality %>% 
+      filter(var_cause %in% c("sst.z", "UdivUmsypref"), var_consequence %in% "prodbest.divTB"), 
+    res_test_smap %>% 
+      filter(var_cause %in% c("sst.z", "UdivUmsypref"), var_consequence %in% "prodbest.divTB"), 
+    by = c("id_timeseries", "var_cause", "var_consequence")
+  ) %>%
+    mutate(label_all = case_when(
+      mean == "Negative" & trend == "Negative" ~ "Negative decreasing",
+      mean == "Negative" & trend == "Not significant" ~ "Negative stable",
+      mean == "Negative" & trend == "Positive" ~ "Negative increasing",
+      mean == "Positive" & trend == "Negative" ~ "Positive decreasing",
+      mean == "Positive" & trend == "Not significant" ~ "Positive stable",
+      mean == "Positive" & trend == "Positive" ~ "Positive increasing",
+      mean == "Not significant" & trend == "Negative" ~ "Neutral decreasing",
+      mean == "Not significant" & trend == "Not significant" ~ "Neutral stable",
+      mean == "Not significant" & trend == "Positive" ~ "Neutral increasing"
+    )) %>% 
+    mutate(var_cause = factor(var_cause, levels = c("UdivUmsypref", "sst.z"), labels = c("HRate", "SST")))
+  
+  color.palette.caus = c("Yes" = "#97d89a", "No" = "#de7371", "Not relevant" = "#444444")
+  color.palette.all = c(
+    "Negative decreasing" = "#8B2300",  # Darker orange-red for negative decreasing
+    "Negative stable" = "#FF9933",      # Mid-tone orange for negative stable
+    "Negative increasing" = "#FFCC99",  # Light orange for negative increasing
+    
+    "Positive decreasing" = "#003366",  # Dark blue for positive decreasing
+    "Positive stable" = "#3399FF",      # Mid-tone blue for positive stable
+    "Positive increasing" = "#99CCFF",  # Light blue for positive increasing
+    
+    "Neutral decreasing" = "#4C1130",   # Dark purple for neutral decreasing
+    "Neutral stable" = "#996699",       # Mid-tone purple for neutral stable
+    "Neutral increasing" = "#C99EC9"    # Light purple for neutral increasing
+  )
+  
+  p.fig.Add7a = df_biplot %>%
+    filter(causality == "Yes") %>%
+    # dplyr::select(id_timeseries, var_cause, var_consequence, causality,
+    #               mean_strength, t_test_statistic, t_test_p_val, trend_intercept,
+    #               trend_slope, trend_p_val, trend_R2, mean, trend) %>%
+    dplyr::select(id_timeseries, var_cause, trend_slope, mean) %>%
+    mutate(mean = ifelse(mean == "Not significant", "Neutral", mean)) %>% 
+    pivot_wider(names_from = var_cause, values_from = c(trend_slope, mean)) %>%
+    ggplot(aes(x = trend_slope_HRate, y = trend_slope_SST)) +
+    geom_point(aes(color = mean_HRate, shape = mean_SST), size = 3) +
+    ggrepel::geom_text_repel(aes(label = id_timeseries), size = 3) + 
+    scale_color_manual(values = c("Negative" = "#FF9933", "Neutral" = "#996699", "Positive" = "#3399FF"), 
+                       name = "Sign mean\nHRate") +
+    scale_shape_manual(values = c("Negative" = 17, "Neutral" = 16, "Positive" = 15),
+                       name = "Sign mean\nSST") +
+    labs(x = "Slope of S-map coefficients for HRate causing Productivity",
+         y = "Slope of S-map coefficients for SST causing Productivity") +
+    theme_light()
+  print(p.fig.Add7a)
+  for (typ in types_plots) {
+    ggsave(p.fig.Add7a, filename = paste0(dir_out, typ, "/figAdd7a-scatter_slopes_means_both_causes.", typ),
+           device = typ, width = 6, height = 5)
+  }
+    
+  tmp_df_plot = df_biplot %>%
+    filter(causality == "Yes") %>%
+    dplyr::select(id_timeseries, var_cause, mean_strength, trend) %>%
+    mutate(trend = ifelse(trend == "Positive", "Increasing", 
+                          ifelse(trend == "Negative", "Decreasing", 
+                                 ifelse(trend == "Not significant", "Stable", trend)))) %>%
+    pivot_wider(names_from = var_cause, values_from = c(mean_strength, trend)) %>%
+    na.omit()
+  x_range = range(tmp_df_plot$mean_strength_HRate, na.rm = TRUE)
+  x_abs_bound = max(-( x_range[1] - diff(x_range) * 0.1 ), x_range[2] + diff(x_range) * 0.1)
+  y_range = range(tmp_df_plot$mean_strength_SST, na.rm = TRUE)
+  y_abs_bound = max(-( y_range[1] - diff(y_range) * 0.1 ), y_range[2] + diff(y_range) * 0.1)
+  p.fig.Add7b = ggplot(tmp_df_plot, aes(x = mean_strength_HRate, y = mean_strength_SST)) +
+    geom_point(aes(color = trend_HRate, fill = trend_HRate, shape = trend_SST), size = 3) +
+    ggrepel::geom_text_repel(aes(label = id_timeseries), size = 3, max.overlaps = 15) +
+    coord_cartesian(xlim = c(-x_abs_bound, x_abs_bound), ylim = c(-y_abs_bound, y_abs_bound)) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "#666") +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "#666") +
+    scale_color_manual(values = c("Decreasing" = "#FF9933", "Stable" = "#996699", "Increasing" = "#3399FF"), 
+                       name = "Sign trend\nHRate") +
+    scale_fill_manual(values = c("Decreasing" = "#FF9933", "Stable" = "#996699", "Increasing" = "#3399FF"), 
+                       name = "Sign trend\nHRate") +
+    scale_shape_manual(values = c("Decreasing" = 25, "Stable" = 16, "Increasing" = 24),
+                       name = "Sign trend\nSST") +
+    guides(shape = guide_legend(override.aes = list(fill = "black"))) + 
+    labs(x = "Mean of S-map coefficients for HRate causing Productivity",
+         y = "Mean of S-map coefficients for SST causing Productivity") +
+    theme_light()
+  print(p.fig.Add7b)
+  for (typ in types_plots) {
+    ggsave(p.fig.Add7b, filename = paste0(dir_out, typ, "/figAdd7b-scatter_slopes_means_both_causes.", typ),
+           device = typ, width = 8, height = 7)
+  }
+  
+  library(ggalluvial)
+  
+  p.fig7a = df_biplot %>% 
+    dplyr::select(id_timeseries, var_cause, causality) %>% 
+    ggplot(aes(x = var_cause, stratum = causality, alluvium = id_timeseries, y = 1, fill = causality)) +
+    scale_x_discrete(expand = c(0.5, 0)) + 
+    geom_flow() +
+    geom_stratum(alpha = 0.5) +
+    geom_text(stat = "stratum", aes(label = after_stat(stratum)), size = 3) +
+    scale_fill_manual(values = color.palette.caus) +
+    scale_y_reverse() +
+    labs(x = "Causal Variable", y = "Count", fill = "Causality") +
+    theme_minimal() +
+    theme(legend.position = "right", axis.text.y = element_blank(), axis.ticks.y = element_blank())
+  
+  print(p.fig7a)
+  for (typ in types_plots) {
+    ggsave(p.fig7a, filename = paste0(dir_out, typ, "/fig7a-biplot_causality_both_causes.", typ),
+           device = typ, width = 7, height = 4)
+  }
+  
+  p.fig7b = df_biplot %>% 
+    filter(causality == "Yes") %>% 
+    dplyr::select(id_timeseries, var_cause, label_all) %>% 
+    ggplot(aes(x = var_cause, stratum = label_all, alluvium = id_timeseries, y = 1, fill = label_all)) +
+    scale_x_discrete(expand = c(0.2, 0)) + 
+    geom_flow() +
+    geom_stratum(alpha = 0.5) +
+    geom_text(stat = "stratum", aes(label = after_stat(stratum)), size = 2.2) +
+    scale_fill_manual(values = color.palette.all) +
+    labs(x = "Causal Variable", y = "Count", fill = "Sign and Trend") +
+    theme_minimal() +
+    theme(legend.position = "right", axis.text.y = element_blank(), axis.ticks.y = element_blank())
+  
+  print(p.fig7b)
+  for (typ in types_plots) {
+    ggsave(p.fig7b, filename = paste0(dir_out, typ, "/fig7b-biplot_sign_trend_both_causes.", typ),
+           device = typ, width = 7, height = 4)
+  }
+}
 
 
 # * * * Map of pie charts of causality * * *
