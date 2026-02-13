@@ -9,10 +9,14 @@ out/20240923-test/*
 !out/20240923-test/computations/
 
 comparison Pierre et al/boundaries_pierre_et_al
-data/RAMLDB v4.64/
-data/RAMLDB v4.66/
-data/traits/*
-!data/traits/traits_export_simplif.rds
+
+data/*
+!data/timeseries_clean-v4.66.csv
+!data/timeseries_clean-v4.66.RData
+!data/SST_on_fishstocks-1e_yearly_had_sst.csv
+!data/traits/
+data/traits/traits_subset-traj_SProd_classif_traits.csv
+
 params/
 
 
