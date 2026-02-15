@@ -33,6 +33,38 @@ ggplot_timeseries_one_stock = function(data, variables, labels_of_variables, id 
 }
 
 
+ggplot_timeseries_multiple_stock = function(data, variables, labels_of_variables, name_id_timeseries = "stockid", 
+                                            name_time = "year", scale = TRUE, hide_ylabel = FALSE, n_cols = 5) {
+  
+  data = data[, c(name_time, name_id_timeseries, variables)]
+  colnames(data)[1] = "time"
+  colnames(data)[2] = "id"
+  
+  if (scale) {
+    for (var in variables) {
+      data[[var]] = scale(data[[var]])[, 1]
+    }
+  }
+  
+  p = data %>% 
+    pivot_longer(-c(time, id), names_to = "variable", values_to = "value") %>%
+    mutate(variable = recode(variable, !!!labels_of_variables)) %>%
+    
+    ggplot(aes(x = time, y = value, color = variable)) +
+    facet_wrap(~id, ncol = n_cols, scales = "free") +
+    geom_line() +
+    labs(title = "Time series for each stock",
+         x = "Year", y = "Value", color = "Variable") +
+    theme_light() + 
+    theme(legend.position = "bottom")
+  
+  if (hide_ylabel) p = p + theme(axis.text.y = element_blank())
+  
+  return(p)
+  
+}
+
+
 ggplot_timeseries_durations = function(data, id_timeseries, time = "year", size_y_axis = 8) {
   
   data = data %>% 

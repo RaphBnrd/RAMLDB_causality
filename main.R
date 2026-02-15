@@ -183,6 +183,39 @@ for (this_id.p.fig1b in ids_single_plots) {
 }
 
 
+# * * * Timeseries for all stocks * * *
+
+# All unique ids
+all_ids <- unique(df[[name_id_timeseries]])
+id_batches <- split(all_ids, ceiling(seq_along(all_ids) / 40))
+
+# Loop over batches
+for (i in seq_along(id_batches)) {
+  
+  tmp_ids_this_plot <- id_batches[[i]]
+  n_cols = 5
+  n_rows = ceiling(length(tmp_ids_this_plot) / n_cols)
+  
+  p.figAdd0 = ggplot_timeseries_multiple_stock(
+    df[df[[name_id_timeseries]] %in% tmp_ids_this_plot, ], 
+    unique(unlist(list_of_causality_tested)), 
+    labels_of_variables, 
+    name_id_timeseries = name_id_timeseries, 
+    name_time = name_time, 
+    scale = TRUE, 
+    hide_ylabel = FALSE,
+    n_cols = n_cols
+  )
+  
+  print(p.figAdd0)
+  
+  for (typ in types_plots) {
+    ggsave(p.figAdd0, 
+           filename = paste0(dir_out, typ, "/figAdd0-timeseries_all_stocks-page", i, ".", typ),
+           device = typ, width = n_cols*3, height = n_rows*2)
+  }
+}
+
 
 # Simplex projection ------------------------------------------------------
 
@@ -364,15 +397,21 @@ if (!import_CCM) {
           theme_light() + coord_cartesian(clip = "off") + 
           theme(plot.title = element_text(size = 10), legend.position = "top") + 
           guides(fill = "none", color = "none")
+        
         if (i == 1) {
-          p.fig2 = p.fig2 + 
-            annotate("text", x = -Inf, y = Inf, vjust = 0.9, hjust = 1.75, size = 5,
-                     label = "(a) ", fontface = "bold")
+          legend_letter = "(a) " 
         } else if (i == 3) {
+          legend_letter = "(b) " 
+        } else if (i == 2) { 
+          legend_letter = "\n(c)"
+        } else { 
+          legend_letter = "\n(d)"
+        }
+        
           p.fig2 = p.fig2 + 
             annotate("text", x = -Inf, y = Inf, vjust = 0.9, hjust = 1.75, size = 5,
-                     label = "(b) ", fontface = "bold")
-        }
+                   label = legend_letter, fontface = "bold")
+        
         if (!plots_with_titles) p.fig2 = p.fig2 + labs(title = NULL, subtitle = NULL)
         print(p.fig2)
         for (typ in types_plots) {
@@ -838,14 +877,14 @@ for (this_id in all_ids) {
       if (unique(this_smap$var_cause) == "sst.z" & 
           unique(this_smap$var_consequence) == "prodbest.divTB") {
         p.fig3 = p.fig3 +
-          annotate("text", x = -Inf, y = Inf, vjust = 1, hjust = 2.7, size = 5,
-                   label = "(a)", fontface = "bold") +
+          annotate("text", x = -Inf, y = Inf, vjust = 1, hjust = 2.4, size = 5,
+                   label = "(b)", fontface = "bold") +
           coord_cartesian(clip = "off")
       } else if (unique(this_smap$var_cause) == "UdivUmsypref" & 
                  unique(this_smap$var_consequence) == "prodbest.divTB") {
         p.fig3 = p.fig3 +
           annotate("text", x = -Inf, y = Inf, vjust = 1, hjust = 2.03, size = 5,
-                   label = "(b)", fontface = "bold") +
+                   label = "(a)", fontface = "bold") +
           coord_cartesian(clip = "off")
       }
       print(p.fig3)
