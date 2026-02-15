@@ -41,28 +41,28 @@ df_comparison = data.frame(
     "Pleuronectes platessa", "Pleuronectes platessa", "Pollachius virens", "Pollachius virens",
     "Solea vulgaris", "Thunnus thynnus"
   ),
-  stock_them = c(
+  stock_pierre2018 = c(
     "Irish Sea (VIIa)", "Norwegian spring spawning (NSS)", 
     "Baltic (25-32)", "Barents", "Faroe", "Iceland", "Irish Sea (VIIa)", "North Sea", 
     "Arctic", "Faroe", "North Sea", 
     "Irish Sea (VIIa)", "North Sea", "Arctic", "Faroe", 
     "North Sea", "Eastern Atlantic"
   ),
-  stock_us = c(
+  stock_here = c(
     "HERRNIRS", "HERRNORSS", 
     "CODBA2532", "CODNEAR", "CODFAPL", "CODICE", "CODIS", "CODIIIaW-IV-VIId", 
     "HADNEAR", "HADFAPL", "HADNS-IIIa", 
     "PLAICIS", "PLAICNS", "POLLNEAR", "POLLFAPL", 
     "", "ATBTUNAEATL"
   ),
-  cause_R_tau_them = c(
+  cause_R_tau_pierre2018 = c(
     -0.9, -1, 
     -1, -1, -0.62, -0.93, -1, -1, 
     -0.89, -0.9, -0.73, 
     -1, -1, -1, -1, 
     -0.79, -1
   ),
-  cause_R_pval_them = c(
+  cause_R_pval_pierre2018 = c(
     .01, 2.62e-5,
     .01, 2.63e-4, .07, 1.98e-3, .01, .01,
     1.23e-3, .01, .06,
@@ -70,7 +70,7 @@ df_comparison = data.frame(
     .01, 2.63e-4
   )
 ) %>% 
-  mutate(cause_R_them = (cause_R_pval_them < 0.05) & (cause_R_tau_them < -.95))
+  mutate(cause_R_pierre2018 = (cause_R_pval_pierre2018 < 0.05) & (cause_R_tau_pierre2018 < -.95))
                                
 
 # Merge the results -------------------------------------------------------
@@ -79,13 +79,13 @@ df_comparison = df_comparison %>%
   left_join(res.ccm.prod.assessment %>% 
               dplyr::select(stockid, causality, CCM_kendall_tau, CCM_kendall_pval) %>% 
               mutate(causality = ifelse(causality == "Yes", TRUE, ifelse(causality == "No", FALSE, causality))) %>%
-              rename(cause_prod_us = causality, cause_prod_tau_us = CCM_kendall_tau, cause_prod_pval_us = CCM_kendall_pval),
-            by = c("stock_us" = "stockid")) %>%
+              rename(cause_prod_here = causality, cause_prod_tau_here = CCM_kendall_tau, cause_prod_pval_here = CCM_kendall_pval),
+            by = c("stock_here" = "stockid")) %>%
   left_join(res.ccm.R.assessment %>% 
               dplyr::select(stockid, causality, CCM_kendall_tau, CCM_kendall_pval) %>% 
               mutate(causality = ifelse(causality == "Yes", TRUE, ifelse(causality == "No", FALSE, causality))) %>%
-              rename(cause_R_us = causality, cause_R_tau_us = CCM_kendall_tau, cause_R_pval_us = CCM_kendall_pval),
-            by = c("stock_us" = "stockid"))
+              rename(cause_R_here = causality, cause_R_tau_here = CCM_kendall_tau, cause_R_pval_here = CCM_kendall_pval),
+            by = c("stock_here" = "stockid"))
 
 write.csv(df_comparison, "out/comparison_with_pierre_et_al_2018.csv", row.names = FALSE)
 
@@ -110,7 +110,7 @@ generate_latex_table <- function(df) {
 }
 
 df_comparison %>%
-  dplyr::select(species, stock_them, stock_us, cause_R_them, cause_R_us, cause_prod_us) %>% 
+  dplyr::select(species, stock_pierre2018, stock_here, cause_R_pierre2018, cause_R_here, cause_prod_here) %>% 
   generate_latex_table()
 
-# df_comparison %>%dplyr::select(species, stock_them, stock_us, cause_R_them, cause_R_us, cause_prod_us) %>% View()
+# df_comparison %>%dplyr::select(species, stock_pierre2018, stock_here, cause_R_pierre2018, cause_R_here, cause_prod_here) %>% View()
