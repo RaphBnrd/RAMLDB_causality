@@ -1,6 +1,6 @@
 rm(list = ls())
 
-library(tidyverse)
+library(tidyverse) 
 library(jsonlite)
 library(progress) # For the progress bars
 
@@ -988,7 +988,7 @@ p.fig5b = tmp %>%
        x = "Slope of S-map coefficients", y = "Mean S-map coefficient") +
   theme_light() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
-        strip.text = element_markdown(size = 8),
+        strip.text = element_markdown(size = 8), 
         plot.title = element_text(size=16, hjust = 0.5),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
   plot_annotation(tag_levels = list("(b)")) +
