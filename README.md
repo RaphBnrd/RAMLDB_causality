@@ -51,7 +51,7 @@ The `plots_map.R` and `plots_timeseries.R` scripts contain functions to easily p
 
 ## Main analysis
 
-The main analysis is performed in the `main-new_version.R` script. All the outputs of the analysis are stored in the `out/[suffix_name_exe]-[date_time_exe]/` folder.
+The main analysis is performed in the `main.R` script. All the outputs of the analysis are stored in the `out/[suffix_name_exe]-[date_time_exe]/` folder.
 
 **The overall results of the causality analysis (CCM and S-map) are exported in `[output_folder]/csv/all_res.csv`.**
 
