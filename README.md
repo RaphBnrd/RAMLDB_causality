@@ -47,6 +47,8 @@ Traits RDS data are available in `data/traits/traits_export_simplif.rds`.
 
 ## Utils
 
+The `plots_map.R` and `plots_timeseries.R` scripts contain functions to easily plot the dataset and the results of the analyses.
+
 ## Main analysis
 
 ## Comparison with Pierre et al. 's analysis
