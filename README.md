@@ -53,7 +53,22 @@ The `plots_map.R` and `plots_timeseries.R` scripts contain functions to easily p
 
 The main analysis is performed in the `main.R` script. All the outputs of the analysis are stored in the `out/[suffix_name_exe]-[date_time_exe]/` folder.
 
-**The overall results of the causality analysis (CCM and S-map) are exported in `[output_folder]/csv/all_res.csv`.**
+> **The overall results of the causality analysis (CCM and S-map) are exported in `[output_folder]/csv/all_res.csv`.**
+> This csv contains the results of the CCM and S-map analyses for each pair of variables and each stock. It contains the following columns:
+> - `stockid`: stock identifier
+> - `stocklong`: stock name
+> - `scientificname`: scientific name of the species
+> - `var_cause`: name of the variable considered as cause
+> - `var_consequence`: name of the variable considered as consequence
+> - `causality`: result of the causality test ("Yes", "No", or "Not relevant" if the Simplex projection got negative forecast skill for each embedding dimension tested)
+> - `CCM_test_above_surrogates`: result of the test comparing the CCM results with the surrogate data (TRUE or FALSE)
+> - `CCM_kendall_tau`: Kendall tau of the test on the original data
+> - `CCM_kendall_pval`: p-value of the test on the original data
+> - `S_map_mean_coef`: mean coefficient of the S-map analysis
+> - `S_map_mean_ttest_pval`: p-value of the t-test on the S-map coefficients (testing whether the S-map coefficients are significantly different from 0)
+> - `S_map_trend_slope`: linear slope of the trend in the S-map coefficients over time
+> - `S_map_trend_pval`: p-value of the test on the trend in the S-map coefficients over time
+> - `S_map_trend_R2`: R2 of the linear regression on the trend in the S-map coefficients over time
 
 The sections of the code are explained below.
 
