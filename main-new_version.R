@@ -2,7 +2,7 @@ rm(list = ls())
 
 library(tidyverse)
 library(jsonlite)
-library(progress)
+library(progress) # For the progress bars
 
 library(ggplot2)
 library(ggtext)
@@ -16,17 +16,15 @@ source("utils/plots_timeseries.R")
 source("utils/plots_map.R")
 
 
-
-
 # Parameters of execution -------------------------------------------------
 
 # * * * Choose the parameters * * *
 
-# import_CCM = TRUE
-# import_smap = TRUE
-import_CCM = FALSE
-import_smap = FALSE
+set.seed(123) # Set a seed for reproducibility of the results
 
+# date_time_exe = format(Sys.time(), "%Y%m%d_%H%M%S")
+
+date_time_exe = "20260215_113834"
 suffix_name_exe = "article-SProd-RAMv4_66"
 list_of_causality_tested = list(
   c("sst.z", "prodbest.divTB"),
@@ -34,8 +32,8 @@ list_of_causality_tested = list(
   c("prodbest.divTB", "sst.z"),
   c("prodbest.divTB", "UdivUmsypref")
 )
-# date_time_exe = "20250801_141300"
 
+# date_time_exe = "20250808_131455"
 # suffix_name_exe = "article-Recruitment-RAMv4_66"
 # list_of_causality_tested = list(
 #   c("sst.z", "R"),
@@ -43,27 +41,25 @@ list_of_causality_tested = list(
 #   c("R", "sst.z"),
 #   c("R", "UdivUmsypref")
 # )
-# date_time_exe = "20250808_131455"
 
-path_dataframe_input = "data/datasets/df_timeseries_full-v4.66.csv"
+# import_CCM = TRUE
+# import_smap = TRUE
+import_CCM = FALSE
+import_smap = FALSE
+
+path_dataframe_input = "data/timeseries_clean-v4.66.csv"
+name_id_timeseries = "stockid" # Name of the column with the ID of the time series
+name_time = "year" # Name of the column with the time variable
 
 ids_single_plots = c("CALSCORPSCAL", "CHROCKSPCOAST", "BRNROCKPCOAST")
-ids_single_plots_test = c("BOCACCSPCOAST", "CHTRACCH", "CODBA2532", "DEEPCHAKESA", 
-                          "DKROCKPCOAST", "PILCHTSST", "SKJCIO", "SWORDNATL", 
-                          "YEYEROCKPCOAST", "YTROCKNPCOAST")
+
 plots_with_titles = FALSE
 types_plots = c("pdf", "png")
 
-# date_time_exe = "20250728_145828"
-# date_time_exe = "20250729_213416"
-date_time_exe = format(Sys.time(), "%Y%m%d_%H%M%S")
 
 # * * * Automatically set up some parameters * * *
 
 dir_out = paste0("out/", date_time_exe, "-", suffix_name_exe, "/")
-
-name_id_timeseries = "stockid" # Name of the column with the ID of the time series
-name_time = "year" # Name of the column with the time variable
 
 labels_of_variables = c(
   "sst" = "SST", 
@@ -90,9 +86,6 @@ for (typ in types_plots) {
 }
 if (!dir.exists(paste0(dir_out, "csv/"))) {
   dir.create(paste0(dir_out, "csv/")) # Create the directory for CSV outputs
-}
-if (!dir.exists(paste0(dir_out, "computations/"))) {
-  dir.create(paste0(dir_out, "computations/")) # Create the directory where we store the outputs of the computations
 }
 
 
@@ -122,7 +115,7 @@ info_stocks = df %>%
   dplyr::select(stockid, stocklong, assessid, scientificname, commonname, areaid, region) %>% 
   distinct()
 
-write.csv(info_stocks, paste0(dir_out, "computations/00-info_stocks.csv"), row.names = FALSE)    
+write.csv(info_stocks, paste0(dir_out, "csv/00-info_stocks.csv"), row.names = FALSE)    
 
 
 # * * * Map of pie charts of timeseries length * * *
@@ -274,7 +267,7 @@ for (this_id in all_ids) {
 res_E_opti = res_E_opti %>% 
   left_join(info_stocks, by = c("id_timeseries" = name_id_timeseries))
 
-write.csv(res_E_opti, paste0(dir_out, "computations/01-res_E_opti.csv"), row.names = FALSE)    
+write.csv(res_E_opti, paste0(dir_out, "csv/01-res_E_opti.csv"), row.names = FALSE)    
 
 
 p.figAdd2 <- ggplot(res_E_opti, aes(x = E_opti)) + 
@@ -395,10 +388,10 @@ if (!import_CCM) {
   res_CCM = res_CCM %>%
     left_join(info_stocks, by = c("id_timeseries" = name_id_timeseries))
 
-  write.csv(res_CCM, paste0(dir_out, "computations/02-res_CCM.csv"), row.names = FALSE)
+  write.csv(res_CCM, paste0(dir_out, "csv/02-res_CCM.csv"), row.names = FALSE)
 
 } else {
-  res_CCM = read.csv(paste0(dir_out, "computations/02-res_CCM.csv"))
+  res_CCM = read.csv(paste0(dir_out, "csv/02-res_CCM.csv"))
 }
 
 
@@ -454,7 +447,7 @@ res_causality = res_causality %>%
                                    ifelse(causality, "Yes", "No") ),
                             levels = c("Yes", "No", "Not relevant")))
 
-write.csv(res_causality, paste0(dir_out, "computations/03-res_causality.csv"), row.names = FALSE)
+write.csv(res_causality, paste0(dir_out, "csv/03-res_causality.csv"), row.names = FALSE)
 
 
 # * * * Plot causality * * *
@@ -490,7 +483,7 @@ for (i in 1:nrow(tmp)) {
     pull(n) %>% sum()
 }
 
-p.fig4 = tmp %>% filter(causality %in% c("Yes", "No")) %>% 
+p.fig4a = tmp %>% filter(causality %in% c("Yes", "No")) %>% 
   mutate(x_pos = x_positions[as.character(rel)]) %>% 
   ggplot(aes(x = x_pos, y = n, fill = causality)) +
   geom_bar(stat = "identity", position = position_stack(reverse = TRUE), color = "#444444") +
@@ -507,14 +500,62 @@ p.fig4 = tmp %>% filter(causality %in% c("Yes", "No")) %>%
   theme(axis.text.x = element_text(angle = 0, hjust = .5, vjust = .5)) + 
   theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
 
-if (!plots_with_titles) p.fig4 = p.fig4 + labs(title = NULL, subtitle = NULL)
-print(p.fig4)
+if (!plots_with_titles) p.fig4a = p.fig4a + labs(title = NULL, subtitle = NULL)
+print(p.fig4a)
 
 for (typ in types_plots) {
-  ggsave(p.fig4, filename = paste0(dir_out, typ, "/fig4-causality_tests_results.", typ),
+  ggsave(p.fig4a, filename = paste0(dir_out, typ, "/fig4a-causality_tests_results.", typ),
          device = typ, width = 5.5, height = 4)
 }
 
+
+if (identical(list_of_causality_tested, list(c("sst.z", "prodbest.divTB"),
+                                             c("UdivUmsypref", "prodbest.divTB"),
+                                             c("prodbest.divTB", "sst.z"),
+                                             c("prodbest.divTB", "UdivUmsypref")) ) ) {
+  tmp_b = res_causality %>% 
+    filter((var_cause == "sst.z" & var_consequence == "prodbest.divTB") |
+             (var_cause == "UdivUmsypref" & var_consequence == "prodbest.divTB")) %>%
+    mutate(rel = paste0(labels_of_variables[var_cause], "\ncausing\n", labels_of_variables[var_consequence])) %>%
+    mutate(rel = factor(rel, levels = unique(order_rel))) %>%
+    dplyr::select(id_timeseries, rel, causality) %>%
+    mutate(causality = ifelse(causality %in% c("No", "Not relevant"), 
+                              "No or Not relevant", as.character(causality))) %>%
+    pivot_wider(names_from = rel, values_from = causality) %>% 
+    mutate(group = case_when(
+      (`SST\ncausing\nSProd` == "Yes" & `HRate\ncausing\nSProd` == "Yes") ~ "Both",
+      (`SST\ncausing\nSProd` == "Yes" & `HRate\ncausing\nSProd` == "No or Not relevant") ~ "Only SST",
+      (`SST\ncausing\nSProd` == "No or Not relevant" & `HRate\ncausing\nSProd` == "Yes") ~ "Only HRate",
+      (`SST\ncausing\nSProd` == "No or Not relevant" & `HRate\ncausing\nSProd` == "No or Not relevant") ~ "None",
+      TRUE ~ "NA"
+    )) %>%
+    group_by(group) %>%
+    summarize(n = n()) %>% 
+    mutate(group = factor(group, levels = c("Both", "Only HRate", "Only SST", "None") )) %>% 
+    arrange(group) %>%
+    mutate(prop = 100 * n / sum(n))
+  
+  p.fig4b = tmp_b %>% 
+    ggplot(aes(x = "", y = -prop, fill = group)) +
+    geom_bar(stat = "identity", width = 1, color = "#444444", alpha=0.7) +
+    coord_polar("y", start = -pi/2) +
+    geom_text(aes(x = 1.22, label = paste0(round(prop, 1), "%\n(", n, " stocks)")), 
+              position = position_stack(vjust = 0.5), size = 3.3) +
+    labs(title = "Causality tests results", fill = "Causality?") +
+    theme_void() +
+    scale_fill_brewer(palette = "Dark2") + 
+    theme(legend.position = "right") +
+    annotate("text", x = -Inf, y = Inf, label = "(b)", vjust = -10, hjust = 7, 
+             size = 5, fontface = "bold")
+  
+  if (!plots_with_titles) p.fig4b = p.fig4b + labs(title = NULL, subtitle = NULL)
+  print(p.fig4b)
+  
+  for (typ in types_plots) {
+    ggsave(p.fig4b, filename = paste0(dir_out, typ, "/fig4b-causality_tests_results.", typ),
+           device = typ, width = 5.5, height = 4)
+  }
+}
 
 
 print(
@@ -652,10 +693,10 @@ if (!import_smap) {
   res_smap = res_smap %>% 
     left_join(info_stocks, by = c("id_timeseries" = name_id_timeseries))
   
-  write.csv(res_smap, paste0(dir_out, "computations/04-res_smap.csv"), row.names = FALSE)
+  write.csv(res_smap, paste0(dir_out, "csv/04-res_smap.csv"), row.names = FALSE)
   
 } else {
-  res_smap = read.csv(paste0(dir_out, "computations/04-res_smap.csv"))
+  res_smap = read.csv(paste0(dir_out, "csv/04-res_smap.csv"))
 }
 
 
@@ -814,30 +855,30 @@ for (this_id in all_ids) {
         filter(.data[[name_id_timeseries]] == this_id) %>%
         dplyr::select(all_of(c(name_time, this_var_cause, this_var_consequence))) %>% 
         rename(t = name_time, cause = this_var_cause, consequence = this_var_consequence)
-      p.fig3.bis = ggplot(this_df, aes(cause, consequence, color = t)) +
-        geom_point() + 
-        scale_color_viridis_c(option = "cividis") +
-        geom_smooth(method = "lm", color = "#444444", formula = y ~ x, se = FALSE,
-                    linetype = "dashed", linewidth = 0.5) +
-        labs(x = paste0(labels_of_variables[this_var_cause], " (observations)"), 
-             y = paste0(labels_of_variables[this_var_consequence], " (observations)"),
-             color = "Year") +
-        theme_light()
-      if (!plots_with_titles) p.fig3.bis = p.fig3.bis + labs(title = NULL, subtitle = NULL)
-      if (unique(this_smap$var_cause) == "sst.z" & 
-          unique(this_smap$var_consequence) == "prodbest.divTB") {
-        p.fig3.bis = p.fig3.bis +
-          annotate("text", x = -Inf, y = Inf, vjust = 1, hjust = 1.7, size = 6.5,
-                   label = "(a)", fontface = "bold") +
-          coord_cartesian(clip = "off")
-      } else if (unique(this_smap$var_cause) == "UdivUmsypref" & 
-                 unique(this_smap$var_consequence) == "prodbest.divTB") {
-        p.fig3.bis = p.fig3.bis +
-          annotate("text", x = -Inf, y = Inf, vjust = 1, hjust = 1.7, size = 6.5,
-                   label = "(b)", fontface = "bold") +
-          coord_cartesian(clip = "off")
-      }
-      print(p.fig3.bis)
+      # p.fig3.bis = ggplot(this_df, aes(cause, consequence, color = t)) +
+      #   geom_point() + 
+      #   scale_color_viridis_c(option = "cividis") +
+      #   geom_smooth(method = "lm", color = "#444444", formula = y ~ x, se = FALSE,
+      #               linetype = "dashed", linewidth = 0.5) +
+      #   labs(x = paste0(labels_of_variables[this_var_cause], " (observations)"), 
+      #        y = paste0(labels_of_variables[this_var_consequence], " (observations)"),
+      #        color = "Year") +
+      #   theme_light()
+      # if (!plots_with_titles) p.fig3.bis = p.fig3.bis + labs(title = NULL, subtitle = NULL)
+      # if (unique(this_smap$var_cause) == "sst.z" & 
+      #     unique(this_smap$var_consequence) == "prodbest.divTB") {
+      #   p.fig3.bis = p.fig3.bis +
+      #     annotate("text", x = -Inf, y = Inf, vjust = 1, hjust = 1.7, size = 6.5,
+      #              label = "(a)", fontface = "bold") +
+      #     coord_cartesian(clip = "off")
+      # } else if (unique(this_smap$var_cause) == "UdivUmsypref" & 
+      #            unique(this_smap$var_consequence) == "prodbest.divTB") {
+      #   p.fig3.bis = p.fig3.bis +
+      #     annotate("text", x = -Inf, y = Inf, vjust = 1, hjust = 1.7, size = 6.5,
+      #              label = "(b)", fontface = "bold") +
+      #     coord_cartesian(clip = "off")
+      # }
+      # print(p.fig3.bis)
       
       cat(paste0(
         "\nCorrelation between ", labels_of_variables[this_var_cause], " and ", 
@@ -852,8 +893,8 @@ for (this_id in all_ids) {
         #        device = typ, width = 6, height = 4)
         ggsave(p.fig3, filename = paste0(dir_out, typ, "/fig3-smap_strength_of_influence-", this_id, "-", this_var_cause, "_to_", this_var_consequence, ".", typ),
                device = typ, width = 6, height = 4)
-        ggsave(p.fig3.bis, filename = paste0(dir_out, typ, "/fig3_bis-correlation_timeseries-", this_id, "-", this_var_cause, "_to_", this_var_consequence, ".", typ),
-               device = typ, width = 6, height = 4)
+        # ggsave(p.fig3.bis, filename = paste0(dir_out, typ, "/fig3_bis-correlation_timeseries-", this_id, "-", this_var_cause, "_to_", this_var_consequence, ".", typ),
+        #        device = typ, width = 6, height = 4)
       }
     }
     
@@ -865,7 +906,7 @@ res_test_smap = res_test_smap %>%
   mutate(mean = ifelse(t_test_p_val <= 0.05, ifelse(mean_strength > 0, "Positive", "Negative"), "Not significant"),
          trend = ifelse(trend_p_val <= 0.05, ifelse(trend_slope > 0, "Positive", "Negative"), "Not significant"))
 
-write.csv(res_test_smap, paste0(dir_out, "computations/05-res_test_smap.csv"), row.names = FALSE)
+write.csv(res_test_smap, paste0(dir_out, "csv/05-res_test_smap.csv"), row.names = FALSE)
 
 
 # Export results from CCM and S-map in a single csv
@@ -895,15 +936,15 @@ res_causality %>%
 # Plot summary smap
 library(patchwork)
 
-p.fig5 = res_test_smap %>% 
+tmp = res_test_smap %>% 
   filter((var_cause == list_of_causality_tested[[1]][1] & 
           var_consequence == list_of_causality_tested[[1]][2]) |
          (var_cause == list_of_causality_tested[[2]][1] & 
           var_consequence == list_of_causality_tested[[2]][2])) %>% 
   group_by(var_cause, var_consequence, mean, trend) %>%
   summarise(n = n(), .groups = "drop") %>% 
-  mutate(rel = paste0(labels_of_variables[var_cause], " to ", labels_of_variables[var_consequence])) %>%
-  mutate(rel = factor(rel, levels = order_rel[1:2])) %>%
+  mutate(rel = paste0(labels_of_variables[var_cause], " causing ", labels_of_variables[var_consequence])) %>%
+  mutate(rel = factor(rel, levels = gsub("\n", " ", order_rel)[c(1,3)])) %>%
   
   mutate(trend = factor(ifelse(trend == "Positive", "Increasing", 
                                ifelse(trend == "Negative", "Decreasing", "Stable")),
@@ -911,26 +952,52 @@ p.fig5 = res_test_smap %>%
          mean = factor(ifelse(mean == "Not significant", "Neutral", mean),
                        levels = c("Negative", "Neutral", "Positive"))) %>%
   # Add row if there is no data
-  complete(rel, mean, trend, fill = list(n = 0)) %>% 
-  
-  
+  complete(rel, mean, trend, fill = list(n = 0))
+
+p.fig5a = tmp %>% 
+  filter(rel == "HRate causing SProd") %>% 
   ggplot(aes(x = trend, y = mean, fill = n)) +
-  facet_wrap(~rel, scales = "free") +
-  geom_tile() + geom_text(aes(label = n), vjust = 0.5) +
-  scale_fill_gradient(low = "#ffffff", high = "royalblue") +
-  labs(title = "S-map coefficients", fill = "Number of\nstocks", x = "Trend", y = "Sign") +
+  # facet_wrap(~rel, scales = "free") +
+  geom_tile() + geom_text(aes(label = n), vjust = 0.5, size = 4) +
+  scale_fill_gradient(low = "#ffffff", high = "royalblue", limits = c(0, max(tmp$n))) +
+  guides(fill = "none") +
+  labs(title = "HRate causing SProd", fill = "Number of\nstocks", 
+       x = "Slope of S-map coefficients", y = "Mean S-map coefficient") +
+  theme_light() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+        strip.text = element_markdown(size = 8), 
+        plot.title = element_text(size=16, hjust = 0.5),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
+  plot_annotation(tag_levels = list("(a)")) +
+  theme(plot.tag = element_text(size = 12, face = "bold"), plot.tag.position = c(0.03, 0.98))
+print(p.fig5a)
+
+for (typ in types_plots) {
+  ggsave(p.fig5a, filename = paste0(dir_out, typ, "/fig5a-strength_summary.", typ),
+         device = typ, width = 4, height = 4)
+}
+
+p.fig5b = tmp %>% 
+  filter(rel == "SST causing SProd") %>% 
+  ggplot(aes(x = trend, y = mean, fill = n)) +
+  # facet_wrap(~rel, scales = "free") +
+  geom_tile() + geom_text(aes(label = n), vjust = 0.5, size = 4) +
+  scale_fill_gradient(low = "#ffffff", high = "royalblue", limits = c(0, max(tmp$n))) +
+  guides(fill = "none") +
+  labs(title = "SST causing SProd", fill = "Number of\nstocks", 
+       x = "Slope of S-map coefficients", y = "Mean S-map coefficient") +
   theme_light() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
         strip.text = element_markdown(size = 8),
-        panel.grid.major = element_blank(), panel.grid.minor = element_blank())
-p.fig5 = p.fig5 + plot_annotation(tag_levels = list("(a)")) &
-  theme(plot.tag = element_text(size = 14, face = "bold"), plot.tag.position = c(0.03, 0.98))
-if (!plots_with_titles) p.fig5 = p.fig5 + labs(title = NULL, subtitle = NULL)
-print(p.fig5)
+        plot.title = element_text(size=16, hjust = 0.5),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
+  plot_annotation(tag_levels = list("(b)")) +
+  theme(plot.tag = element_text(size = 12, face = "bold"), plot.tag.position = c(0.03, 0.98))
+print(p.fig5b)
 
 for (typ in types_plots) {
-  ggsave(p.fig5, filename = paste0(dir_out, typ, "/fig5-strength_summary.", typ),
-         device = typ, width = 7, height = 3)
+  ggsave(p.fig5b, filename = paste0(dir_out, typ, "/fig5b-strength_summary.", typ),
+         device = typ, width = 4, height = 4)
 }
 
 
@@ -1053,6 +1120,76 @@ if (identical(list_of_causality_tested, list(c("sst.z", "prodbest.divTB"),
       mean == "Not significant" & trend == "Positive" ~ "Neutral increasing"
     )) %>% 
     mutate(var_cause = factor(var_cause, levels = c("UdivUmsypref", "sst.z"), labels = c("HRate", "SST")))
+  
+  
+  # * * * New figure 5 * * *
+  
+  tmp_bi = df_biplot %>% 
+    dplyr::select(id_timeseries, var_cause, causality, mean_strength, trend_slope) %>% 
+    pivot_wider(names_from = var_cause, values_from = c(causality, mean_strength, trend_slope)) %>% 
+    mutate(group = case_when(
+      causality_HRate == "Yes" & causality_SST == "Yes" ~ "Both",
+      causality_HRate == "Yes" & causality_SST == "No" ~ "Only HRate",
+      causality_HRate == "No" & causality_SST == "Yes" ~ "Only SST",
+      causality_HRate == "No" & causality_SST == "No" ~ "None"
+    ))
+  
+  color_palette.group = brewer.pal(n = 4, name = "Dark2")
+  names(color_palette.group) = c("Both", "Only HRate", "Only SST", "None")
+  
+  x_range_1 = range(tmp_bi$trend_slope_HRate, na.rm = TRUE)
+  x_abs_bound_1 = max(-( x_range_1[1] - diff(x_range_1) * 0.1 ), x_range_1[2] + diff(x_range_1) * 0.1)
+  y_range_1 = range(tmp_bi$mean_strength_HRate, na.rm = TRUE)
+  y_abs_bound_1 = max(-( y_range_1[1] - diff(y_range_1) * 0.1 ), y_range_1[2] + diff(y_range_1) * 0.1)
+  
+  p.fig.5c.new = tmp_bi %>% filter(causality_HRate == "Yes") %>% 
+    ggplot(aes(x = trend_slope_HRate, y = mean_strength_HRate, color = group)) +
+    geom_point(size = 2, alpha = 0.8) +
+    ggrepel::geom_text_repel(aes(label = id_timeseries), size = 2, max.overlaps = 15, alpha = 0.6) +
+    coord_cartesian(clip = "off", xlim = c(-x_abs_bound_1, x_abs_bound_1), ylim = c(-y_abs_bound_1, y_abs_bound_1)) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "#666") +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "#666") + 
+    annotate("text", x = -Inf, y = Inf, vjust = 1, hjust = 1.9, size = 5, label = "(c)", fontface = "bold") +
+    scale_color_manual(values = color_palette.group) +
+    labs(x = "Slope of S-map coefficients (HRate causing SProd)",
+         y = "Mean S-map coefficient (HRate causing SProd)", 
+         color = "Causality") +
+    theme_light()
+  print(p.fig.5c.new)
+  
+  for (typ in types_plots) {
+    ggsave(p.fig.5c.new, filename = paste0(dir_out, typ, "/fig5c_new-scatter_smap_HRate_causing_SProd.", typ),
+           device = typ, width = 6, height = 4.5)
+  }
+  
+  x_range_2 = range(tmp_bi$trend_slope_SST, na.rm = TRUE)
+  x_abs_bound_2 = max(-( x_range_2[1] - diff(x_range_2) * 0.1 ), x_range_2[2] + diff(x_range_2) * 0.1)
+  y_range_2 = range(tmp_bi$mean_strength_SST, na.rm = TRUE)
+  y_abs_bound_2 = max(-( y_range_2[1] - diff(y_range_2) * 0.1 ), y_range_2[2] + diff(y_range_2) * 0.1)
+  
+  p.fig.5d.new = tmp_bi %>% filter(causality_SST == "Yes") %>% 
+    ggplot(aes(x = trend_slope_SST, y = mean_strength_SST, color = group)) +
+    geom_point(size = 2, alpha = 0.8) +
+    ggrepel::geom_text_repel(aes(label = id_timeseries), size = 2, max.overlaps = 15, alpha = 0.6) +
+    coord_cartesian(clip = "off", xlim = c(-x_abs_bound_2, x_abs_bound_2), ylim = c(-y_abs_bound_2, y_abs_bound_2)) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "#666") +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "#666") + 
+    annotate("text", x = -Inf, y = Inf, vjust = 1, hjust = 2.3, size = 5, label = "(d)", fontface = "bold") +
+    scale_color_manual(values = color_palette.group) +
+    labs(x = "Slope of S-map coefficients (SST causing SProd)",
+         y = "Mean S-map coefficient (SST causing SProd)", 
+         color = "Causality") +
+    theme_light()
+  print(p.fig.5d.new)
+  
+  for (typ in types_plots) {
+    ggsave(p.fig.5d.new, filename = paste0(dir_out, typ, "/fig5d_new-scatter_smap_SST_causing_SProd.", typ),
+           device = typ, width = 6, height = 4.5)
+  }
+  
+  
+  
+  # * * * Other figures * * * 
   
   color.palette.caus = c("Yes" = "#97d89a", "No" = "#de7371", "Not relevant" = "#444444")
   color.palette.all = c(
@@ -1295,7 +1432,7 @@ for (k in 1:2) {
     theme(plot.title = element_blank()) +
     theme(legend.position = "right", 
           legend.text = element_text(size = 6), legend.title = element_text(size = 8)) + 
-    annotate("text", x = -Inf, y = Inf, label = ifelse(k == 1, "(b)", "(c)"), 
+    annotate("text", x = -Inf, y = Inf, label = ifelse(k == 1, "(a)", "(b)"), 
              vjust = 1.5, hjust = -0.1, size = 5, fontface = "bold")
   print(p.fig6d)
   for (typ in types_plots) {
@@ -1308,6 +1445,137 @@ for (k in 1:2) {
 }
 
 
+# * * * * Link Causality HR -> SProd with stock status * * * *
+
+if (identical(list_of_causality_tested, list(c("sst.z", "prodbest.divTB"),
+                                             c("UdivUmsypref", "prodbest.divTB"),
+                                             c("prodbest.divTB", "sst.z"),
+                                             c("prodbest.divTB", "UdivUmsypref")) ) ) {
+  base_tmp = res_smap %>% 
+    filter(var_cause == "UdivUmsypref", var_consequence == "prodbest.divTB") %>% 
+    left_join(df, by = c("id_timeseries" = name_id_timeseries, "time" = name_time)) %>% 
+    select(id_timeseries, time, strength, UdivUmsypref, BdivBmsypref)
+  
+  for (x_variable in c("UdivUmsypref", "BdivBmsypref")) {
+    
+    tmp = base_tmp %>% 
+      filter(!is.na(get(x_variable)), !is.na(strength))
+    
+    x_label = ifelse(x_variable == "UdivUmsypref", 
+                     "Harvest rate relative to MSY preference (U/Umsypref)", 
+                     "Biomass relative to MSY preference (B/Bmsypref)")
+    x_label_short = ifelse(x_variable == "UdivUmsypref", "U/Umsypref", "B/Bmsypref")
+    x_letter = substring(x_variable, 1, 1)
+    
+    # ALL STOCKS, scatter plot of strength depending on x_variable
+    p.figAdd8 <- tmp %>% 
+      group_by(id_timeseries) %>%
+      mutate(time_since_start = time - min(time)) %>% 
+      ungroup() %>%
+      ggplot(aes(x = get(x_variable), y = strength, color = time_since_start)) +
+      geom_point(alpha= 0.2) + 
+      geom_path(aes(group = id_timeseries), alpha = 0.3) +
+      geom_smooth(method = "lm", formula = y ~ x, color = "tomato", fill = "tomato", alpha = 0.3) +
+      scale_color_viridis_c() +
+      geom_vline(xintercept = 1, linetype = "dashed", color = "#444444") +
+      labs(x = x_label,
+           y = "S-map coefficient (HRate causing SProd)",
+           color = "Time since start of timeseries (years)",
+           title = "Strength of causality vs stock status") +
+      theme_light() + 
+      theme(legend.position = "top", legend.key.height = unit(0.2, "cm"))
+    
+    for (typ in types_plots) { 
+      ggsave(p.figAdd8, filename = paste0(dir_out, typ, "/figAdd8-scatter_strength_", x_letter, ".", typ), 
+             device = typ, width = 6, height = 4.5) 
+    }
+    
+    # Linear models of strength depending on x_variable for each stock
+    list_lms = list()
+    df_lms = data.frame(id_timeseries = character(), intercept = numeric(), 
+                        slope = numeric(), r_squared = numeric(), p_value = numeric(), 
+                        stringsAsFactors = FALSE)
+    for (st in unique(tmp$id_timeseries)) {
+      tmp_lm = lm(as.formula(paste0("strength ~ ", x_variable)), data = tmp %>% filter(id_timeseries == st))
+      list_lms[[st]] = tmp_lm
+      df_lms = rbind(df_lms, data.frame(
+        id_timeseries = st, intercept = as.numeric(coef(tmp_lm)[1]), slope = as.numeric(coef(tmp_lm)[2]), 
+        r_squared = summary(tmp_lm)$r.squared, p_value = summary(tmp_lm)$coefficients[2, 4]
+      )) 
+    }
+    # Save csv
+    write.csv(df_lms, file = paste0(dir_out, "csv/linear_models_strengthHRtoSProd_", x_variable, "_per_stock.csv"), row.names = FALSE)
+    
+    # PER STOCKS, scatter plot of strength depending on x_variable
+    tmp2 <- tmp %>%
+      left_join(df_lms[, c("id_timeseries", "p_value")], by = "id_timeseries") %>%
+      mutate(sig = ifelse(p_value < 0.05, "sig", "nonsig"))
+    stocks_split <- split(unique(tmp2$id_timeseries), 
+                          ceiling(seq_along(unique(tmp2$id_timeseries))/25))
+    for (i in seq_along(stocks_split)) {
+      p.figAdd9_part <- tmp2 %>% 
+        filter(id_timeseries %in% stocks_split[[i]]) %>% 
+        arrange(time) %>% 
+        ggplot(aes(x = get(x_variable), y = strength)) +
+        facet_wrap(~ id_timeseries, ncol = 5, scales = "free") +
+        geom_point(aes(color = time), size = 1.5, alpha = 0.5) +
+        geom_path(aes(color = time), linewidth = 0.5) +
+        geom_smooth(data = tmp2 %>% filter(p_value < 0.05, id_timeseries %in% stocks_split[[i]]),
+                    method = "lm", formula = y ~ x, color = "tomato", se = TRUE) +
+        geom_smooth(data = tmp2 %>% filter(p_value >= 0.05, id_timeseries %in% stocks_split[[i]]),
+                    method = "lm", formula = y ~ x, color = "#444444", se = TRUE) +
+        geom_vline(xintercept = 1, linetype = "dashed", color = "#444444") +
+        scale_color_viridis_c() +
+        labs(x = x_label,
+             y = "S-map coefficient (HRate causing SProd)",
+             color = "Year") +
+        theme_light()
+      for (typ in types_plots) {
+        ggsave(filename = paste0(dir_out, typ, "/figAdd9-traj_strength_", x_letter, "_page", i, ".", typ),
+               plot = p.figAdd9_part, device = typ, width = 10, height = 10)
+      }
+    }
+    
+    # SUMMARY of linear models: scatter plot of slope vs R-squared, colored by p-value
+    p.figAdd10 = ggplot(df_lms, aes(x = slope, y = r_squared, color = p_value)) + 
+      geom_point(size = 3) + scale_color_viridis_c(option = "plasma", end = 0.8) +
+      labs(x = paste0("Slope of the relationship between S-map coefficient and ", x_label_short),  
+           y = "R-squared of the relationship", color = "P-value of the slope") + 
+      theme_light() + theme(legend.position = "bottom")
+    for (typ in types_plots) {
+      ggsave(p.figAdd10, filename = paste0(dir_out, typ, "/figAdd10-scatter_slope_r2_", x_letter, ".", typ), 
+             device = typ, width = 6, height = 4.5)
+    }
+    
+    # Positivity of slope vs significance
+    cat(paste0("Strength HR -> SProd depending on ", x_variable, ": \n"))
+    print(table(
+      `Trend` = factor(df_lms$slope > 0, levels = c(TRUE, FALSE), labels = c("Positive", "Negative")),
+      `Significant` = factor(df_lms$p_value < 0.05, levels = c(TRUE, FALSE), labels = c("Yes", "No"))
+    ))
+  }
+  
+  p.fig.Add11 = df %>% 
+    left_join(res_causality %>% filter(var_cause == "UdivUmsypref", var_consequence == "prodbest.divTB") %>% 
+                select(id_timeseries, causality), by = setNames("id_timeseries", name_id_timeseries)) %>%
+    ggplot(aes(x = BdivBmsypref, y = UdivUmsypref, color = causality)) + 
+    geom_point(size = 0.7, alpha = 0.2) + 
+    geom_vline(xintercept = 1, linetype = "dashed", color = "#444444") +
+    geom_hline(yintercept = 1, linetype = "dashed", color = "#444444") +
+    geom_smooth(method = "lm", formula = y ~ x, color = "blue", fill = "blue", alpha = 0.3) +
+    scale_color_manual(values = c("Yes" = "#97d89a", "No" = "#de7371", "Not relevant" = "#444444")) + 
+    labs(x = "Biomass relative to MSY preference (B/Bmsypref)", 
+         y = "Harvest rate relative to MSY preference (U/Umsypref)", 
+         color = "Causality of HRate causing SProd") +
+    theme_light()
+  
+  for (typ in types_plots) { 
+    ggsave(p.fig.Add11, filename = paste0(dir_out, typ, "/figAdd11-scatter_UdivUmsypref_vs_BdivBmsypref.", typ), 
+           device = typ, width = 6, height = 4.5)
+    ggsave(p.fig.Add11 + xlim(0, 3) + ylim(0, 3), filename = paste0(dir_out, typ, "/figAdd11-zoom-scatter_UdivUmsypref_vs_BdivBmsypref.", typ), 
+           device = typ, width = 6, height = 4.5)
+  }
+}
 
 
 # Traits ------------------------------------------------------------------

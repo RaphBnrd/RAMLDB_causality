@@ -51,4 +51,71 @@ The `plots_map.R` and `plots_timeseries.R` scripts contain functions to easily p
 
 ## Main analysis
 
+The main analysis is performed in the `main-new_version.R` script. All the outputs of the analysis are stored in the `out/[suffix_name_exe]-[date_time_exe]/` folder.
+
+The sections of the code are explained below.
+
+### Parameters of execution
+
+You can set the random seed for reproducibility in this section of the script.
+
+`suffix_name_exe` and `date_time_exe` are used to build the path to store the results of the analysis (subfolder of `out` folder). 
+
+`list_of_causality_tested` is a list of the pairs of variables for which the causality will be tested (`list(c("cause1", "consequence1"), c("cause2", "consequence2"))`).
+
+The execution of some section of the code can be long (e.g. ~20 min for the CCM analysis and ~1 min for the S-map analysis). Since the results are stored in the `out` folder, it is possible to skip some sections by importing previously stored results. This can be done by setting `import_CCM` and/or `import_smap` to `TRUE`. The path to the stored results is built from `suffix_name_exe` and `date_time_exe`. 
+
+`path_dataframe_input` is the path to the preprocessed dataframe (e.g. `data/timeseries_clean-v4.66.csv`, see previous section).
+
+`name_id_timeseries` is the name of the column in the dataframe that contains the stock identifier (e.g. `stockid`). `name_time` is the name of the column that contains the time (e.g. `year`). 
+
+`ids_single_plots` is a vector of stockid for which single plots will be generated (e.g. time series of the stock, CCM results, etc.). 
+
+`plots_with_titles` is a boolean to decide whether the generated plots should have titles or not. `types_plots`is a vector of the types of plots to generate (e.g. `c("pdf", "png")`).
+
+Other parameters are automatically set-up in the code and are not necessary to be modified by the user.
+
+### Import and plot dataset
+
+The preprocessed dataset is imported and filtered (e.g. > 40 years of data). The list of stocks that will be used in the analysis is stored in `[output_folder]/csv/00-info_stocks.csv`.
+
+The map of the stocks by time series length and the examples of time series are generated and stored in `[output_folder]/[plot_type]/fig1a-map_piechart_durations.[plot_type]` and `[output_folder]/[plot_type]/fig1b-timeseries_one_stock-[stockid].[plot_type]` respectively.
+
+### Simplex projection
+
+The simplex projection is performed for each stock and each variable of interest (e.g. `sst.z`, `prodbest.divTB`, `UdivUmsypref`). The results are stored in `[output_folder]/csv/01-res_E_opti.csv`. It contains the optimal embedding dimension `E_opti` and other information, for each stock and each variable of interest.
+
+Plots are generated to show the results of the simplex projection (`figAdd1` for each stock and `figAdd2` for the distribution of $E_{\text{opti}}$).
+
+### CCM
+
+The CCM analysis is performed for each pair of variables in `list_of_causality_tested` and for each stock. The results are stored in `[output_folder]/csv/02-res_CCM.csv`. It contains the results of the CCM analysis agregated over the bootstraps (e.g. median and percentiles of $\rho$) for each pair of variables and each stock, for the observed data and for the surrogate data.
+
+The results are plotted for the `ids_single_plots` stocks in `fig2`.
+
+### Test causality
+
+The tests are applied on the results of the CCM analysis to determine whether there is a significant causality between the variables (Kendall test on the original data and comparison with the surrogate data). The results are stored in `[output_folder]/csv/03-res_causality.csv`. It contains the results of the tests (e.g. p-values) for each pair of variables and each stock.
+
+The results are plotted for the entire dataset in `fig4a` and `fig4b` (proportion of stocks with significant causality, and per variable pair).
+
+### Strength of causality
+
+The strength of causality is estimated using the S-map method for the pairs of variables with significant causality. The results are stored in `[output_folder]/csv/04-res_smap.csv`. It contains the results of the S-map analysis (e.g. optimal theta, coefficients) for each pair of variables and each stock.
+
+
+### Test the s-map
+
+The tests are applied on the results of the S-map analysis to determine whether there is a sign or trend in the coefficients of the S-map. The results are stored in `[output_folder]/csv/05-res_test_smap.csv`. It contains the results of the tests (e.g. p-values) for each pair of variables and each stock.
+
+**The overall results of the causality analysis (CCM and S-map) are exported in `[output_folder]/csv/all_res.csv`.**
+
+Plots are generated for the `ids_single_plots` stocks in `fig3` (smap coefficients over time). The overall results of the S-map analysis are plotted in `fig5` and `fig6`.
+
+Supplementary figures are created in `figAdd4` and `figAdd7` to `figAdd11`.
+
+### Traits
+
+The traits of the stocks are analyzed to determine whether they are related to the presence or strength of causality. The results are plotted in `figAdd5` and `figAdd6`.
+
 ## Comparison with Pierre et al. 's analysis
