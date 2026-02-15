@@ -22,10 +22,10 @@ source("utils/plots_map.R")
 
 set.seed(123) # Set a seed for reproducibility of the results
 
-# date_time_exe = format(Sys.time(), "%Y%m%d_%H%M%S")
+date_time_exe = format(Sys.time(), "%Y%m%d_%H%M%S")
 
-date_time_exe = "20260215_113834"
-suffix_name_exe = "article-SProd-RAMv4_66"
+# date_time_exe = "20260215_141155" # on_SProd
+suffix_name_exe = "on_SProd"
 list_of_causality_tested = list(
   c("sst.z", "prodbest.divTB"),
   c("UdivUmsypref", "prodbest.divTB"),
@@ -33,8 +33,8 @@ list_of_causality_tested = list(
   c("prodbest.divTB", "UdivUmsypref")
 )
 
-# date_time_exe = "20250808_131455"
-# suffix_name_exe = "article-Recruitment-RAMv4_66"
+# date_time_exe = "20260215_143248" # on_Recruitment
+# suffix_name_exe = "on_Recruitment"
 # list_of_causality_tested = list(
 #   c("sst.z", "R"),
 #   c("UdivUmsypref", "R"),

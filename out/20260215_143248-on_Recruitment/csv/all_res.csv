@@ -1,0 +1,765 @@
+"stockid","stocklong","scientificname","var_cause","var_consequence","causality","CCM_test_above_surrogates","CCM_kendall_tau","CCM_kendall_pval","S_map_mean_coef","S_map_mean_ttest_pval","S_map_trend_slope","S_map_trend_pval","S_map_trend_R2"
+"ACADREDGOMGB","Acadian redfish Gulf of Maine / Georges Bank","Sebastes fasciatus","SST","Recruitment","Yes",TRUE,0.989473581314087,0,-0.00301364749618083,1.74585503975959e-08,-1.24929877168025e-05,0.441253735698028,0.00571319747360037
+"ACADREDGOMGB","Acadian redfish Gulf of Maine / Georges Bank","Sebastes fasciatus","HRate","Recruitment","Yes",TRUE,0.999999940395355,0,0.0392848787774734,3.24830856347854e-22,-0.000717894786905674,2.17990104974082e-15,0.45530487233901
+"ACADREDGOMGB","Acadian redfish Gulf of Maine / Georges Bank","Sebastes fasciatus","Recruitment","SST","No",TRUE,-0.431578904390335,0.00858917646110058,NA,NA,NA,NA,NA
+"ACADREDGOMGB","Acadian redfish Gulf of Maine / Georges Bank","Sebastes fasciatus","Recruitment","HRate","Yes",TRUE,0.999999940395355,0,0.0485003707589603,4.40865396001046e-112,-1.13379892545569e-05,0.406606731505134,0.00676215865993102
+"ALBASPAC","Albacore tuna South Pacific Ocean","Thunnus alalunga","SST","Recruitment","Not relevant",FALSE,-0.715789437294006,1.18690904855612e-05,NA,NA,NA,NA,NA
+"ALBASPAC","Albacore tuna South Pacific Ocean","Thunnus alalunga","HRate","Recruitment","Not relevant",FALSE,-0.210526302456856,0.205754071474075,NA,NA,NA,NA,NA
+"ALBASPAC","Albacore tuna South Pacific Ocean","Thunnus alalunga","Recruitment","SST","No",FALSE,0.431578904390335,0.00858914852142334,NA,NA,NA,NA,NA
+"ALBASPAC","Albacore tuna South Pacific Ocean","Thunnus alalunga","Recruitment","HRate","No",FALSE,-0.778947293758392,1.84858106422325e-06,NA,NA,NA,NA,NA
+"ALPLAICBSAI","Alaska plaice Bering Sea and Aleutian Islands","Pleuronectes quadrituberculatus","SST","Recruitment","No",FALSE,0.673684179782867,3.77893447875977e-05,NA,NA,NA,NA,NA
+"ALPLAICBSAI","Alaska plaice Bering Sea and Aleutian Islands","Pleuronectes quadrituberculatus","HRate","Recruitment","No",FALSE,0.821052551269531,4.76837158203125e-07,NA,NA,NA,NA,NA
+"ALPLAICBSAI","Alaska plaice Bering Sea and Aleutian Islands","Pleuronectes quadrituberculatus","Recruitment","SST","No",FALSE,0.568421006202698,0.000517487525939941,NA,NA,NA,NA,NA
+"ALPLAICBSAI","Alaska plaice Bering Sea and Aleutian Islands","Pleuronectes quadrituberculatus","Recruitment","HRate","No",FALSE,0.894736766815186,0,NA,NA,NA,NA,NA
+"ALSKABSAI","Alaska skate Bering Sea and Aleutian Islands","Bathyraja parmifera","SST","Recruitment","No",FALSE,0.989473581314087,0,NA,NA,NA,NA,NA
+"ALSKABSAI","Alaska skate Bering Sea and Aleutian Islands","Bathyraja parmifera","HRate","Recruitment","No",FALSE,0.989473581314087,0,NA,NA,NA,NA,NA
+"ALSKABSAI","Alaska skate Bering Sea and Aleutian Islands","Bathyraja parmifera","Recruitment","SST","Yes",TRUE,0.936842024326324,0,0.0498320402518208,0.017019052903056,-0.00184306022828717,0.0843855393640688,0.0458173490911715
+"ALSKABSAI","Alaska skate Bering Sea and Aleutian Islands","Bathyraja parmifera","Recruitment","HRate","No",TRUE,-0.410526275634766,0.0124822231009603,NA,NA,NA,NA,NA
+"AMPL5YZ","American plaice Gulf of Maine / Georges Bank","Hippoglossoides platessoides","SST","Recruitment","No",FALSE,-0.568421006202698,0.000517485139425844,NA,NA,NA,NA,NA
+"AMPL5YZ","American plaice Gulf of Maine / Georges Bank","Hippoglossoides platessoides","HRate","Recruitment","No",FALSE,-0.494736790657043,0.0025502173230052,NA,NA,NA,NA,NA
+"AMPL5YZ","American plaice Gulf of Maine / Georges Bank","Hippoglossoides platessoides","Recruitment","SST","No",FALSE,0.873684167861938,1.19209289550781e-07,NA,NA,NA,NA,NA
+"AMPL5YZ","American plaice Gulf of Maine / Georges Bank","Hippoglossoides platessoides","Recruitment","HRate","No",FALSE,0.58947366476059,0.000316619873046875,NA,NA,NA,NA,NA
+"ARFLOUNDBSAI","Arrowtooth flounder Bering Sea and Aleutian Islands","Atheresthes stomias","SST","Recruitment","No",FALSE,0.599999964237213,0.000246167182922363,NA,NA,NA,NA,NA
+"ARFLOUNDBSAI","Arrowtooth flounder Bering Sea and Aleutian Islands","Atheresthes stomias","HRate","Recruitment","No",FALSE,0.852631509304047,1.19209289550781e-07,NA,NA,NA,NA,NA
+"ARFLOUNDBSAI","Arrowtooth flounder Bering Sea and Aleutian Islands","Atheresthes stomias","Recruitment","SST","No",FALSE,0.768420994281769,2.50339508056641e-06,NA,NA,NA,NA,NA
+"ARFLOUNDBSAI","Arrowtooth flounder Bering Sea and Aleutian Islands","Atheresthes stomias","Recruitment","HRate","No",FALSE,-0.157894730567932,0.346764117479324,NA,NA,NA,NA,NA
+"ARFLOUNDGA","Arrowtooth flounder Gulf of Alaska","Atheresthes stomias","SST","Recruitment","Yes",TRUE,0.852631509304047,1.19209289550781e-07,0.20264047544305,1.53498504426162e-41,0.000223282447713035,0.399406016045573,0.0192649309007493
+"ARFLOUNDGA","Arrowtooth flounder Gulf of Alaska","Atheresthes stomias","HRate","Recruitment","Yes",TRUE,0.905263066291809,0,-0.343110094175984,4.52972178337482e-46,0.000157330371579573,0.645060015554533,0.00579584888960606
+"ARFLOUNDGA","Arrowtooth flounder Gulf of Alaska","Atheresthes stomias","Recruitment","SST","No",FALSE,0.884210467338562,1.19209289550781e-07,NA,NA,NA,NA,NA
+"ARFLOUNDGA","Arrowtooth flounder Gulf of Alaska","Atheresthes stomias","Recruitment","HRate","No",FALSE,0.999999940395355,0,NA,NA,NA,NA,NA
+"ARFLOUNDPCOAST","Arrowtooth flounder Pacific Coast","Atheresthes stomias","SST","Recruitment","No",FALSE,0.757894694805145,3.45706939697266e-06,NA,NA,NA,NA,NA
+"ARFLOUNDPCOAST","Arrowtooth flounder Pacific Coast","Atheresthes stomias","HRate","Recruitment","Yes",TRUE,0.96842098236084,0,0.535578754032658,7.57452853740476e-05,0.0115584461592208,0.0069382208813443,0.0692911395269683
+"ARFLOUNDPCOAST","Arrowtooth flounder Pacific Coast","Atheresthes stomias","Recruitment","SST","No",FALSE,-0.536842048168182,0.00104963616468012,NA,NA,NA,NA,NA
+"ARFLOUNDPCOAST","Arrowtooth flounder Pacific Coast","Atheresthes stomias","Recruitment","HRate","No",FALSE,0.894736766815186,0,NA,NA,NA,NA,NA
+"ATBTUNAEATL","Atlantic bluefin tuna Eastern Atlantic","Thunnus thynnus","SST","Recruitment","Yes",TRUE,0.915789425373077,0,-0.0484130236353987,0.221849018055913,-0.0116999450727762,5.74706983833887e-05,0.329288579419207
+"ATBTUNAEATL","Atlantic bluefin tuna Eastern Atlantic","Thunnus thynnus","HRate","Recruitment","No",TRUE,0.147368416190147,0.381032347679138,NA,NA,NA,NA,NA
+"ATBTUNAEATL","Atlantic bluefin tuna Eastern Atlantic","Thunnus thynnus","Recruitment","SST","No",FALSE,0.905263066291809,0,NA,NA,NA,NA,NA
+"ATBTUNAEATL","Atlantic bluefin tuna Eastern Atlantic","Thunnus thynnus","Recruitment","HRate","No",FALSE,0.442105233669281,0.00708389282226562,NA,NA,NA,NA,NA
+"ATHAL3NOPs4VWX5Zc","Atlantic halibut Scotian Shelf and Southern Grand Banks","Hippoglossus hippoglossus","SST","Recruitment","No",FALSE,0.8315789103508,3.57627868652344e-07,NA,NA,NA,NA,NA
+"ATHAL3NOPs4VWX5Zc","Atlantic halibut Scotian Shelf and Southern Grand Banks","Hippoglossus hippoglossus","HRate","Recruitment","No",FALSE,-0.705263078212738,1.5953812180669e-05,NA,NA,NA,NA,NA
+"ATHAL3NOPs4VWX5Zc","Atlantic halibut Scotian Shelf and Southern Grand Banks","Hippoglossus hippoglossus","Recruitment","SST","No",FALSE,0.8315789103508,3.57627868652344e-07,NA,NA,NA,NA,NA
+"ATHAL3NOPs4VWX5Zc","Atlantic halibut Scotian Shelf and Southern Grand Banks","Hippoglossus hippoglossus","Recruitment","HRate","No",FALSE,-0.610526263713837,0.000190651044249535,NA,NA,NA,NA,NA
+"ATKABSAI","Atka mackerel Bering Sea and Aleutian Islands","Pleurogrammus monopterygius","SST","Recruitment","Not relevant",FALSE,-0.22105261683464,0.18344721198082,NA,NA,NA,NA,NA
+"ATKABSAI","Atka mackerel Bering Sea and Aleutian Islands","Pleurogrammus monopterygius","HRate","Recruitment","Not relevant",FALSE,0.894736766815186,0,NA,NA,NA,NA,NA
+"ATKABSAI","Atka mackerel Bering Sea and Aleutian Islands","Pleurogrammus monopterygius","Recruitment","SST","No",FALSE,0.673684179782867,3.77893447875977e-05,NA,NA,NA,NA,NA
+"ATKABSAI","Atka mackerel Bering Sea and Aleutian Islands","Pleurogrammus monopterygius","Recruitment","HRate","No",FALSE,-0.86315780878067,1.23378640637384e-07,NA,NA,NA,NA,NA
+"AUROCKPCOAST","Aurora rockfish Pacific Coast","Sebastes aurora","SST","Recruitment","Yes",TRUE,0.978947281837463,0,0.0535402259619949,1.11801642646896e-84,-3.23623319556181e-05,0.221042849866179,0.0164113971555485
+"AUROCKPCOAST","Aurora rockfish Pacific Coast","Sebastes aurora","HRate","Recruitment","Yes",TRUE,0.842105209827423,2.38418579101562e-07,0.0583551641091481,3.87615626658273e-69,-4.7759444340276e-06,0.911777046784822,0.000135635714069025
+"AUROCKPCOAST","Aurora rockfish Pacific Coast","Sebastes aurora","Recruitment","SST","No",FALSE,0.705263078212738,1.59740447998047e-05,NA,NA,NA,NA,NA
+"AUROCKPCOAST","Aurora rockfish Pacific Coast","Sebastes aurora","Recruitment","HRate","Yes",TRUE,0.957894682884216,0,-0.0834132079952139,1.05376174449836e-38,0.000983007286824718,1.01534341918971e-16,0.536980654770051
+"AUSSALMONNZ","Australian salmon New Zealand","Arripis trutta","SST","Recruitment","No",FALSE,0.915789425373077,0,NA,NA,NA,NA,NA
+"AUSSALMONNZ","Australian salmon New Zealand","Arripis trutta","HRate","Recruitment","Yes",TRUE,0.894736766815186,0,-0.38040287328436,0.0347576849620395,-0.0107441235583547,0.152321585985485,0.0254415602281573
+"AUSSALMONNZ","Australian salmon New Zealand","Arripis trutta","Recruitment","SST","No",FALSE,0.431578904390335,0.00858914852142334,NA,NA,NA,NA,NA
+"AUSSALMONNZ","Australian salmon New Zealand","Arripis trutta","Recruitment","HRate","No",FALSE,-0.536842048168182,0.00104963616468012,NA,NA,NA,NA,NA
+"BGRDRNSWWA","Blue grenadier New South Wales to Western Australia","Macruronus novaezelandiae","SST","Recruitment","No",TRUE,0.210526302456856,0.205754041671753,NA,NA,NA,NA,NA
+"BGRDRNSWWA","Blue grenadier New South Wales to Western Australia","Macruronus novaezelandiae","HRate","Recruitment","Yes",TRUE,0.526315748691559,0.00131821632385254,-0.0358498824141778,1.03530340902434e-36,0.000157218524289276,0.0254460760127489,0.0875384831350998
+"BGRDRNSWWA","Blue grenadier New South Wales to Western Australia","Macruronus novaezelandiae","Recruitment","SST","No",FALSE,0.736842036247253,6.43730163574219e-06,NA,NA,NA,NA,NA
+"BGRDRNSWWA","Blue grenadier New South Wales to Western Australia","Macruronus novaezelandiae","Recruitment","HRate","No",FALSE,0.421052604913712,0.0103743076324463,NA,NA,NA,NA,NA
+"BGROCKPCOAST","Blackgill rockfish Pacific Coast","Sebastes melanostomus","SST","Recruitment","No",FALSE,0.947368323802948,0,NA,NA,NA,NA,NA
+"BGROCKPCOAST","Blackgill rockfish Pacific Coast","Sebastes melanostomus","HRate","Recruitment","Yes",TRUE,0.999999940395355,0,-0.0580773929758434,2.5878681338242e-15,-0.000484950738489869,0.105118153057732,0.0411450209943033
+"BGROCKPCOAST","Blackgill rockfish Pacific Coast","Sebastes melanostomus","Recruitment","SST","No",FALSE,-0.631578922271729,0.000112984096631408,NA,NA,NA,NA,NA
+"BGROCKPCOAST","Blackgill rockfish Pacific Coast","Sebastes melanostomus","Recruitment","HRate","No",FALSE,0.24210524559021,0.144291996955872,NA,NA,NA,NA,NA
+"BIGEYECWPAC","Bigeye tuna Central Western Pacific Ocean","Thunnus obesus","SST","Recruitment","No",TRUE,-0.0842105224728584,0.626496255397797,NA,NA,NA,NA,NA
+"BIGEYECWPAC","Bigeye tuna Central Western Pacific Ocean","Thunnus obesus","HRate","Recruitment","Yes",TRUE,0.926315724849701,0,0.466851846918975,2.19980019426024e-32,-0.00557219320158095,6.58224769527799e-09,0.514824542048121
+"BIGEYECWPAC","Bigeye tuna Central Western Pacific Ocean","Thunnus obesus","Recruitment","SST","Yes",TRUE,0.631578922271729,0.000113010406494141,0.301545476923722,9.53022252451323e-26,-0.00477823892534349,1.02974267965017e-07,0.486142684797644
+"BIGEYECWPAC","Bigeye tuna Central Western Pacific Ocean","Thunnus obesus","Recruitment","HRate","No",FALSE,0.768420994281769,2.50339508056641e-06,NA,NA,NA,NA,NA
+"BIGEYEEPAC","Bigeye tuna Eastern Pacific","Thunnus obesus","SST","Recruitment","No",FALSE,0.894736766815186,0,NA,NA,NA,NA,NA
+"BIGEYEEPAC","Bigeye tuna Eastern Pacific","Thunnus obesus","HRate","Recruitment","Yes",TRUE,0.473684161901474,0.00388264656066895,0.4220264794687,4.51243386389084e-12,0.00362674517841962,0.329842474035188,0.024358447496557
+"BIGEYEEPAC","Bigeye tuna Eastern Pacific","Thunnus obesus","Recruitment","SST","No",FALSE,-0.58947366476059,0.000316610850859433,NA,NA,NA,NA,NA
+"BIGEYEEPAC","Bigeye tuna Eastern Pacific","Thunnus obesus","Recruitment","HRate","No",FALSE,-0.231578931212425,0.162984400987625,NA,NA,NA,NA,NA
+"BIGHTREDSE","Bight redfish Southeast Australia","Centroberyx gerrardi","SST","Recruitment","Yes",TRUE,0.789473593235016,1.31130218505859e-06,-0.0255609108177994,7.71733954360795e-11,-0.000631383942627292,0.0017131414854102,0.18014158845027
+"BIGHTREDSE","Bight redfish Southeast Australia","Centroberyx gerrardi","HRate","Recruitment","No",FALSE,0.8315789103508,3.57627868652344e-07,NA,NA,NA,NA,NA
+"BIGHTREDSE","Bight redfish Southeast Australia","Centroberyx gerrardi","Recruitment","SST","No",FALSE,-0.147368416190147,0.381032347679138,NA,NA,NA,NA,NA
+"BIGHTREDSE","Bight redfish Southeast Australia","Centroberyx gerrardi","Recruitment","HRate","No",FALSE,-0.136842086911201,0.417304128408432,NA,NA,NA,NA,NA
+"BKCDLFENI","Black cardinalfish East coast of North Island","Epigonus telescopus","SST","Recruitment","No",FALSE,0.957894682884216,0,NA,NA,NA,NA,NA
+"BKCDLFENI","Black cardinalfish East coast of North Island","Epigonus telescopus","HRate","Recruitment","No",FALSE,0.852631509304047,1.19209289550781e-07,NA,NA,NA,NA,NA
+"BKCDLFENI","Black cardinalfish East coast of North Island","Epigonus telescopus","Recruitment","SST","No",FALSE,0.652631521224976,6.5922737121582e-05,NA,NA,NA,NA,NA
+"BKCDLFENI","Black cardinalfish East coast of North Island","Epigonus telescopus","Recruitment","HRate","Yes",TRUE,0.986810803413391,0,1.09010990007575,2.17875230934286e-24,-0.0221447427528434,1.71805174252572e-18,0.611007651073776
+"BLACKROCKCAL","Black rockfish California","Sebastes melanops","SST","Recruitment","No",FALSE,0.389473646879196,0.0178636312484741,NA,NA,NA,NA,NA
+"BLACKROCKCAL","Black rockfish California","Sebastes melanops","HRate","Recruitment","Yes",TRUE,0.978947281837463,0,-0.226783132817475,8.03634510724522e-05,-0.00524925073938016,0.0041751227558372,0.0784040107884258
+"BLACKROCKCAL","Black rockfish California","Sebastes melanops","Recruitment","SST","No",FALSE,-0.842105209827423,2.48748364128915e-07,NA,NA,NA,NA,NA
+"BLACKROCKCAL","Black rockfish California","Sebastes melanops","Recruitment","HRate","No",FALSE,-0.452631533145905,0.0058198138140142,NA,NA,NA,NA,NA
+"BLACKROCKORECOAST","Black rockfish Oregon Coast","Sebastes melanops","SST","Recruitment","No",FALSE,0.715789437294006,1.19209289550781e-05,NA,NA,NA,NA,NA
+"BLACKROCKORECOAST","Black rockfish Oregon Coast","Sebastes melanops","HRate","Recruitment","Yes",TRUE,0.999999940395355,0,-0.126919100004569,2.82042990701357e-171,-0.000108376159655999,7.19261137871448e-21,0.511621759027
+"BLACKROCKORECOAST","Black rockfish Oregon Coast","Sebastes melanops","Recruitment","SST","No",FALSE,-0.926315724849701,1.36477851242489e-08,NA,NA,NA,NA,NA
+"BLACKROCKORECOAST","Black rockfish Oregon Coast","Sebastes melanops","Recruitment","HRate","Yes",TRUE,0.947368323802948,0,0.0300460827507636,5.27975481248535e-32,-0.000398618047410739,1.04910764017831e-18,0.473517313506929
+"BLACKROCKWASH","Black rockfish Washington","Sebastes melanops","SST","Recruitment","No",FALSE,0.126315772533417,0.455535411834717,NA,NA,NA,NA,NA
+"BLACKROCKWASH","Black rockfish Washington","Sebastes melanops","HRate","Recruitment","No",FALSE,-0.115789465606213,0.495662719011307,NA,NA,NA,NA,NA
+"BLACKROCKWASH","Black rockfish Washington","Sebastes melanops","Recruitment","SST","Yes",TRUE,0.768420994281769,2.50339508056641e-06,-0.414337841004423,5.80536298766838e-122,-6.60749090427928e-05,0.25441442311969,0.0170562864754711
+"BLACKROCKWASH","Black rockfish Washington","Sebastes melanops","Recruitment","HRate","No",FALSE,0.410526275634766,0.0124821662902832,NA,NA,NA,NA,NA
+"BLUEROCKCAL","Blue rockfish California","Sebastes mystinus","SST","Recruitment","Yes",TRUE,0.852631509304047,1.19209289550781e-07,0.137624390923049,8.68153677524191e-13,0.00241987554025381,5.72167234670317e-05,0.165485388228109
+"BLUEROCKCAL","Blue rockfish California","Sebastes mystinus","HRate","Recruitment","No",FALSE,0.989473581314087,0,NA,NA,NA,NA,NA
+"BLUEROCKCAL","Blue rockfish California","Sebastes mystinus","Recruitment","SST","No",FALSE,0.263157874345779,0.111886620521545,NA,NA,NA,NA,NA
+"BLUEROCKCAL","Blue rockfish California","Sebastes mystinus","Recruitment","HRate","Yes",TRUE,0.936842024326324,0,-0.115433451184351,2.91941668610035e-79,-0.000390713281236472,3.55063226663771e-12,0.428159146042154
+"BMARLINPAC","Blue marlin Pacific Ocean","Makaira nigricans","SST","Recruitment","Not relevant",FALSE,0.294736832380295,0.0743528604507446,NA,NA,NA,NA,NA
+"BMARLINPAC","Blue marlin Pacific Ocean","Makaira nigricans","HRate","Recruitment","Not relevant",FALSE,0.631578922271729,0.000113010406494141,NA,NA,NA,NA,NA
+"BMARLINPAC","Blue marlin Pacific Ocean","Makaira nigricans","Recruitment","SST","No",FALSE,0.957894682884216,0,NA,NA,NA,NA,NA
+"BMARLINPAC","Blue marlin Pacific Ocean","Makaira nigricans","Recruitment","HRate","No",FALSE,0.673684179782867,3.77893447875977e-05,NA,NA,NA,NA,NA
+"BNSNZ","Bluenose New Zealand","Hyperoglyphe antarctica","SST","Recruitment","Yes",TRUE,0.947368323802948,0,0.00490859239881217,5.88959686090894e-05,-2.04841969488421e-05,0.846362101114612,0.00111995599876232
+"BNSNZ","Bluenose New Zealand","Hyperoglyphe antarctica","HRate","Recruitment","Yes",TRUE,0.957894682884216,0,-0.178430382551159,8.55207978487127e-22,0.00154216786157239,0.0513971643264803,0.10708464933227
+"BNSNZ","Bluenose New Zealand","Hyperoglyphe antarctica","Recruitment","SST","No",FALSE,0.96842098236084,0,NA,NA,NA,NA,NA
+"BNSNZ","Bluenose New Zealand","Hyperoglyphe antarctica","Recruitment","HRate","No",FALSE,0.58947366476059,0.000316619873046875,NA,NA,NA,NA,NA
+"BOCACCBCW","Bocaccio British Columbia Waters","Sebastes paucispinis","SST","Recruitment","Yes",TRUE,0.947368323802948,0,-0.0204157916236861,0.687448223624009,0.00394059571261303,0.0647202943075834,0.0420096746391536
+"BOCACCBCW","Bocaccio British Columbia Waters","Sebastes paucispinis","HRate","Recruitment","Yes",TRUE,0.999999940395355,0,0.10770956076189,0.374302345373902,-0.0189409338478817,0.000114387458884853,0.170710404805107
+"BOCACCBCW","Bocaccio British Columbia Waters","Sebastes paucispinis","Recruitment","SST","No",FALSE,-0.926315724849701,1.36477851242489e-08,NA,NA,NA,NA,NA
+"BOCACCBCW","Bocaccio British Columbia Waters","Sebastes paucispinis","Recruitment","HRate","No",FALSE,-0.884210467338562,6.02034617713798e-08,NA,NA,NA,NA,NA
+"BOCACCSPCOAST","Bocaccio Southern Pacific Coast","Sebastes paucispinis","SST","Recruitment","Yes",TRUE,0.926315724849701,0,0.0154714614719476,4.53979250678667e-09,-1.77555967417485e-05,0.798094637007051,0.000542924030155788
+"BOCACCSPCOAST","Bocaccio Southern Pacific Coast","Sebastes paucispinis","HRate","Recruitment","Yes",TRUE,0.48421049118042,0.00315284729003906,0.0558054389969695,3.04793232083425e-36,-0.000466796703540271,1.28243209795304e-08,0.235476116348555
+"BOCACCSPCOAST","Bocaccio Southern Pacific Coast","Sebastes paucispinis","Recruitment","SST","No",FALSE,0.515789449214935,0.00164902210235596,NA,NA,NA,NA,NA
+"BOCACCSPCOAST","Bocaccio Southern Pacific Coast","Sebastes paucispinis","Recruitment","HRate","No",FALSE,0.778947293758392,1.9073486328125e-06,NA,NA,NA,NA,NA
+"BWHITNEA","Blue whiting Northeast Atlantic","Micromesistius poutassou","SST","Recruitment","No",FALSE,0.663157820701599,5.00679016113281e-05,NA,NA,NA,NA,NA
+"BWHITNEA","Blue whiting Northeast Atlantic","Micromesistius poutassou","HRate","Recruitment","No",FALSE,0.894736766815186,0,NA,NA,NA,NA,NA
+"BWHITNEA","Blue whiting Northeast Atlantic","Micromesistius poutassou","Recruitment","SST","No",FALSE,0.978947281837463,0,NA,NA,NA,NA,NA
+"BWHITNEA","Blue whiting Northeast Atlantic","Micromesistius poutassou","Recruitment","HRate","No",FALSE,0.578947305679321,0.000405550003051758,NA,NA,NA,NA,NA
+"CABEZNCAL","Cabezon Northern California","Scorpaenichthys marmoratus","SST","Recruitment","No",FALSE,0.989473581314087,0,NA,NA,NA,NA,NA
+"CABEZNCAL","Cabezon Northern California","Scorpaenichthys marmoratus","HRate","Recruitment","Yes",TRUE,0.978947281837463,0,0.00136733058462895,0.979677870560782,-0.000958637422246354,0.596990993974495,0.00277776993430401
+"CABEZNCAL","Cabezon Northern California","Scorpaenichthys marmoratus","Recruitment","SST","No",FALSE,-0.947368323802948,6.34022923051702e-09,NA,NA,NA,NA,NA
+"CABEZNCAL","Cabezon Northern California","Scorpaenichthys marmoratus","Recruitment","HRate","No",FALSE,0.473684161901474,0.00388264656066895,NA,NA,NA,NA,NA
+"CABEZORECOAST","Cabezon Oregon Coast","Scorpaenichthys marmoratus","SST","Recruitment","Not relevant",FALSE,-0.747368335723877,4.77030289403046e-06,NA,NA,NA,NA,NA
+"CABEZORECOAST","Cabezon Oregon Coast","Scorpaenichthys marmoratus","HRate","Recruitment","Not relevant",TRUE,0.336842089891434,0.04095458984375,NA,NA,NA,NA,NA
+"CABEZORECOAST","Cabezon Oregon Coast","Scorpaenichthys marmoratus","Recruitment","SST","No",FALSE,0.663157820701599,5.00679016113281e-05,NA,NA,NA,NA,NA
+"CABEZORECOAST","Cabezon Oregon Coast","Scorpaenichthys marmoratus","Recruitment","HRate","No",FALSE,-0.22105261683464,0.18344721198082,NA,NA,NA,NA,NA
+"CABEZSCAL","Cabezon Southern California","Scorpaenichthys marmoratus","SST","Recruitment","Yes",TRUE,0.852631509304047,1.19209289550781e-07,0.146207071035645,7.32654656198606e-15,0.00366406164782263,7.22936211033945e-15,0.452382277526053
+"CABEZSCAL","Cabezon Southern California","Scorpaenichthys marmoratus","HRate","Recruitment","Yes",TRUE,0.989473581314087,0,-0.0258916855694848,0.021613908368879,0.0014650739517263,4.97855314961165e-05,0.15102941299288
+"CABEZSCAL","Cabezon Southern California","Scorpaenichthys marmoratus","Recruitment","SST","No",FALSE,0.199999988079071,0.229969024658203,NA,NA,NA,NA,NA
+"CABEZSCAL","Cabezon Southern California","Scorpaenichthys marmoratus","Recruitment","HRate","No",FALSE,-0.189473673701286,0.256144911050797,NA,NA,NA,NA,NA
+"CALSCORPSCAL","California scorpionfish Southern California","Scorpaena guttata","SST","Recruitment","No",FALSE,0.926315724849701,0,NA,NA,NA,NA,NA
+"CALSCORPSCAL","California scorpionfish Southern California","Scorpaena guttata","HRate","Recruitment","Yes",TRUE,0.86315780878067,1.19209289550781e-07,-0.0319854209521118,3.73366609138353e-08,0.00111736420307294,4.19455229699271e-11,0.362945541165119
+"CALSCORPSCAL","California scorpionfish Southern California","Scorpaena guttata","Recruitment","SST","Yes",TRUE,0.915789425373077,0,0.137292903204962,3.33884962257259e-68,-0.000582910244292527,1.04058512736786e-09,0.322911022574566
+"CALSCORPSCAL","California scorpionfish Southern California","Scorpaena guttata","Recruitment","HRate","No",FALSE,-0.199999988079071,0.229969084262848,NA,NA,NA,NA,NA
+"CHAKESA","Shallow water cape hake South Africa","Merluccius capensis","SST","Recruitment","Yes",TRUE,0.989473581314087,0,0.0365016105800537,1.65247357032755e-32,-0.000174661244497684,0.00606406965246789,0.062598037119977
+"CHAKESA","Shallow water cape hake South Africa","Merluccius capensis","HRate","Recruitment","No",FALSE,-0.86315780878067,1.23378640637384e-07,NA,NA,NA,NA,NA
+"CHAKESA","Shallow water cape hake South Africa","Merluccius capensis","Recruitment","SST","No",TRUE,-0.410526275634766,0.0124822231009603,NA,NA,NA,NA,NA
+"CHAKESA","Shallow water cape hake South Africa","Merluccius capensis","Recruitment","HRate","Yes",TRUE,0.578947305679321,0.000405550003051758,0.0227806314756428,1.29770305981968e-61,9.25683725602951e-06,0.645064369711593,0.00180413716859632
+"CHILISPCOAST","Chilipepper Southern Pacific Coast","Sebastes goodei","SST","Recruitment","Yes",TRUE,0.989473581314087,0,0.0394219204021973,1.59163157229552e-05,0.00113122247881732,3.30127932497554e-06,0.168144648398237
+"CHILISPCOAST","Chilipepper Southern Pacific Coast","Sebastes goodei","HRate","Recruitment","Yes",TRUE,0.842105209827423,2.38418579101562e-07,-0.08526467111988,8.11078787114745e-15,-0.000977734120346413,0.000312989247819764,0.104664254035175
+"CHILISPCOAST","Chilipepper Southern Pacific Coast","Sebastes goodei","Recruitment","SST","No",FALSE,0.421052604913712,0.0103743076324463,NA,NA,NA,NA,NA
+"CHILISPCOAST","Chilipepper Southern Pacific Coast","Sebastes goodei","Recruitment","HRate","No",FALSE,-0.126315772533417,0.455535411834717,NA,NA,NA,NA,NA
+"CHROCKCPCOAST","China rockfish Central Pacific Coast","Sebastes nebulosus","SST","Recruitment","No",FALSE,0.473684161901474,0.00388264656066895,NA,NA,NA,NA,NA
+"CHROCKCPCOAST","China rockfish Central Pacific Coast","Sebastes nebulosus","HRate","Recruitment","No",FALSE,0.905263066291809,0,NA,NA,NA,NA,NA
+"CHROCKCPCOAST","China rockfish Central Pacific Coast","Sebastes nebulosus","Recruitment","SST","No",FALSE,-0.978947281837463,1.94670035646993e-09,NA,NA,NA,NA,NA
+"CHROCKCPCOAST","China rockfish Central Pacific Coast","Sebastes nebulosus","Recruitment","HRate","Yes",TRUE,0.999999940395355,0,0.0351669072704683,1.46791616960238e-58,3.05538801846432e-05,0.360788393226787,0.00739595065774946
+"CHROCKNPCOAST","China rockfish Northern Pacific Coast","Sebastes nebulosus","SST","Recruitment","No",FALSE,0.0105263153091073,0.974117755889893,NA,NA,NA,NA,NA
+"CHROCKNPCOAST","China rockfish Northern Pacific Coast","Sebastes nebulosus","HRate","Recruitment","No",FALSE,-0.105263151228428,0.537603199481964,NA,NA,NA,NA,NA
+"CHROCKNPCOAST","China rockfish Northern Pacific Coast","Sebastes nebulosus","Recruitment","SST","No",FALSE,-0.894736766815186,4.17973851085662e-08,NA,NA,NA,NA,NA
+"CHROCKNPCOAST","China rockfish Northern Pacific Coast","Sebastes nebulosus","Recruitment","HRate","Yes",TRUE,0.936842024326324,0,0.0396380143822841,1.01789529620543e-83,4.05571487839396e-05,0.062561570603708,0.0303569515444178
+"CHROCKSPCOAST","China rockfish Southern Pacific Coast","Sebastes nebulosus","SST","Recruitment","Yes",TRUE,0.978947281837463,0,-0.00245385393057796,0.00326167607189169,-9.40901466399895e-05,8.43436551447584e-05,0.128377772580007
+"CHROCKSPCOAST","China rockfish Southern Pacific Coast","Sebastes nebulosus","HRate","Recruitment","Yes",TRUE,0.999999940395355,0,-0.0891374261197448,1.64701895852114e-23,-0.00176299102390166,1.06074901894925e-24,0.607604781890157
+"CHROCKSPCOAST","China rockfish Southern Pacific Coast","Sebastes nebulosus","Recruitment","SST","No",FALSE,-0.24210524559021,0.144292026758194,NA,NA,NA,NA,NA
+"CHROCKSPCOAST","China rockfish Southern Pacific Coast","Sebastes nebulosus","Recruitment","HRate","Yes",TRUE,0.694736778736115,2.13384628295898e-05,0.0777042313951413,4.54683211409543e-153,-3.89492314484738e-06,0.71930083415902,0.00111766353522723
+"CHTRACCH","Chilean jack mackerel Chilean EEZ and offshore","Trachurus murphyi","SST","Recruitment","Yes",TRUE,0.694736778736115,2.13384628295898e-05,0.073158671746744,3.33611796157345e-37,-1.78235583775617e-05,0.898848674795929,0.000347412987109665
+"CHTRACCH","Chilean jack mackerel Chilean EEZ and offshore","Trachurus murphyi","HRate","Recruitment","No",FALSE,0.663157820701599,5.00679016113281e-05,NA,NA,NA,NA,NA
+"CHTRACCH","Chilean jack mackerel Chilean EEZ and offshore","Trachurus murphyi","Recruitment","SST","No",FALSE,0.894736766815186,0,NA,NA,NA,NA,NA
+"CHTRACCH","Chilean jack mackerel Chilean EEZ and offshore","Trachurus murphyi","Recruitment","HRate","No",FALSE,-0.0736842080950737,0.673188745975494,NA,NA,NA,NA,NA
+"CMACKPJPN","Chub mackerel Pacific Coast of Japan","Scomber japonicus","SST","Recruitment","Yes",TRUE,0.431578904390335,0.00858914852142334,0.185061941581853,3.20313901464339e-13,-0.00391970974265036,0.00240865465686338,0.183182596000009
+"CMACKPJPN","Chub mackerel Pacific Coast of Japan","Scomber japonicus","HRate","Recruitment","No",FALSE,-0.157894730567932,0.346764117479324,NA,NA,NA,NA,NA
+"CMACKPJPN","Chub mackerel Pacific Coast of Japan","Scomber japonicus","Recruitment","SST","No",FALSE,-0.747368335723877,4.77030289403046e-06,NA,NA,NA,NA,NA
+"CMACKPJPN","Chub mackerel Pacific Coast of Japan","Scomber japonicus","Recruitment","HRate","Yes",TRUE,0.757894694805145,3.45706939697266e-06,-0.0312626963200863,0.000662630921932437,-0.000825915073228245,0.193685352355195,0.0372479746519947
+"CMACKTSST","Chub mackerel Tsushima Strait","Scomber japonicus","SST","Recruitment","No",FALSE,-0.894736766815186,4.17973851085662e-08,NA,NA,NA,NA,NA
+"CMACKTSST","Chub mackerel Tsushima Strait","Scomber japonicus","HRate","Recruitment","No",FALSE,0.873684167861938,1.19209289550781e-07,NA,NA,NA,NA,NA
+"CMACKTSST","Chub mackerel Tsushima Strait","Scomber japonicus","Recruitment","SST","No",FALSE,0.115789465606213,0.495662689208984,NA,NA,NA,NA,NA
+"CMACKTSST","Chub mackerel Tsushima Strait","Scomber japonicus","Recruitment","HRate","No",FALSE,0.46315786242485,0.00476276874542236,NA,NA,NA,NA,NA
+"COBGM","Cobia Gulf of Mexico","Rachycentron canadum","SST","Recruitment","No",FALSE,0.673684179782867,3.77893447875977e-05,NA,NA,NA,NA,NA
+"COBGM","Cobia Gulf of Mexico","Rachycentron canadum","HRate","Recruitment","Yes",TRUE,0.999999940395355,0,-0.551540031726468,1.43630609521237e-107,-1.40223533546939e-05,0.925238410438842,9.94899180765755e-05
+"COBGM","Cobia Gulf of Mexico","Rachycentron canadum","Recruitment","SST","No",FALSE,-0.873684167861938,8.63610551959937e-08,NA,NA,NA,NA,NA
+"COBGM","Cobia Gulf of Mexico","Rachycentron canadum","Recruitment","HRate","No",FALSE,-0.736842036247253,6.49023286314332e-06,NA,NA,NA,NA,NA
+"COD1IN","Atlantic cod NAFO Subarea 1 (inshore)","Gadus morhua","SST","Recruitment","No",FALSE,-0.0842105224728584,0.626496255397797,NA,NA,NA,NA,NA
+"COD1IN","Atlantic cod NAFO Subarea 1 (inshore)","Gadus morhua","HRate","Recruitment","No",FALSE,0.86315780878067,1.19209289550781e-07,NA,NA,NA,NA,NA
+"COD1IN","Atlantic cod NAFO Subarea 1 (inshore)","Gadus morhua","Recruitment","SST","Yes",TRUE,0.378947347402573,0.0212482213973999,0.222796863813714,1.14879401368269e-35,0.000412199644933093,0.330253494204308,0.0249577483640509
+"COD1IN","Atlantic cod NAFO Subarea 1 (inshore)","Gadus morhua","Recruitment","HRate","No",FALSE,-0.115789465606213,0.495662719011307,NA,NA,NA,NA,NA
+"CODBA2532","Atlantic cod Eastern Baltic","Gadus morhua","SST","Recruitment","No",FALSE,0.715789437294006,1.19209289550781e-05,NA,NA,NA,NA,NA
+"CODBA2532","Atlantic cod Eastern Baltic","Gadus morhua","HRate","Recruitment","Yes",TRUE,0.989473581314087,0,-0.0526582026470868,1.85085999266713e-28,-0.000159078994709697,0.308950725758014,0.0252329798595096
+"CODBA2532","Atlantic cod Eastern Baltic","Gadus morhua","Recruitment","SST","No",FALSE,0.799999952316284,9.5367431640625e-07,NA,NA,NA,NA,NA
+"CODBA2532","Atlantic cod Eastern Baltic","Gadus morhua","Recruitment","HRate","Yes",TRUE,0.905263066291809,0,-0.111116036052142,4.08431057738979e-31,-0.000365599211061759,0.195071811853663,0.0406019154212297
+"CODFAPL","Atlantic cod Faroe Plateau","Gadus morhua","SST","Recruitment","No",FALSE,-0.915789425373077,1.99008383106047e-08,NA,NA,NA,NA,NA
+"CODFAPL","Atlantic cod Faroe Plateau","Gadus morhua","HRate","Recruitment","Yes",TRUE,0.989473581314087,0,-0.0581024884064052,3.46373264058977e-07,0.00275539155985815,2.90238814537898e-07,0.372210037441749
+"CODFAPL","Atlantic cod Faroe Plateau","Gadus morhua","Recruitment","SST","No",FALSE,0.115789465606213,0.495662689208984,NA,NA,NA,NA,NA
+"CODFAPL","Atlantic cod Faroe Plateau","Gadus morhua","Recruitment","HRate","Yes",TRUE,0.694736778736115,2.13384628295898e-05,-0.285001480546557,5.64925067919834e-42,-0.000860205156530726,0.0512205144766808,0.0711415081403406
+"CODICE","Atlantic cod Iceland Grounds","Gadus morhua","SST","Recruitment","No",FALSE,-0.147368416190147,0.381032347679138,NA,NA,NA,NA,NA
+"CODICE","Atlantic cod Iceland Grounds","Gadus morhua","HRate","Recruitment","No",FALSE,-0.821052551269531,4.93393372380524e-07,NA,NA,NA,NA,NA
+"CODICE","Atlantic cod Iceland Grounds","Gadus morhua","Recruitment","SST","No",FALSE,-0.747368335723877,4.77030289403046e-06,NA,NA,NA,NA,NA
+"CODICE","Atlantic cod Iceland Grounds","Gadus morhua","Recruitment","HRate","No",FALSE,-0.410526275634766,0.0124822231009603,NA,NA,NA,NA,NA
+"CODIS","Atlantic cod Irish Sea","Gadus morhua","SST","Recruitment","No",FALSE,0.936842024326324,0,NA,NA,NA,NA,NA
+"CODIS","Atlantic cod Irish Sea","Gadus morhua","HRate","Recruitment","No",FALSE,-0.263157874345779,0.111886657774448,NA,NA,NA,NA,NA
+"CODIS","Atlantic cod Irish Sea","Gadus morhua","Recruitment","SST","Yes",TRUE,0.915789425373077,0,-0.19374669774478,1.10179676241768e-25,-0.00202551046626344,0.00137698748635315,0.197546025454776
+"CODIS","Atlantic cod Irish Sea","Gadus morhua","Recruitment","HRate","Yes",TRUE,0.905263066291809,0,0.146688659190965,1.04740760926987e-51,-6.52148075437521e-05,0.614677276640457,0.00580839239796947
+"CODNEAR","Atlantic cod North-East Arctic","Gadus morhua","SST","Recruitment","No",FALSE,0.0736842080950737,0.67318868637085,NA,NA,NA,NA,NA
+"CODNEAR","Atlantic cod North-East Arctic","Gadus morhua","HRate","Recruitment","No",FALSE,-0.652631521224976,6.58932694932446e-05,NA,NA,NA,NA,NA
+"CODNEAR","Atlantic cod North-East Arctic","Gadus morhua","Recruitment","SST","No",FALSE,0.926315724849701,0,NA,NA,NA,NA,NA
+"CODNEAR","Atlantic cod North-East Arctic","Gadus morhua","Recruitment","HRate","No",FALSE,0.168421044945717,0.31452488899231,NA,NA,NA,NA,NA
+"CODVIIek","Atlantic cod Celtic Sea","Gadus morhua","SST","Recruitment","No",FALSE,0,1,NA,NA,NA,NA,NA
+"CODVIIek","Atlantic cod Celtic Sea","Gadus morhua","HRate","Recruitment","Yes",TRUE,0.989473581314087,0,-0.370879757922703,3.74400727189087e-41,0.000236487453909085,0.642917769425422,0.00571496589327422
+"CODVIIek","Atlantic cod Celtic Sea","Gadus morhua","Recruitment","SST","No",FALSE,0.631578922271729,0.000113010406494141,NA,NA,NA,NA,NA
+"CODVIIek","Atlantic cod Celtic Sea","Gadus morhua","Recruitment","HRate","No",FALSE,0.0526315756142139,0.770287752151489,NA,NA,NA,NA,NA
+"CODVIa","Atlantic cod West of Scotland","Gadus morhua","SST","Recruitment","No",TRUE,0.0736842080950737,0.67318868637085,NA,NA,NA,NA,NA
+"CODVIa","Atlantic cod West of Scotland","Gadus morhua","HRate","Recruitment","No",FALSE,-0.789473593235016,1.33683192871104e-06,NA,NA,NA,NA,NA
+"CODVIa","Atlantic cod West of Scotland","Gadus morhua","Recruitment","SST","No",FALSE,0.136842086911201,0.417304158210754,NA,NA,NA,NA,NA
+"CODVIa","Atlantic cod West of Scotland","Gadus morhua","Recruitment","HRate","Yes",TRUE,0.8315789103508,3.57627868652344e-07,-0.00494144837077617,0.376591046701373,-0.000574502102704484,0.313962064695528,0.0316706187345489
+"COWCODSCAL","Cowcod Southern California","Sebastes levis","SST","Recruitment","Yes",TRUE,0.989473581314087,0,0.000146851177551067,0.955611323659447,0.000130680735731025,0.0937607153678511,0.0242303384384174
+"COWCODSCAL","Cowcod Southern California","Sebastes levis","HRate","Recruitment","Yes",TRUE,0.999999940395355,0,-0.0636001973567749,4.12089259444006e-27,-0.000285276226232604,0.0309719316434608,0.0398346993085923
+"COWCODSCAL","Cowcod Southern California","Sebastes levis","Recruitment","SST","Yes",TRUE,0.663157820701599,5.00679016113281e-05,-0.228792349552093,1.80106924133992e-63,0.00122115670096078,4.19845879741195e-12,0.344985591590559
+"COWCODSCAL","Cowcod Southern California","Sebastes levis","Recruitment","HRate","Yes",TRUE,0.999999940395355,0,0.0645783353450432,1.09146490518272e-141,-1.41519390992191e-05,0.176321027990854,0.0165584744687929
+"CROCKPCOAST","Canary rockfish Pacific Coast","Sebastes pinniger","SST","Recruitment","Yes",TRUE,0.884210467338562,1.19209289550781e-07,-0.0242280793301269,0.0264224323422844,-0.000682605193085334,0.0197209621215542,0.0427255016094519
+"CROCKPCOAST","Canary rockfish Pacific Coast","Sebastes pinniger","HRate","Recruitment","Yes",TRUE,0.915789425373077,0,0.172660374457586,2.0081478766853e-24,-0.00119827470477867,0.00098417617161969,0.083508408460445
+"CROCKPCOAST","Canary rockfish Pacific Coast","Sebastes pinniger","Recruitment","SST","No",FALSE,-0.757894694805145,3.49198035110021e-06,NA,NA,NA,NA,NA
+"CROCKPCOAST","Canary rockfish Pacific Coast","Sebastes pinniger","Recruitment","HRate","No",TRUE,0.0210526306182146,0.922461986541748,NA,NA,NA,NA,NA
+"CTRACSA","Cape horse mackerel South Africa South coast","Trachurus capensis","SST","Recruitment","Yes",TRUE,0.905263066291809,0,-0.0977108788035536,0.241036715783434,0.00155677697357906,0.714411182236284,0.00204228877784576
+"CTRACSA","Cape horse mackerel South Africa South coast","Trachurus capensis","HRate","Recruitment","No",FALSE,0.810526251792908,7.15255737304688e-07,NA,NA,NA,NA,NA
+"CTRACSA","Cape horse mackerel South Africa South coast","Trachurus capensis","Recruitment","SST","No",FALSE,0.8315789103508,3.57627868652344e-07,NA,NA,NA,NA,NA
+"CTRACSA","Cape horse mackerel South Africa South coast","Trachurus capensis","Recruitment","HRate","No",FALSE,-0.663157820701599,5.00195164931938e-05,NA,NA,NA,NA,NA
+"DEEPCHAKESA","Deep water cape hake South Africa","Merluccius paradoxus","SST","Recruitment","No",TRUE,-0.273684173822403,0.0979937762022018,NA,NA,NA,NA,NA
+"DEEPCHAKESA","Deep water cape hake South Africa","Merluccius paradoxus","HRate","Recruitment","No",TRUE,-0.22105261683464,0.18344721198082,NA,NA,NA,NA,NA
+"DEEPCHAKESA","Deep water cape hake South Africa","Merluccius paradoxus","Recruitment","SST","No",FALSE,-0.894736766815186,4.17973851085662e-08,NA,NA,NA,NA,NA
+"DEEPCHAKESA","Deep water cape hake South Africa","Merluccius paradoxus","Recruitment","HRate","No",FALSE,-0.799999952316284,9.62830426942674e-07,NA,NA,NA,NA,NA
+"DKROCKPCOAST","Darkblotched rockfish Pacific Coast","Sebastes crameri","SST","Recruitment","Yes",TRUE,0.936842024326324,0,0.667848315927004,0.0280772891142888,0.0218195769687115,0.0252717905152182,0.0472069727509692
+"DKROCKPCOAST","Darkblotched rockfish Pacific Coast","Sebastes crameri","HRate","Recruitment","Yes",TRUE,0.936842024326324,0,-0.308462224234535,1.59514960407666e-153,3.6415864434425e-05,0.305362453509969,0.010099491214099
+"DKROCKPCOAST","Darkblotched rockfish Pacific Coast","Sebastes crameri","Recruitment","SST","No",FALSE,-0.610526263713837,0.000190651044249535,NA,NA,NA,NA,NA
+"DKROCKPCOAST","Darkblotched rockfish Pacific Coast","Sebastes crameri","Recruitment","HRate","No",FALSE,0.210526302456856,0.205754041671753,NA,NA,NA,NA,NA
+"DSOLEGA","Dover sole Gulf of Alaska","Microstomus pacificus","SST","Recruitment","Yes",TRUE,0.821052551269531,4.76837158203125e-07,0.121334479362474,3.33525146341446e-13,0.00110662195650218,0.312608422298308,0.0328718338433579
+"DSOLEGA","Dover sole Gulf of Alaska","Microstomus pacificus","HRate","Recruitment","No",FALSE,0.768420994281769,2.50339508056641e-06,NA,NA,NA,NA,NA
+"DSOLEGA","Dover sole Gulf of Alaska","Microstomus pacificus","Recruitment","SST","No",FALSE,0.557894706726074,0.00065767765045166,NA,NA,NA,NA,NA
+"DSOLEGA","Dover sole Gulf of Alaska","Microstomus pacificus","Recruitment","HRate","No",FALSE,0.378947347402573,0.0212482213973999,NA,NA,NA,NA,NA
+"DSOLEPCOAST","Dover sole Pacific Coast","Microstomus pacificus","SST","Recruitment","Yes",TRUE,0.842105209827423,2.38418579101562e-07,-0.0648830645003022,9.36169960975595e-08,-0.00172413435697627,5.89452466064328e-07,0.210562360942509
+"DSOLEPCOAST","Dover sole Pacific Coast","Microstomus pacificus","HRate","Recruitment","Yes",TRUE,0.957894682884216,0,0.0763229466698497,1.42920644882205e-14,0.00151030991172707,3.17020763896367e-09,0.282821370107173
+"DSOLEPCOAST","Dover sole Pacific Coast","Microstomus pacificus","Recruitment","SST","No",FALSE,0.0842105224728584,0.626496315002441,NA,NA,NA,NA,NA
+"DSOLEPCOAST","Dover sole Pacific Coast","Microstomus pacificus","Recruitment","HRate","Yes",TRUE,0.999999940395355,0,-0.0436362324407283,9.73955860060873e-145,-1.14576440523434e-06,0.851264173882723,0.00033963277990898
+"DUSROCKGA","Dusky rockfish Gulf of Alaska","Sebastes variabilis","SST","Recruitment","No",FALSE,0.505263090133667,0.00205469131469727,NA,NA,NA,NA,NA
+"DUSROCKGA","Dusky rockfish Gulf of Alaska","Sebastes variabilis","HRate","Recruitment","No",FALSE,-0.747368335723877,4.77030289403046e-06,NA,NA,NA,NA,NA
+"DUSROCKGA","Dusky rockfish Gulf of Alaska","Sebastes variabilis","Recruitment","SST","No",FALSE,-0.48421049118042,0.00315283588133752,NA,NA,NA,NA,NA
+"DUSROCKGA","Dusky rockfish Gulf of Alaska","Sebastes variabilis","Recruitment","HRate","No",FALSE,-0.842105209827423,2.48748364128915e-07,NA,NA,NA,NA,NA
+"ESOLEPCOAST","English sole Pacific Coast","Parophrys vetulus","SST","Recruitment","Yes",TRUE,0.989473581314087,0,0.145820634558538,9.67002510599631e-150,-3.99950864159779e-05,0.0995833697042449,0.0212118193174235
+"ESOLEPCOAST","English sole Pacific Coast","Parophrys vetulus","HRate","Recruitment","Yes",TRUE,0.610526263713837,0.000190615653991699,-0.144167991260598,3.30049298422474e-169,2.59784569103261e-05,0.124413721882896,0.0184895818614106
+"ESOLEPCOAST","English sole Pacific Coast","Parophrys vetulus","Recruitment","SST","No",FALSE,-0.789473593235016,1.33683192871104e-06,NA,NA,NA,NA,NA
+"ESOLEPCOAST","English sole Pacific Coast","Parophrys vetulus","Recruitment","HRate","No",FALSE,0.86315780878067,1.19209289550781e-07,NA,NA,NA,NA,NA
+"FLSOLEBSAI","Flathead sole Bering Sea and Aleutian Islands","Hippoglossoides elassodon","SST","Recruitment","No",FALSE,0.736842036247253,6.43730163574219e-06,NA,NA,NA,NA,NA
+"FLSOLEBSAI","Flathead sole Bering Sea and Aleutian Islands","Hippoglossoides elassodon","HRate","Recruitment","No",FALSE,-0.378947347402573,0.0212482400238514,NA,NA,NA,NA,NA
+"FLSOLEBSAI","Flathead sole Bering Sea and Aleutian Islands","Hippoglossoides elassodon","Recruitment","SST","No",FALSE,0.568421006202698,0.000517487525939941,NA,NA,NA,NA,NA
+"FLSOLEBSAI","Flathead sole Bering Sea and Aleutian Islands","Hippoglossoides elassodon","Recruitment","HRate","No",FALSE,-0.568421006202698,0.000517485139425844,NA,NA,NA,NA,NA
+"GAGGM","Gag Gulf of Mexico","Mycteroperca microlepis","SST","Recruitment","No",FALSE,-0.642105221748352,8.64568137330934e-05,NA,NA,NA,NA,NA
+"GAGGM","Gag Gulf of Mexico","Mycteroperca microlepis","HRate","Recruitment","No",TRUE,0.0421052612364292,0.820338249206543,NA,NA,NA,NA,NA
+"GAGGM","Gag Gulf of Mexico","Mycteroperca microlepis","Recruitment","SST","No",FALSE,0.715789437294006,1.19209289550781e-05,NA,NA,NA,NA,NA
+"GAGGM","Gag Gulf of Mexico","Mycteroperca microlepis","Recruitment","HRate","No",FALSE,-0.821052551269531,4.93393372380524e-07,NA,NA,NA,NA,NA
+"GAGSATLC","Gag Southern Atlantic coast","Mycteroperca microlepis","SST","Recruitment","No",FALSE,0.873684167861938,1.19209289550781e-07,NA,NA,NA,NA,NA
+"GAGSATLC","Gag Southern Atlantic coast","Mycteroperca microlepis","HRate","Recruitment","Yes",TRUE,0.884210467338562,1.19209289550781e-07,0.0803580781129337,0.194639262874459,-0.0189950293829617,1.05324779428386e-08,0.457546710327798
+"GAGSATLC","Gag Southern Atlantic coast","Mycteroperca microlepis","Recruitment","SST","No",FALSE,-0.894736766815186,4.17973851085662e-08,NA,NA,NA,NA,NA
+"GAGSATLC","Gag Southern Atlantic coast","Mycteroperca microlepis","Recruitment","HRate","No",FALSE,0.48421049118042,0.00315284729003906,NA,NA,NA,NA,NA
+"GEMFISHNZ","Common gemfish New Zealand","Rexea solandri","SST","Recruitment","No",FALSE,0.936842024326324,0,NA,NA,NA,NA,NA
+"GEMFISHNZ","Common gemfish New Zealand","Rexea solandri","HRate","Recruitment","No",TRUE,-0.536842048168182,0.00104963616468012,NA,NA,NA,NA,NA
+"GEMFISHNZ","Common gemfish New Zealand","Rexea solandri","Recruitment","SST","No",FALSE,-0.768420994281769,2.54586711889715e-06,NA,NA,NA,NA,NA
+"GEMFISHNZ","Common gemfish New Zealand","Rexea solandri","Recruitment","HRate","No",FALSE,0.336842089891434,0.04095458984375,NA,NA,NA,NA,NA
+"GHALBSAI","Greenland halibut Bering Sea and Aleutian Islands","Reinhardtius hippoglossoides","SST","Recruitment","No",FALSE,0.115789465606213,0.495662689208984,NA,NA,NA,NA,NA
+"GHALBSAI","Greenland halibut Bering Sea and Aleutian Islands","Reinhardtius hippoglossoides","HRate","Recruitment","No",FALSE,0.926315724849701,0,NA,NA,NA,NA,NA
+"GHALBSAI","Greenland halibut Bering Sea and Aleutian Islands","Reinhardtius hippoglossoides","Recruitment","SST","No",FALSE,-0.0526315756142139,0.770287692546844,NA,NA,NA,NA,NA
+"GHALBSAI","Greenland halibut Bering Sea and Aleutian Islands","Reinhardtius hippoglossoides","Recruitment","HRate","Yes",TRUE,0.494736790657043,0.00255024433135986,0.116426193413571,3.67109672200729e-24,0.00105134632250896,0.00880074983772031,0.11830219759917
+"GOPHERSPCOAST","Gopher rockfish Southern Pacific Coast","Sebastes carnatus","SST","Recruitment","No",FALSE,0.473684161901474,0.00388264656066895,NA,NA,NA,NA,NA
+"GOPHERSPCOAST","Gopher rockfish Southern Pacific Coast","Sebastes carnatus","HRate","Recruitment","No",FALSE,-0.684210479259491,2.84773868770571e-05,NA,NA,NA,NA,NA
+"GOPHERSPCOAST","Gopher rockfish Southern Pacific Coast","Sebastes carnatus","Recruitment","SST","No",FALSE,0.368421018123627,0.0251783132553101,NA,NA,NA,NA,NA
+"GOPHERSPCOAST","Gopher rockfish Southern Pacific Coast","Sebastes carnatus","Recruitment","HRate","No",FALSE,-0.62105256319046,0.000147060563904233,NA,NA,NA,NA,NA
+"GRAMBERGM","Greater amberjack Gulf of Mexico","Seriola dumerili","SST","Recruitment","No",FALSE,-0.936842024326324,9.32125487906887e-09,NA,NA,NA,NA,NA
+"GRAMBERGM","Greater amberjack Gulf of Mexico","Seriola dumerili","HRate","Recruitment","Yes",TRUE,0.410526275634766,0.0124821662902832,-0.20407954901366,2.40624561534933e-53,0.000162397483476411,0.451081673451823,0.00919180592003375
+"GRAMBERGM","Greater amberjack Gulf of Mexico","Seriola dumerili","Recruitment","SST","No",FALSE,-0.62105256319046,0.000147060563904233,NA,NA,NA,NA,NA
+"GRAMBERGM","Greater amberjack Gulf of Mexico","Seriola dumerili","Recruitment","HRate","No",FALSE,-0.768420994281769,2.54586711889715e-06,NA,NA,NA,NA,NA
+"GRNSTROCKPCOAST","Greenstriped rockfish Pacific Coast","Sebastes elongatus","SST","Recruitment","No",FALSE,-0.273684173822403,0.0979937762022018,NA,NA,NA,NA,NA
+"GRNSTROCKPCOAST","Greenstriped rockfish Pacific Coast","Sebastes elongatus","HRate","Recruitment","No",FALSE,0.96842098236084,0,NA,NA,NA,NA,NA
+"GRNSTROCKPCOAST","Greenstriped rockfish Pacific Coast","Sebastes elongatus","Recruitment","SST","No",FALSE,0.915789425373077,0,NA,NA,NA,NA,NA
+"GRNSTROCKPCOAST","Greenstriped rockfish Pacific Coast","Sebastes elongatus","Recruitment","HRate","No",FALSE,-0.957894682884216,4.29490620845741e-09,NA,NA,NA,NA,NA
+"GRSPROCKNCAL","Greenspotted rockfish Northern Pacific Coast","Sebastes chlorostictus","SST","Recruitment","Yes",TRUE,0.989473581314087,0,0.00203199122311701,0.000196010822447656,8.6759539921673e-05,2.857108037182e-06,0.214999587953408
+"GRSPROCKNCAL","Greenspotted rockfish Northern Pacific Coast","Sebastes chlorostictus","HRate","Recruitment","Yes",TRUE,0.999999940395355,0,-0.0915337929393047,4.76412172635279e-58,-0.000492619870366587,2.01068191921744e-09,0.327871689243435
+"GRSPROCKNCAL","Greenspotted rockfish Northern Pacific Coast","Sebastes chlorostictus","Recruitment","SST","No",FALSE,-0.957894682884216,4.29490620845741e-09,NA,NA,NA,NA,NA
+"GRSPROCKNCAL","Greenspotted rockfish Northern Pacific Coast","Sebastes chlorostictus","Recruitment","HRate","Yes",TRUE,0.96842098236084,0,0.0628274253005635,1.17606615059425e-76,0.000235468001712084,3.48410765805792e-12,0.410673537655485
+"GRSPROCKSCAL","Greenspotted rockfish Southern Pacific Coast","Sebastes chlorostictus","SST","Recruitment","Yes",TRUE,0.957894682884216,0,0.000258541134339105,0.219830893314687,1.40672245405795e-05,0.0740576369048236,0.0350213413904254
+"GRSPROCKSCAL","Greenspotted rockfish Southern Pacific Coast","Sebastes chlorostictus","HRate","Recruitment","Yes",TRUE,0.999999940395355,0,-0.0793294255037262,6.34719213810962e-65,-0.000360619159147993,9.92842664362719e-10,0.341049639490143
+"GRSPROCKSCAL","Greenspotted rockfish Southern Pacific Coast","Sebastes chlorostictus","Recruitment","SST","Yes",TRUE,0.705263078212738,1.59740447998047e-05,-0.230126848781124,2.21721632954563e-86,-2.27542147706713e-05,0.833885834989629,0.00049129811385214
+"GRSPROCKSCAL","Greenspotted rockfish Southern Pacific Coast","Sebastes chlorostictus","Recruitment","HRate","No",FALSE,0.115789465606213,0.495662689208984,NA,NA,NA,NA,NA
+"GSTRGZRSTA7","Giant stargazer NZ Area STA7","Kathetostoma giganteum","SST","Recruitment","No",FALSE,-0.536842048168182,0.00104963616468012,NA,NA,NA,NA,NA
+"GSTRGZRSTA7","Giant stargazer NZ Area STA7","Kathetostoma giganteum","HRate","Recruitment","No",TRUE,-0.757894694805145,3.49198035110021e-06,NA,NA,NA,NA,NA
+"GSTRGZRSTA7","Giant stargazer NZ Area STA7","Kathetostoma giganteum","Recruitment","SST","No",FALSE,0.936842024326324,0,NA,NA,NA,NA,NA
+"GSTRGZRSTA7","Giant stargazer NZ Area STA7","Kathetostoma giganteum","Recruitment","HRate","No",FALSE,0.884210467338562,1.19209289550781e-07,NA,NA,NA,NA,NA
+"GTRIGGM","Gray triggerfish Gulf of Mexico","Balistes capriscus","SST","Recruitment","No",FALSE,0.357894718647003,0.0297225713729858,NA,NA,NA,NA,NA
+"GTRIGGM","Gray triggerfish Gulf of Mexico","Balistes capriscus","HRate","Recruitment","Yes",TRUE,0.999999940395355,0,-0.0393001741166165,2.03450903242863e-66,8.87617266711803e-06,0.74451981001596,0.00159557760792109
+"GTRIGGM","Gray triggerfish Gulf of Mexico","Balistes capriscus","Recruitment","SST","No",FALSE,-0.936842024326324,9.32125487906887e-09,NA,NA,NA,NA,NA
+"GTRIGGM","Gray triggerfish Gulf of Mexico","Balistes capriscus","Recruitment","HRate","No",FALSE,-0.431578904390335,0.00858917646110058,NA,NA,NA,NA,NA
+"HAD5Y","Haddock Gulf of Maine","Melanogrammus aeglefinus","SST","Recruitment","No",FALSE,0.305263131856918,0.0644110441207886,NA,NA,NA,NA,NA
+"HAD5Y","Haddock Gulf of Maine","Melanogrammus aeglefinus","HRate","Recruitment","Yes",TRUE,0.757894694805145,3.45706939697266e-06,-0.0961530617412899,3.32373465664245e-21,0.000382584590898495,0.397515185020622,0.0199598585127483
+"HAD5Y","Haddock Gulf of Maine","Melanogrammus aeglefinus","Recruitment","SST","No",FALSE,0.389473646879196,0.0178636312484741,NA,NA,NA,NA,NA
+"HAD5Y","Haddock Gulf of Maine","Melanogrammus aeglefinus","Recruitment","HRate","No",FALSE,0.431578904390335,0.00858914852142334,NA,NA,NA,NA,NA
+"HADFAPL","Haddock Faroe Plateau","Melanogrammus aeglefinus","SST","Recruitment","No",FALSE,0.0105263153091073,0.974117755889893,NA,NA,NA,NA,NA
+"HADFAPL","Haddock Faroe Plateau","Melanogrammus aeglefinus","HRate","Recruitment","No",FALSE,0.821052551269531,4.76837158203125e-07,NA,NA,NA,NA,NA
+"HADFAPL","Haddock Faroe Plateau","Melanogrammus aeglefinus","Recruitment","SST","No",FALSE,0.884210467338562,1.19209289550781e-07,NA,NA,NA,NA,NA
+"HADFAPL","Haddock Faroe Plateau","Melanogrammus aeglefinus","Recruitment","HRate","No",FALSE,-0.757894694805145,3.49198035110021e-06,NA,NA,NA,NA,NA
+"HADGB","Haddock Georges Bank","Melanogrammus aeglefinus","SST","Recruitment","No",FALSE,0.126315772533417,0.455535411834717,NA,NA,NA,NA,NA
+"HADGB","Haddock Georges Bank","Melanogrammus aeglefinus","HRate","Recruitment","No",FALSE,-0.0210526306182146,0.922462046146393,NA,NA,NA,NA,NA
+"HADGB","Haddock Georges Bank","Melanogrammus aeglefinus","Recruitment","SST","No",FALSE,-0.368421018123627,0.0251783393323421,NA,NA,NA,NA,NA
+"HADGB","Haddock Georges Bank","Melanogrammus aeglefinus","Recruitment","HRate","No",FALSE,-0.778947293758392,1.84858106422325e-06,NA,NA,NA,NA,NA
+"HADICE","Haddock Iceland Grounds","Melanogrammus aeglefinus","SST","Recruitment","Not relevant",FALSE,-0.810526251792908,6.90646800194372e-07,NA,NA,NA,NA,NA
+"HADICE","Haddock Iceland Grounds","Melanogrammus aeglefinus","HRate","Recruitment","Not relevant",FALSE,0.642105221748352,8.64267349243164e-05,NA,NA,NA,NA,NA
+"HADICE","Haddock Iceland Grounds","Melanogrammus aeglefinus","Recruitment","SST","No",FALSE,0.715789437294006,1.19209289550781e-05,NA,NA,NA,NA,NA
+"HADICE","Haddock Iceland Grounds","Melanogrammus aeglefinus","Recruitment","HRate","No",FALSE,0.568421006202698,0.000517487525939941,NA,NA,NA,NA,NA
+"HADNEAR","Haddock North-East Arctic","Melanogrammus aeglefinus","SST","Recruitment","No",FALSE,0.810526251792908,7.15255737304688e-07,NA,NA,NA,NA,NA
+"HADNEAR","Haddock North-East Arctic","Melanogrammus aeglefinus","HRate","Recruitment","No",FALSE,-0.452631533145905,0.0058198138140142,NA,NA,NA,NA,NA
+"HADNEAR","Haddock North-East Arctic","Melanogrammus aeglefinus","Recruitment","SST","No",FALSE,0.568421006202698,0.000517487525939941,NA,NA,NA,NA,NA
+"HADNEAR","Haddock North-East Arctic","Melanogrammus aeglefinus","Recruitment","HRate","No",FALSE,0.894736766815186,0,NA,NA,NA,NA,NA
+"HAKENRTN","Hake ICES 3a-4-6-7-8abd","Merluccius merluccius","SST","Recruitment","No",FALSE,-0.86315780878067,1.23378640637384e-07,NA,NA,NA,NA,NA
+"HAKENRTN","Hake ICES 3a-4-6-7-8abd","Merluccius merluccius","HRate","Recruitment","Yes",TRUE,0.778947293758392,1.9073486328125e-06,-0.278929611466592,2.37007473598945e-33,-0.00013716915723399,0.824759027521666,0.00127259871889735
+"HAKENRTN","Hake ICES 3a-4-6-7-8abd","Merluccius merluccius","Recruitment","SST","No",FALSE,0.905263066291809,0,NA,NA,NA,NA,NA
+"HAKENRTN","Hake ICES 3a-4-6-7-8abd","Merluccius merluccius","Recruitment","HRate","No",FALSE,0.884210467338562,1.19209289550781e-07,NA,NA,NA,NA,NA
+"HAKESPPSAF","Hake spp Southern Africa","Merluccius spp","SST","Recruitment","No",FALSE,0.852631509304047,1.19209289550781e-07,NA,NA,NA,NA,NA
+"HAKESPPSAF","Hake spp Southern Africa","Merluccius spp","HRate","Recruitment","No",FALSE,0.578947305679321,0.000405550003051758,NA,NA,NA,NA,NA
+"HAKESPPSAF","Hake spp Southern Africa","Merluccius spp","Recruitment","SST","No",FALSE,-0.452631533145905,0.0058198138140142,NA,NA,NA,NA,NA
+"HAKESPPSAF","Hake spp Southern Africa","Merluccius spp","Recruitment","HRate","No",FALSE,-0.48421049118042,0.00315283588133752,NA,NA,NA,NA,NA
+"HERRNIRS","Herring Irish Sea","Clupea harengus","SST","Recruitment","No",FALSE,-0.578947305679321,0.000405578495701775,NA,NA,NA,NA,NA
+"HERRNIRS","Herring Irish Sea","Clupea harengus","HRate","Recruitment","Yes",TRUE,0.926315724849701,0,0.19527540738332,0.244095316670176,0.0542123635087382,1.95662654345255e-05,0.377027089202404
+"HERRNIRS","Herring Irish Sea","Clupea harengus","Recruitment","SST","Yes",TRUE,0.642105221748352,8.64267349243164e-05,0.19081339975012,4.30168024168935e-33,-0.000294576135002007,0.482878908352178,0.0133971394604972
+"HERRNIRS","Herring Irish Sea","Clupea harengus","Recruitment","HRate","No",FALSE,0.821052551269531,4.76837158203125e-07,NA,NA,NA,NA,NA
+"HERRNWATLC","Herring Northwestern Atlantic Coast","Clupea harengus","SST","Recruitment","No",FALSE,0.873684167861938,1.19209289550781e-07,NA,NA,NA,NA,NA
+"HERRNWATLC","Herring Northwestern Atlantic Coast","Clupea harengus","HRate","Recruitment","No",FALSE,0.284210503101349,0.0855147838592529,NA,NA,NA,NA,NA
+"HERRNWATLC","Herring Northwestern Atlantic Coast","Clupea harengus","Recruitment","SST","No",FALSE,0.273684173822403,0.0979937314987183,NA,NA,NA,NA,NA
+"HERRNWATLC","Herring Northwestern Atlantic Coast","Clupea harengus","Recruitment","HRate","No",FALSE,-0.926315724849701,1.36477851242489e-08,NA,NA,NA,NA,NA
+"HERRRIGA","Herring Gulf of Riga East of Gotland","Clupea harengus","SST","Recruitment","Yes",TRUE,0.957894682884216,0,0.701969648219592,1.34528108584544e-45,0.00296567230731013,4.33913639090907e-05,0.338045392644015
+"HERRRIGA","Herring Gulf of Riga East of Gotland","Clupea harengus","HRate","Recruitment","No",FALSE,0.905263066291809,0,NA,NA,NA,NA,NA
+"HERRRIGA","Herring Gulf of Riga East of Gotland","Clupea harengus","Recruitment","SST","No",FALSE,0.905263066291809,0,NA,NA,NA,NA,NA
+"HERRRIGA","Herring Gulf of Riga East of Gotland","Clupea harengus","Recruitment","HRate","No",FALSE,0.284210503101349,0.0855147838592529,NA,NA,NA,NA,NA
+"HERRSIRS","Herring ICES 7a-g-h-j-k","Clupea harengus","SST","Recruitment","No",FALSE,-0.799999952316284,9.62830426942674e-07,NA,NA,NA,NA,NA
+"HERRSIRS","Herring ICES 7a-g-h-j-k","Clupea harengus","HRate","Recruitment","Yes",TRUE,0.842105209827423,2.38418579101562e-07,-0.17861717984601,2.5403363684989e-44,8.6202776747968e-05,0.744283680470974,0.0017865262338365
+"HERRSIRS","Herring ICES 7a-g-h-j-k","Clupea harengus","Recruitment","SST","No",FALSE,0.789473593235016,1.31130218505859e-06,NA,NA,NA,NA,NA
+"HERRSIRS","Herring ICES 7a-g-h-j-k","Clupea harengus","Recruitment","HRate","No",FALSE,0.536842048168182,0.00104963779449463,NA,NA,NA,NA,NA
+"HERRVIaVIIbc","Herring ICES 6a7bc","Clupea harengus","SST","Recruitment","Yes",TRUE,0.778947293758392,1.9073486328125e-06,-0.0906133379365026,2.40406533046959e-08,-0.00386000165484865,2.79630705415928e-06,0.352415582912965
+"HERRVIaVIIbc","Herring ICES 6a7bc","Clupea harengus","HRate","Recruitment","No",TRUE,0.273684173822403,0.0979937314987183,NA,NA,NA,NA,NA
+"HERRVIaVIIbc","Herring ICES 6a7bc","Clupea harengus","Recruitment","SST","Yes",TRUE,0.852631509304047,1.19209289550781e-07,-0.057323212453958,1.46007394558137e-29,9.09705308501894e-05,0.567327251706208,0.00621221698326417
+"HERRVIaVIIbc","Herring ICES 6a7bc","Clupea harengus","Recruitment","HRate","No",FALSE,0.494736790657043,0.00255024433135986,NA,NA,NA,NA,NA
+"HOKIENZ","Hoki Eastern New Zealand","Macruronus novaezelandiae","SST","Recruitment","Not relevant",FALSE,-0.452631533145905,0.0058198138140142,NA,NA,NA,NA,NA
+"HOKIENZ","Hoki Eastern New Zealand","Macruronus novaezelandiae","HRate","Recruitment","Not relevant",FALSE,0.168421044945717,0.31452488899231,NA,NA,NA,NA,NA
+"HOKIENZ","Hoki Eastern New Zealand","Macruronus novaezelandiae","Recruitment","SST","No",FALSE,-0.736842036247253,6.49023286314332e-06,NA,NA,NA,NA,NA
+"HOKIENZ","Hoki Eastern New Zealand","Macruronus novaezelandiae","Recruitment","HRate","No",FALSE,0.505263090133667,0.00205469131469727,NA,NA,NA,NA,NA
+"HOKIWNZ","Hoki Western New Zealand","Macruronus novaezelandiae","SST","Recruitment","No",FALSE,0.705263078212738,1.59740447998047e-05,NA,NA,NA,NA,NA
+"HOKIWNZ","Hoki Western New Zealand","Macruronus novaezelandiae","HRate","Recruitment","Yes",TRUE,0.947368323802948,0,0.969594951068546,0.0374897915605836,-0.093077551652237,0.00877008244754077,0.155967195011309
+"HOKIWNZ","Hoki Western New Zealand","Macruronus novaezelandiae","Recruitment","SST","No",FALSE,-0.284210503101349,0.0855147838592529,NA,NA,NA,NA,NA
+"HOKIWNZ","Hoki Western New Zealand","Macruronus novaezelandiae","Recruitment","HRate","No",FALSE,-0.0526315756142139,0.770287692546844,NA,NA,NA,NA,NA
+"JANCHOTSST","Japanese anchovy Tsushima Strait","Engraulis japonicus","SST","Recruitment","No",FALSE,-0.326315760612488,0.0478045903146267,NA,NA,NA,NA,NA
+"JANCHOTSST","Japanese anchovy Tsushima Strait","Engraulis japonicus","HRate","Recruitment","No",FALSE,0.452631533145905,0.00581979751586914,NA,NA,NA,NA,NA
+"JANCHOTSST","Japanese anchovy Tsushima Strait","Engraulis japonicus","Recruitment","SST","No",FALSE,-0.799999952316284,9.62830426942674e-07,NA,NA,NA,NA,NA
+"JANCHOTSST","Japanese anchovy Tsushima Strait","Engraulis japonicus","Recruitment","HRate","No",FALSE,-0.421052604913712,0.0103742619976401,NA,NA,NA,NA,NA
+"JMACKTSST","Japanese jack mackerel Tsushima Strait","Trachurus japonicus","SST","Recruitment","No",FALSE,0.768420994281769,2.50339508056641e-06,NA,NA,NA,NA,NA
+"JMACKTSST","Japanese jack mackerel Tsushima Strait","Trachurus japonicus","HRate","Recruitment","No",FALSE,-0.452631533145905,0.0058198138140142,NA,NA,NA,NA,NA
+"JMACKTSST","Japanese jack mackerel Tsushima Strait","Trachurus japonicus","Recruitment","SST","No",FALSE,0.810526251792908,7.15255737304688e-07,NA,NA,NA,NA,NA
+"JMACKTSST","Japanese jack mackerel Tsushima Strait","Trachurus japonicus","Recruitment","HRate","No",FALSE,0.210526302456856,0.205754041671753,NA,NA,NA,NA,NA
+"KMACKGM","King mackerel Gulf of Mexico","Scomberomorus cavalla","SST","Recruitment","No",FALSE,0.0315789431333542,0.871131420135498,NA,NA,NA,NA,NA
+"KMACKGM","King mackerel Gulf of Mexico","Scomberomorus cavalla","HRate","Recruitment","No",FALSE,0.947368323802948,0,NA,NA,NA,NA,NA
+"KMACKGM","King mackerel Gulf of Mexico","Scomberomorus cavalla","Recruitment","SST","No",FALSE,-0.86315780878067,1.23378640637384e-07,NA,NA,NA,NA,NA
+"KMACKGM","King mackerel Gulf of Mexico","Scomberomorus cavalla","Recruitment","HRate","No",FALSE,0.568421006202698,0.000517487525939941,NA,NA,NA,NA,NA
+"KMACKSATLC","King mackerel Southern Atlantic coast","Scomberomorus cavalla","SST","Recruitment","No",TRUE,0.178947359323502,0.284321665763855,NA,NA,NA,NA,NA
+"KMACKSATLC","King mackerel Southern Atlantic coast","Scomberomorus cavalla","HRate","Recruitment","Yes",TRUE,0.799999952316284,9.5367431640625e-07,0.0224839485787505,0.7058861478245,0.000460586357668078,0.813800300662348,0.000535817357162249
+"KMACKSATLC","King mackerel Southern Atlantic coast","Scomberomorus cavalla","Recruitment","SST","No",FALSE,0.421052604913712,0.0103743076324463,NA,NA,NA,NA,NA
+"KMACKSATLC","King mackerel Southern Atlantic coast","Scomberomorus cavalla","Recruitment","HRate","Yes",TRUE,0.873684167861938,1.19209289550781e-07,-0.0428131449023126,1.19993930029437e-41,-0.000332125039771344,7.01636272862119e-09,0.265815414770033
+"LINGCODNPCOAST","Lingcod Northern Pacific Coast","Ophiodon elongatus","SST","Recruitment","No",FALSE,0.252631545066833,0.127288699150085,NA,NA,NA,NA,NA
+"LINGCODNPCOAST","Lingcod Northern Pacific Coast","Ophiodon elongatus","HRate","Recruitment","No",TRUE,-0.263157874345779,0.111886657774448,NA,NA,NA,NA,NA
+"LINGCODNPCOAST","Lingcod Northern Pacific Coast","Ophiodon elongatus","Recruitment","SST","No",FALSE,0.884210467338562,1.19209289550781e-07,NA,NA,NA,NA,NA
+"LINGCODNPCOAST","Lingcod Northern Pacific Coast","Ophiodon elongatus","Recruitment","HRate","No",FALSE,0.72631573677063,8.82148742675781e-06,NA,NA,NA,NA,NA
+"LINGCODSPCOAST","Lingcod Southern Pacific Coast","Ophiodon elongatus","SST","Recruitment","Yes",TRUE,0.978947281837463,0,0.0611323498224053,0.0710880056921364,0.00175957254806097,0.0455383373763479,0.030404793984276
+"LINGCODSPCOAST","Lingcod Southern Pacific Coast","Ophiodon elongatus","HRate","Recruitment","Yes",TRUE,0.978947281837463,0,-0.252086030469902,8.6798547752155e-07,-0.0009174642428257,0.475821833598871,0.00391832411737511
+"LINGCODSPCOAST","Lingcod Southern Pacific Coast","Ophiodon elongatus","Recruitment","SST","No",FALSE,-0.399999976158142,0.0149610107764602,NA,NA,NA,NA,NA
+"LINGCODSPCOAST","Lingcod Southern Pacific Coast","Ophiodon elongatus","Recruitment","HRate","No",FALSE,-0.168421044945717,0.314524859189987,NA,NA,NA,NA,NA
+"LNOSESKAPCOAST","Longnose skate Pacific Coast","Raja rhina","SST","Recruitment","Yes",TRUE,0.999999940395355,0,-0.00221542629277674,1.15221650786978e-24,-1.3547956725444e-05,0.0145587285056139,0.0593828799701823
+"LNOSESKAPCOAST","Longnose skate Pacific Coast","Raja rhina","HRate","Recruitment","Yes",TRUE,0.989473581314087,0,-0.0882360270800775,8.14049886870858e-119,0.000142508607301187,2.0432553913652e-16,0.499783569088345
+"LNOSESKAPCOAST","Longnose skate Pacific Coast","Raja rhina","Recruitment","SST","No",FALSE,-0.852631509304047,1.75544244029879e-07,NA,NA,NA,NA,NA
+"LNOSESKAPCOAST","Longnose skate Pacific Coast","Raja rhina","Recruitment","HRate","Yes",TRUE,0.789473593235016,1.31130218505859e-06,-0.115252456047631,3.89534987740877e-61,0.000289294729750781,0.00496385844247787,0.0755251171787325
+"LOBSTERSNE","American lobster Southern New England","Homarus americanus","SST","Recruitment","No",FALSE,-0.0315789431333542,0.871131479740143,NA,NA,NA,NA,NA
+"LOBSTERSNE","American lobster Southern New England","Homarus americanus","HRate","Recruitment","No",FALSE,-0.610526263713837,0.000190651044249535,NA,NA,NA,NA,NA
+"LOBSTERSNE","American lobster Southern New England","Homarus americanus","Recruitment","SST","No",FALSE,0.610526263713837,0.000190615653991699,NA,NA,NA,NA,NA
+"LOBSTERSNE","American lobster Southern New England","Homarus americanus","Recruitment","HRate","No",TRUE,-0.873684167861938,8.63610551959937e-08,NA,NA,NA,NA,NA
+"LSTHORNHPCOAST","Longspine thornyhead Pacific Coast","Sebastolobus altivelis","SST","Recruitment","No",TRUE,0.136842086911201,0.417304158210754,NA,NA,NA,NA,NA
+"LSTHORNHPCOAST","Longspine thornyhead Pacific Coast","Sebastolobus altivelis","HRate","Recruitment","Yes",TRUE,0.8315789103508,3.57627868652344e-07,-0.0624261858416367,0.132533592465611,0.0073990534895089,0.00450555618227523,0.147627908805899
+"LSTHORNHPCOAST","Longspine thornyhead Pacific Coast","Sebastolobus altivelis","Recruitment","SST","No",FALSE,-0.884210467338562,6.02034617713798e-08,NA,NA,NA,NA,NA
+"LSTHORNHPCOAST","Longspine thornyhead Pacific Coast","Sebastolobus altivelis","Recruitment","HRate","Yes",TRUE,0.578947305679321,0.000405550003051758,0.00219119970071842,0.460089055577401,5.56395715793409e-05,0.779800921436372,0.00157774465028678
+"MACKNEICES","Mackerel ICES Northeast Atlantic","Scomber scombrus","SST","Recruitment","No",FALSE,-0.715789437294006,1.18690904855612e-05,NA,NA,NA,NA,NA
+"MACKNEICES","Mackerel ICES Northeast Atlantic","Scomber scombrus","HRate","Recruitment","No",TRUE,-0.852631509304047,1.75544244029879e-07,NA,NA,NA,NA,NA
+"MACKNEICES","Mackerel ICES Northeast Atlantic","Scomber scombrus","Recruitment","SST","No",FALSE,0.147368416190147,0.381032347679138,NA,NA,NA,NA,NA
+"MACKNEICES","Mackerel ICES Northeast Atlantic","Scomber scombrus","Recruitment","HRate","Yes",TRUE,0.747368335723877,4.76837158203125e-06,0.0922828839489363,4.69806930942653e-31,-0.000255096464805058,0.241118803297028,0.0413899360934511
+"MENATGM","Gulf menhaden Gulf of Mexico","Brevoortia patronus","SST","Recruitment","No",FALSE,0.652631521224976,6.5922737121582e-05,NA,NA,NA,NA,NA
+"MENATGM","Gulf menhaden Gulf of Mexico","Brevoortia patronus","HRate","Recruitment","No",FALSE,-0.0842105224728584,0.626496255397797,NA,NA,NA,NA,NA
+"MENATGM","Gulf menhaden Gulf of Mexico","Brevoortia patronus","Recruitment","SST","No",FALSE,0.652631521224976,6.5922737121582e-05,NA,NA,NA,NA,NA
+"MENATGM","Gulf menhaden Gulf of Mexico","Brevoortia patronus","Recruitment","HRate","No",FALSE,-0.442105233669281,0.00708386860787868,NA,NA,NA,NA,NA
+"MENATLAN","Atlantic menhaden Atlantic","Brevoortia tyrannus","SST","Recruitment","No",FALSE,0.873684167861938,1.19209289550781e-07,NA,NA,NA,NA,NA
+"MENATLAN","Atlantic menhaden Atlantic","Brevoortia tyrannus","HRate","Recruitment","No",FALSE,0.989473581314087,0,NA,NA,NA,NA,NA
+"MENATLAN","Atlantic menhaden Atlantic","Brevoortia tyrannus","Recruitment","SST","No",FALSE,-0.72631573677063,8.79462186276214e-06,NA,NA,NA,NA,NA
+"MENATLAN","Atlantic menhaden Atlantic","Brevoortia tyrannus","Recruitment","HRate","No",FALSE,-0.178947359323502,0.284321665763855,NA,NA,NA,NA,NA
+"MORWONGESE","Jackass morwong Eastern half of Southeast Australia","Nemadactylus macropterus","SST","Recruitment","Yes",TRUE,0.915789425373077,0,-0.0850874078604157,1.89991100030876e-08,-0.00109555469866561,0.0166861446244059,0.0543583699170328
+"MORWONGESE","Jackass morwong Eastern half of Southeast Australia","Nemadactylus macropterus","HRate","Recruitment","Yes",TRUE,0.915789425373077,0,-0.0592934142179997,0.0267337611991694,-0.00470627151086269,6.02710656678278e-09,0.28104798292104
+"MORWONGESE","Jackass morwong Eastern half of Southeast Australia","Nemadactylus macropterus","Recruitment","SST","Yes",TRUE,0.789473593235016,1.31130218505859e-06,-0.119346261384293,7.46659889646253e-40,-0.00160191232851084,1.31691624271185e-30,0.728090770264871
+"MORWONGESE","Jackass morwong Eastern half of Southeast Australia","Nemadactylus macropterus","Recruitment","HRate","No",FALSE,-0.410526275634766,0.0124822231009603,NA,NA,NA,NA,NA
+"NROCKBSAI","Northern rockfish Bering Sea and Aleutian Islands","Sebastes polyspinis","SST","Recruitment","No",FALSE,0.705263078212738,1.59740447998047e-05,NA,NA,NA,NA,NA
+"NROCKBSAI","Northern rockfish Bering Sea and Aleutian Islands","Sebastes polyspinis","HRate","Recruitment","No",FALSE,-0.789473593235016,1.33683192871104e-06,NA,NA,NA,NA,NA
+"NROCKBSAI","Northern rockfish Bering Sea and Aleutian Islands","Sebastes polyspinis","Recruitment","SST","No",FALSE,0.547368347644806,0.000832438468933105,NA,NA,NA,NA,NA
+"NROCKBSAI","Northern rockfish Bering Sea and Aleutian Islands","Sebastes polyspinis","Recruitment","HRate","No",FALSE,-0.189473673701286,0.256144911050797,NA,NA,NA,NA,NA
+"NROCKGA","Northern rockfish Gulf of Alaska","Sebastes polyspinis","SST","Recruitment","No",FALSE,-0.157894730567932,0.346764117479324,NA,NA,NA,NA,NA
+"NROCKGA","Northern rockfish Gulf of Alaska","Sebastes polyspinis","HRate","Recruitment","No",FALSE,0.0421052612364292,0.820338249206543,NA,NA,NA,NA,NA
+"NROCKGA","Northern rockfish Gulf of Alaska","Sebastes polyspinis","Recruitment","SST","Yes",TRUE,0.789473593235016,1.31130218505859e-06,-0.244782340435791,1.66077931643686e-35,-0.000399210300029307,0.434507656908379,0.0127746232482745
+"NROCKGA","Northern rockfish Gulf of Alaska","Sebastes polyspinis","Recruitment","HRate","Yes",TRUE,0.789473593235016,1.31130218505859e-06,-0.0151374336986886,1.61578637230466e-14,-4.22156431212006e-05,0.649188441243158,0.00393347786074601
+"NRSOLEEBSAI","Northern rock sole Eastern Bering Sea and Aleutian Islands","Lepidopsetta polyxystra","SST","Recruitment","No",FALSE,0.263157874345779,0.111886620521545,NA,NA,NA,NA,NA
+"NRSOLEEBSAI","Northern rock sole Eastern Bering Sea and Aleutian Islands","Lepidopsetta polyxystra","HRate","Recruitment","No",FALSE,-0.578947305679321,0.000405578495701775,NA,NA,NA,NA,NA
+"NRSOLEEBSAI","Northern rock sole Eastern Bering Sea and Aleutian Islands","Lepidopsetta polyxystra","Recruitment","SST","No",FALSE,-0.442105233669281,0.00708386860787868,NA,NA,NA,NA,NA
+"NRSOLEEBSAI","Northern rock sole Eastern Bering Sea and Aleutian Islands","Lepidopsetta polyxystra","Recruitment","HRate","No",FALSE,0.705263078212738,1.59740447998047e-05,NA,NA,NA,NA,NA
+"NRSOLEGA","Northern rock sole Gulf of Alaska","Lepidopsetta polyxystra","SST","Recruitment","No",FALSE,-0.547368347644806,0.000832486082799733,NA,NA,NA,NA,NA
+"NRSOLEGA","Northern rock sole Gulf of Alaska","Lepidopsetta polyxystra","HRate","Recruitment","No",FALSE,-0.8315789103508,3.51044434410142e-07,NA,NA,NA,NA,NA
+"NRSOLEGA","Northern rock sole Gulf of Alaska","Lepidopsetta polyxystra","Recruitment","SST","No",FALSE,0.452631533145905,0.00581979751586914,NA,NA,NA,NA,NA
+"NRSOLEGA","Northern rock sole Gulf of Alaska","Lepidopsetta polyxystra","Recruitment","HRate","Yes",TRUE,0.799999952316284,9.5367431640625e-07,-0.185969740300553,4.02482911919544e-17,0.00126542468469152,0.279804918776704,0.0332846712171128
+"NZLINGWSE","Ling Western half of Southeast Australia","Genypterus blacodes","SST","Recruitment","No",FALSE,0.357894718647003,0.0297225713729858,NA,NA,NA,NA,NA
+"NZLINGWSE","Ling Western half of Southeast Australia","Genypterus blacodes","HRate","Recruitment","Yes",TRUE,0.610526263713837,0.000190615653991699,-0.130604050860352,9.13815211624223e-27,0.000264288757920279,0.532807379784785,0.0112116986126585
+"NZLINGWSE","Ling Western half of Southeast Australia","Genypterus blacodes","Recruitment","SST","No",FALSE,-0.442105233669281,0.00708386860787868,NA,NA,NA,NA,NA
+"NZLINGWSE","Ling Western half of Southeast Australia","Genypterus blacodes","Recruitment","HRate","No",FALSE,0.894736766815186,0,NA,NA,NA,NA,NA
+"NZSNAPNZ7","New Zealand snapper New Zealand SNA 7","Chrysophrys auratus","SST","Recruitment","No",FALSE,0.96842098236084,0,NA,NA,NA,NA,NA
+"NZSNAPNZ7","New Zealand snapper New Zealand SNA 7","Chrysophrys auratus","HRate","Recruitment","No",FALSE,-0.421052604913712,0.0103742619976401,NA,NA,NA,NA,NA
+"NZSNAPNZ7","New Zealand snapper New Zealand SNA 7","Chrysophrys auratus","Recruitment","SST","No",FALSE,0.0947368368506432,0.581254720687866,NA,NA,NA,NA,NA
+"NZSNAPNZ7","New Zealand snapper New Zealand SNA 7","Chrysophrys auratus","Recruitment","HRate","No",FALSE,-0.294736832380295,0.0743529051542282,NA,NA,NA,NA,NA
+"NZSNAPNZ8","New Zealand snapper New Zealand Area 8 (Auckland and Central West)","Chrysophrys auratus","SST","Recruitment","No",FALSE,0.642105221748352,8.64267349243164e-05,NA,NA,NA,NA,NA
+"NZSNAPNZ8","New Zealand snapper New Zealand Area 8 (Auckland and Central West)","Chrysophrys auratus","HRate","Recruitment","Yes",TRUE,0.705263078212738,1.59740447998047e-05,-0.411322658971129,2.91059730599683e-43,0.00116698302266144,0.0151806899379191,0.145440058260402
+"NZSNAPNZ8","New Zealand snapper New Zealand Area 8 (Auckland and Central West)","Chrysophrys auratus","Recruitment","SST","No",FALSE,0.58947366476059,0.000316619873046875,NA,NA,NA,NA,NA
+"NZSNAPNZ8","New Zealand snapper New Zealand Area 8 (Auckland and Central West)","Chrysophrys auratus","Recruitment","HRate","Yes",TRUE,0.842105209827423,2.38418579101562e-07,-0.0498258720532171,1.62687047691638e-22,-0.000255297136023248,0.227478680932527,0.0371213821316209
+"OROUGHYNWCR","Orange roughy Northwest Chatham Rise","Hoplostethus atlanticus","SST","Recruitment","No",FALSE,0.96842098236084,0,NA,NA,NA,NA,NA
+"OROUGHYNWCR","Orange roughy Northwest Chatham Rise","Hoplostethus atlanticus","HRate","Recruitment","No",FALSE,0.978947281837463,0,NA,NA,NA,NA,NA
+"OROUGHYNWCR","Orange roughy Northwest Chatham Rise","Hoplostethus atlanticus","Recruitment","SST","No",FALSE,-0.789473593235016,1.33683192871104e-06,NA,NA,NA,NA,NA
+"OROUGHYNWCR","Orange roughy Northwest Chatham Rise","Hoplostethus atlanticus","Recruitment","HRate","Yes",TRUE,0.873684167861938,1.19209289550781e-07,-0.00133536062840205,0.876181307167798,0.000141675068835254,0.722129978994726,0.00174272628082868
+"OROUGHYNZMEC","Orange roughy New Zealand Mid East Coast","Hoplostethus atlanticus","SST","Recruitment","No",FALSE,0.947368323802948,0,NA,NA,NA,NA,NA
+"OROUGHYNZMEC","Orange roughy New Zealand Mid East Coast","Hoplostethus atlanticus","HRate","Recruitment","No",FALSE,0.999999940395355,0,NA,NA,NA,NA,NA
+"OROUGHYNZMEC","Orange roughy New Zealand Mid East Coast","Hoplostethus atlanticus","Recruitment","SST","No",FALSE,-0.663157820701599,5.00195164931938e-05,NA,NA,NA,NA,NA
+"OROUGHYNZMEC","Orange roughy New Zealand Mid East Coast","Hoplostethus atlanticus","Recruitment","HRate","No",FALSE,-0.733511745929718,7.47586636862252e-06,NA,NA,NA,NA,NA
+"PACBTUNA","Pacific bluefin tuna Pacific Ocean","Thunnus orientalis","SST","Recruitment","No",FALSE,-0.736842036247253,6.49023286314332e-06,NA,NA,NA,NA,NA
+"PACBTUNA","Pacific bluefin tuna Pacific Ocean","Thunnus orientalis","HRate","Recruitment","No",FALSE,-0.147368416190147,0.381032347679138,NA,NA,NA,NA,NA
+"PACBTUNA","Pacific bluefin tuna Pacific Ocean","Thunnus orientalis","Recruitment","SST","No",FALSE,-0.799999952316284,9.62830426942674e-07,NA,NA,NA,NA,NA
+"PACBTUNA","Pacific bluefin tuna Pacific Ocean","Thunnus orientalis","Recruitment","HRate","No",FALSE,-0.48421049118042,0.00315283588133752,NA,NA,NA,NA,NA
+"PAUANPAU5A","Paua NZ Area North PAUA 5A","Haliotis iris","SST","Recruitment","No",FALSE,-0.894736766815186,4.17973851085662e-08,NA,NA,NA,NA,NA
+"PAUANPAU5A","Paua NZ Area North PAUA 5A","Haliotis iris","HRate","Recruitment","Yes",TRUE,0.978947281837463,0,0.0548412456260212,4.81530715688461e-29,-2.53856227004611e-05,0.87264781850086,0.00054076761520896
+"PAUANPAU5A","Paua NZ Area North PAUA 5A","Haliotis iris","Recruitment","SST","No",FALSE,-0.799999952316284,9.62830426942674e-07,NA,NA,NA,NA,NA
+"PAUANPAU5A","Paua NZ Area North PAUA 5A","Haliotis iris","Recruitment","HRate","Yes",TRUE,0.810526251792908,7.15255737304688e-07,-0.0905816865575221,1.69254375424651e-26,0.00012421259119597,0.681924338067447,0.0041384297501603
+"PAUAPAU5B","Paua New Zealand Area PAU 5B (Stewart Island)","Haliotis iris","SST","Recruitment","No",FALSE,0.915789425373077,0,NA,NA,NA,NA,NA
+"PAUAPAU5B","Paua New Zealand Area PAU 5B (Stewart Island)","Haliotis iris","HRate","Recruitment","Yes",TRUE,0.999999940395355,0,-0.170549724627435,2.5369879322849e-48,0.000106792836341969,0.572799538626912,0.00681538787387592
+"PAUAPAU5B","Paua New Zealand Area PAU 5B (Stewart Island)","Haliotis iris","Recruitment","SST","No",FALSE,-0.147368416190147,0.381032347679138,NA,NA,NA,NA,NA
+"PAUAPAU5B","Paua New Zealand Area PAU 5B (Stewart Island)","Haliotis iris","Recruitment","HRate","Yes",TRUE,0.947368323802948,0,0.070422469146445,1.07433926238212e-34,1.70648233154733e-05,0.90702138670452,0.00034526454959415
+"PAUAPAU5D","Paua New Zealand Area PAU 5D (Otago)","Haliotis iris","SST","Recruitment","No",FALSE,0.789473593235016,1.31130218505859e-06,NA,NA,NA,NA,NA
+"PAUAPAU5D","Paua New Zealand Area PAU 5D (Otago)","Haliotis iris","HRate","Recruitment","Yes",TRUE,0.989473581314087,0,0.0604606429830246,6.63425701295607e-08,0.00136984352993735,0.0432274957216209,0.085886024751191
+"PAUAPAU5D","Paua New Zealand Area PAU 5D (Otago)","Haliotis iris","Recruitment","SST","No",FALSE,0.178947359323502,0.284321665763855,NA,NA,NA,NA,NA
+"PAUAPAU5D","Paua New Zealand Area PAU 5D (Otago)","Haliotis iris","Recruitment","HRate","Yes",TRUE,0.989473581314087,0,-0.0140371615262405,2.67711864543034e-05,0.000113852275853331,0.613149983514908,0.00572726334790456
+"PAUAPAU7","Paua New Zealand Area PAU 7 (Marlborough)","Haliotis iris","SST","Recruitment","No",FALSE,-0.410526275634766,0.0124822231009603,NA,NA,NA,NA,NA
+"PAUAPAU7","Paua New Zealand Area PAU 7 (Marlborough)","Haliotis iris","HRate","Recruitment","No",TRUE,-0.0210526306182146,0.922462046146393,NA,NA,NA,NA,NA
+"PAUAPAU7","Paua New Zealand Area PAU 7 (Marlborough)","Haliotis iris","Recruitment","SST","No",FALSE,0.799999952316284,9.5367431640625e-07,NA,NA,NA,NA,NA
+"PAUAPAU7","Paua New Zealand Area PAU 7 (Marlborough)","Haliotis iris","Recruitment","HRate","Yes",TRUE,0.999999940395355,0,-0.0756451985518763,0.000346110844288268,-0.00155766727260894,0.257159127673721,0.0266671382092992
+"PAUASPAU5A","Paua NZ Area South PAUA 5A","Haliotis iris","SST","Recruitment","No",FALSE,0.936842024326324,0,NA,NA,NA,NA,NA
+"PAUASPAU5A","Paua NZ Area South PAUA 5A","Haliotis iris","HRate","Recruitment","No",FALSE,0.86315780878067,1.19209289550781e-07,NA,NA,NA,NA,NA
+"PAUASPAU5A","Paua NZ Area South PAUA 5A","Haliotis iris","Recruitment","SST","No",FALSE,-0.0631578862667084,0.721176266670227,NA,NA,NA,NA,NA
+"PAUASPAU5A","Paua NZ Area South PAUA 5A","Haliotis iris","Recruitment","HRate","No",FALSE,0.599999964237213,0.000246167182922363,NA,NA,NA,NA,NA
+"PCEELCSCH","Pink cusk eel Central-Southern Chile","Genypterus blacodes","SST","Recruitment","Yes",TRUE,0.905263066291809,0,-0.0202984834389119,6.16421412134388e-23,-0.00014548914408937,0.0806736419276435,0.0781316312373341
+"PCEELCSCH","Pink cusk eel Central-Southern Chile","Genypterus blacodes","HRate","Recruitment","Yes",TRUE,0.947368323802948,0,-0.0198558680877903,1.28518032217368e-15,0.000125563584077579,0.354163675788967,0.0226302589996618
+"PCEELCSCH","Pink cusk eel Central-Southern Chile","Genypterus blacodes","Recruitment","SST","No",FALSE,0.778947293758392,1.9073486328125e-06,NA,NA,NA,NA,NA
+"PCEELCSCH","Pink cusk eel Central-Southern Chile","Genypterus blacodes","Recruitment","HRate","No",FALSE,0.452631533145905,0.00581979751586914,NA,NA,NA,NA,NA
+"PCEELSCH","Pink cusk eel Southern Chile","Genypterus blacodes","SST","Recruitment","No",FALSE,0.852631509304047,1.19209289550781e-07,NA,NA,NA,NA,NA
+"PCEELSCH","Pink cusk eel Southern Chile","Genypterus blacodes","HRate","Recruitment","Yes",TRUE,0.978947281837463,0,-0.115675694536405,3.19395104707107e-10,0.00322768067428804,0.00550056281491116,0.185724216404285
+"PCEELSCH","Pink cusk eel Southern Chile","Genypterus blacodes","Recruitment","SST","No",FALSE,-0.894736766815186,4.17973851085662e-08,NA,NA,NA,NA,NA
+"PCEELSCH","Pink cusk eel Southern Chile","Genypterus blacodes","Recruitment","HRate","Yes",TRUE,0.631578922271729,0.000113010406494141,0.204491555703384,3.57105612585686e-31,0.000101529949872609,0.838254088146551,0.00120690835821639
+"PCODBS","Pacific cod Bering Sea","Gadus macrocephalus","SST","Recruitment","Not relevant",FALSE,0.421052604913712,0.0103743076324463,NA,NA,NA,NA,NA
+"PCODBS","Pacific cod Bering Sea","Gadus macrocephalus","HRate","Recruitment","Not relevant",FALSE,-0.494736790657043,0.0025502173230052,NA,NA,NA,NA,NA
+"PCODBS","Pacific cod Bering Sea","Gadus macrocephalus","Recruitment","SST","No",FALSE,0.757894694805145,3.45706939697266e-06,NA,NA,NA,NA,NA
+"PCODBS","Pacific cod Bering Sea","Gadus macrocephalus","Recruitment","HRate","No",FALSE,-0.915789425373077,1.99008383106047e-08,NA,NA,NA,NA,NA
+"PCODGA","Pacific cod Gulf of Alaska","Gadus macrocephalus","SST","Recruitment","No",FALSE,0,1,NA,NA,NA,NA,NA
+"PCODGA","Pacific cod Gulf of Alaska","Gadus macrocephalus","HRate","Recruitment","No",FALSE,0.86315780878067,1.19209289550781e-07,NA,NA,NA,NA,NA
+"PCODGA","Pacific cod Gulf of Alaska","Gadus macrocephalus","Recruitment","SST","No",FALSE,-0.0105263153091073,0.974117755889893,NA,NA,NA,NA,NA
+"PCODGA","Pacific cod Gulf of Alaska","Gadus macrocephalus","Recruitment","HRate","Yes",TRUE,0.526315748691559,0.00131821632385254,-0.298086268649875,0.00278853890448846,-0.0041978543493217,0.601711141761449,0.00705029578069426
+"PCODWCVANI","Pacific cod West Coast of Vancouver Island","Gadus macrocephalus","SST","Recruitment","Yes",TRUE,0.789473593235016,1.31130218505859e-06,0.0960032488066933,0.77187181373871,0.00180998299991483,0.942774130167841,0.00011844225740995
+"PCODWCVANI","Pacific cod West Coast of Vancouver Island","Gadus macrocephalus","HRate","Recruitment","No",FALSE,-0.778947293758392,1.84858106422325e-06,NA,NA,NA,NA,NA
+"PCODWCVANI","Pacific cod West Coast of Vancouver Island","Gadus macrocephalus","Recruitment","SST","No",FALSE,0.642105221748352,8.64267349243164e-05,NA,NA,NA,NA,NA
+"PCODWCVANI","Pacific cod West Coast of Vancouver Island","Gadus macrocephalus","Recruitment","HRate","No",FALSE,-0.294736832380295,0.0743529051542282,NA,NA,NA,NA,NA
+"PERCHEBSAI","Pacific ocean perch Eastern Bering Sea and Aleutian Islands","Sebastes alutus","SST","Recruitment","No",FALSE,-0.231578931212425,0.162984400987625,NA,NA,NA,NA,NA
+"PERCHEBSAI","Pacific ocean perch Eastern Bering Sea and Aleutian Islands","Sebastes alutus","HRate","Recruitment","Yes",TRUE,0.684210479259491,2.84910202026367e-05,-0.530596521257874,3.7290848795073e-28,-0.00734640574768033,1.07984480358433e-07,0.409825214359791
+"PERCHEBSAI","Pacific ocean perch Eastern Bering Sea and Aleutian Islands","Sebastes alutus","Recruitment","SST","Yes",TRUE,0.821052551269531,4.76837158203125e-07,0.0930891849961836,6.75800596530602e-26,-3.38543413448978e-05,0.914712239637688,0.000241425007189509
+"PERCHEBSAI","Pacific ocean perch Eastern Bering Sea and Aleutian Islands","Sebastes alutus","Recruitment","HRate","No",FALSE,-0.0526315756142139,0.770287692546844,NA,NA,NA,NA,NA
+"PERCHHG","Pacific Ocean perch Haida Gwaii","Sebastes alutus","SST","Recruitment","No",FALSE,0.957894682884216,0,NA,NA,NA,NA,NA
+"PERCHHG","Pacific Ocean perch Haida Gwaii","Sebastes alutus","HRate","Recruitment","No",FALSE,0.957894682884216,0,NA,NA,NA,NA,NA
+"PERCHHG","Pacific Ocean perch Haida Gwaii","Sebastes alutus","Recruitment","SST","No",FALSE,-0.694736778736115,2.13578496186528e-05,NA,NA,NA,NA,NA
+"PERCHHG","Pacific Ocean perch Haida Gwaii","Sebastes alutus","Recruitment","HRate","No",FALSE,-0.873684167861938,8.63610551959937e-08,NA,NA,NA,NA,NA
+"PERCHWCVANI","Pacific ocean perch West Coast of Vancouver Island","Sebastes alutus","SST","Recruitment","No",FALSE,-0.684210479259491,2.84773868770571e-05,NA,NA,NA,NA,NA
+"PERCHWCVANI","Pacific ocean perch West Coast of Vancouver Island","Sebastes alutus","HRate","Recruitment","No",FALSE,-0.8315789103508,3.51044434410142e-07,NA,NA,NA,NA,NA
+"PERCHWCVANI","Pacific ocean perch West Coast of Vancouver Island","Sebastes alutus","Recruitment","SST","No",FALSE,0.305263131856918,0.0644110441207886,NA,NA,NA,NA,NA
+"PERCHWCVANI","Pacific ocean perch West Coast of Vancouver Island","Sebastes alutus","Recruitment","HRate","No",FALSE,0.705263078212738,1.59740447998047e-05,NA,NA,NA,NA,NA
+"PHAKEPCOAST","Pacific hake Pacific Coast","Merluccius productus","SST","Recruitment","No",FALSE,0.736842036247253,6.43730163574219e-06,NA,NA,NA,NA,NA
+"PHAKEPCOAST","Pacific hake Pacific Coast","Merluccius productus","HRate","Recruitment","No",FALSE,0.199999988079071,0.229969024658203,NA,NA,NA,NA,NA
+"PHAKEPCOAST","Pacific hake Pacific Coast","Merluccius productus","Recruitment","SST","No",FALSE,0.915789425373077,0,NA,NA,NA,NA,NA
+"PHAKEPCOAST","Pacific hake Pacific Coast","Merluccius productus","Recruitment","HRate","No",FALSE,-0.915789425373077,1.99008383106047e-08,NA,NA,NA,NA,NA
+"PILCHPJPN","Japanese sardine Pacific Coast of Japan","Sardinops melanostictus","SST","Recruitment","Yes",TRUE,0.873684167861938,1.19209289550781e-07,-0.0273402228543299,0.0092607336669431,0.00100456343190327,0.23920944587352,0.0353365579004267
+"PILCHPJPN","Japanese sardine Pacific Coast of Japan","Sardinops melanostictus","HRate","Recruitment","No",FALSE,0.789473593235016,1.31130218505859e-06,NA,NA,NA,NA,NA
+"PILCHPJPN","Japanese sardine Pacific Coast of Japan","Sardinops melanostictus","Recruitment","SST","Yes",TRUE,0.936842024326324,0,-0.0330428462128193,0.718499979882983,0.0315985037383957,2.28798853483891e-06,0.431698837563973
+"PILCHPJPN","Japanese sardine Pacific Coast of Japan","Sardinops melanostictus","Recruitment","HRate","Yes",TRUE,0.442105233669281,0.00708389282226562,-0.221432744420106,8.83314154371318e-13,-0.00241283110841254,0.1888177087015,0.0438557359660162
+"PILCHTSST","Japanese sardine Tsushima Strait","Sardinops melanostictus","SST","Recruitment","No",FALSE,-0.378947347402573,0.0212482400238514,NA,NA,NA,NA,NA
+"PILCHTSST","Japanese sardine Tsushima Strait","Sardinops melanostictus","HRate","Recruitment","No",FALSE,0.705263078212738,1.59740447998047e-05,NA,NA,NA,NA,NA
+"PILCHTSST","Japanese sardine Tsushima Strait","Sardinops melanostictus","Recruitment","SST","No",TRUE,-0.789473593235016,1.33683192871104e-06,NA,NA,NA,NA,NA
+"PILCHTSST","Japanese sardine Tsushima Strait","Sardinops melanostictus","Recruitment","HRate","Yes",TRUE,0.578947305679321,0.000405550003051758,-0.0106642206349006,3.80368630379112e-14,5.31820839085055e-05,0.42025944503778,0.0120678096563347
+"PLAIC7d","European plaice Eastern English Channel","Pleuronectes platessa","SST","Recruitment","No",FALSE,0.473684161901474,0.00388264656066895,NA,NA,NA,NA,NA
+"PLAIC7d","European plaice Eastern English Channel","Pleuronectes platessa","HRate","Recruitment","Yes",TRUE,0.694736778736115,2.13384628295898e-05,-0.345781267672021,3.34102813269099e-16,-0.00787298061588316,0.000230224344422649,0.324979721741567
+"PLAIC7d","European plaice Eastern English Channel","Pleuronectes platessa","Recruitment","SST","No",FALSE,0.96842098236084,0,NA,NA,NA,NA,NA
+"PLAIC7d","European plaice Eastern English Channel","Pleuronectes platessa","Recruitment","HRate","No",FALSE,0.936842024326324,0,NA,NA,NA,NA,NA
+"PLAICIS","European plaice Irish Sea","Pleuronectes platessa","SST","Recruitment","No",FALSE,0.957894682884216,0,NA,NA,NA,NA,NA
+"PLAICIS","European plaice Irish Sea","Pleuronectes platessa","HRate","Recruitment","No",FALSE,0.768420994281769,2.50339508056641e-06,NA,NA,NA,NA,NA
+"PLAICIS","European plaice Irish Sea","Pleuronectes platessa","Recruitment","SST","No",FALSE,0.663157820701599,5.00679016113281e-05,NA,NA,NA,NA,NA
+"PLAICIS","European plaice Irish Sea","Pleuronectes platessa","Recruitment","HRate","Yes",TRUE,0.96842098236084,0,0.00620362502116394,3.12277244828983e-10,7.295833701938e-05,0.261543547017622,0.0330523421803653
+"PLAICNS","European plaice North Sea","Pleuronectes platessa","SST","Recruitment","No",FALSE,-0.736842036247253,6.49023286314332e-06,NA,NA,NA,NA,NA
+"PLAICNS","European plaice North Sea","Pleuronectes platessa","HRate","Recruitment","No",FALSE,0.168421044945717,0.31452488899231,NA,NA,NA,NA,NA
+"PLAICNS","European plaice North Sea","Pleuronectes platessa","Recruitment","SST","Yes",TRUE,0.473684161901474,0.00388264656066895,0.033635696974276,1.17711687161046e-14,-1.70294542839409e-05,0.930404557046557,0.000134986493612488
+"PLAICNS","European plaice North Sea","Pleuronectes platessa","Recruitment","HRate","No",FALSE,-0.0631578862667084,0.721176266670227,NA,NA,NA,NA,NA
+"POLL5YZ","Pollock Gulf of Maine / Georges Bank","Pollachius virens","SST","Recruitment","No",FALSE,0.694736778736115,2.13384628295898e-05,NA,NA,NA,NA,NA
+"POLL5YZ","Pollock Gulf of Maine / Georges Bank","Pollachius virens","HRate","Recruitment","No",TRUE,-0.46315786242485,0.00476281205192208,NA,NA,NA,NA,NA
+"POLL5YZ","Pollock Gulf of Maine / Georges Bank","Pollachius virens","Recruitment","SST","No",FALSE,0.747368335723877,4.76837158203125e-06,NA,NA,NA,NA,NA
+"POLL5YZ","Pollock Gulf of Maine / Georges Bank","Pollachius virens","Recruitment","HRate","Yes",TRUE,0.936842024326324,0,-0.0580887813479024,3.2518013238586e-34,-0.00010269623062222,0.419247277908969,0.0148851571307439
+"POLLFAPL","Saithe Faroe Plateau","Pollachius virens","SST","Recruitment","No",FALSE,0.631578922271729,0.000113010406494141,NA,NA,NA,NA,NA
+"POLLFAPL","Saithe Faroe Plateau","Pollachius virens","HRate","Recruitment","No",FALSE,0.894736766815186,0,NA,NA,NA,NA,NA
+"POLLFAPL","Saithe Faroe Plateau","Pollachius virens","Recruitment","SST","Yes",TRUE,0.526315748691559,0.00131821632385254,0.272711945907924,5.34867305927539e-56,-2.96295361887907e-05,0.898082565482069,0.00031848736854255
+"POLLFAPL","Saithe Faroe Plateau","Pollachius virens","Recruitment","HRate","No",FALSE,0.673684179782867,3.77893447875977e-05,NA,NA,NA,NA,NA
+"POLLNEAR","Saithe North-East Arctic","Pollachius virens","SST","Recruitment","No",FALSE,0.799999952316284,9.5367431640625e-07,NA,NA,NA,NA,NA
+"POLLNEAR","Saithe North-East Arctic","Pollachius virens","HRate","Recruitment","No",TRUE,0.199999988079071,0.229969024658203,NA,NA,NA,NA,NA
+"POLLNEAR","Saithe North-East Arctic","Pollachius virens","Recruitment","SST","No",FALSE,0.936842024326324,0,NA,NA,NA,NA,NA
+"POLLNEAR","Saithe North-East Arctic","Pollachius virens","Recruitment","HRate","No",FALSE,-0.473684161901474,0.00388265703804791,NA,NA,NA,NA,NA
+"POPERCHGA","Pacific ocean perch Gulf of Alaska","Sebastes alutus","SST","Recruitment","No",FALSE,0.526315748691559,0.00131821632385254,NA,NA,NA,NA,NA
+"POPERCHGA","Pacific ocean perch Gulf of Alaska","Sebastes alutus","HRate","Recruitment","Yes",TRUE,0.884210467338562,1.19209289550781e-07,-0.342215123482184,8.16343505777113e-86,0.000153363316382295,0.0687636007577892,0.060029021800987
+"POPERCHGA","Pacific ocean perch Gulf of Alaska","Sebastes alutus","Recruitment","SST","Not relevant",TRUE,0.494736790657043,0.00255024433135986,NA,NA,NA,NA,NA
+"POPERCHGA","Pacific ocean perch Gulf of Alaska","Sebastes alutus","Recruitment","HRate","Yes",TRUE,0.473684161901474,0.00388264656066895,0.0549903754433727,1.38507582575321e-27,1.52611968118857e-05,0.927189571033198,0.000156066094132232
+"POPERCHPCOAST","Pacific ocean perch Pacific Coast","Sebastes alutus","SST","Recruitment","No",FALSE,0.936842024326324,0,NA,NA,NA,NA,NA
+"POPERCHPCOAST","Pacific ocean perch Pacific Coast","Sebastes alutus","HRate","Recruitment","Yes",TRUE,0.96842098236084,0,-0.212657432549968,4.71286747957031e-123,3.13183927149412e-05,0.469322996883091,0.00546731436013236
+"POPERCHPCOAST","Pacific ocean perch Pacific Coast","Sebastes alutus","Recruitment","SST","No",FALSE,0.347368389368057,0.0349550247192383,NA,NA,NA,NA,NA
+"POPERCHPCOAST","Pacific ocean perch Pacific Coast","Sebastes alutus","Recruitment","HRate","No",FALSE,-0.894736766815186,4.17973851085662e-08,NA,NA,NA,NA,NA
+"PSOLEPCOAST","Petrale sole Pacific Coast","Eopsetta jordani","SST","Recruitment","No",TRUE,0.199999988079071,0.229969024658203,NA,NA,NA,NA,NA
+"PSOLEPCOAST","Petrale sole Pacific Coast","Eopsetta jordani","HRate","Recruitment","Yes",TRUE,0.957894682884216,0,-0.293510444464912,1.24221835871706e-194,9.5667142773174e-06,0.713586658439509,0.000965268168199173
+"PSOLEPCOAST","Petrale sole Pacific Coast","Eopsetta jordani","Recruitment","SST","No",FALSE,0.768420994281769,2.50339508056641e-06,NA,NA,NA,NA,NA
+"PSOLEPCOAST","Petrale sole Pacific Coast","Eopsetta jordani","Recruitment","HRate","No",FALSE,-0.189473673701286,0.256144911050797,NA,NA,NA,NA,NA
+"REDFEAUS","Redfish Eastern Australia","Centroberyx affinis","SST","Recruitment","No",FALSE,0.505263090133667,0.00205469131469727,NA,NA,NA,NA,NA
+"REDFEAUS","Redfish Eastern Australia","Centroberyx affinis","HRate","Recruitment","No",FALSE,0.494736790657043,0.00255024433135986,NA,NA,NA,NA,NA
+"REDFEAUS","Redfish Eastern Australia","Centroberyx affinis","Recruitment","SST","No",FALSE,0.515789449214935,0.00164902210235596,NA,NA,NA,NA,NA
+"REDFEAUS","Redfish Eastern Australia","Centroberyx affinis","Recruitment","HRate","No",FALSE,0.421052604913712,0.0103743076324463,NA,NA,NA,NA,NA
+"RHERRTSST","Round herring Tsushima Strait","Etrumeus teres","SST","Recruitment","No",FALSE,-0.48421049118042,0.00315283588133752,NA,NA,NA,NA,NA
+"RHERRTSST","Round herring Tsushima Strait","Etrumeus teres","HRate","Recruitment","No",FALSE,-0.494736790657043,0.0025502173230052,NA,NA,NA,NA,NA
+"RHERRTSST","Round herring Tsushima Strait","Etrumeus teres","Recruitment","SST","No",FALSE,-0.378947347402573,0.0212482400238514,NA,NA,NA,NA,NA
+"RHERRTSST","Round herring Tsushima Strait","Etrumeus teres","Recruitment","HRate","No",FALSE,0.947368323802948,0,NA,NA,NA,NA,NA
+"RPORGYSATLC","Red porgy Southern Atlantic coast","Pagrus pagrus","SST","Recruitment","No",FALSE,0.673684179782867,3.77893447875977e-05,NA,NA,NA,NA,NA
+"RPORGYSATLC","Red porgy Southern Atlantic coast","Pagrus pagrus","HRate","Recruitment","No",TRUE,-0.421052604913712,0.0103742619976401,NA,NA,NA,NA,NA
+"RPORGYSATLC","Red porgy Southern Atlantic coast","Pagrus pagrus","Recruitment","SST","No",FALSE,-0.494736790657043,0.0025502173230052,NA,NA,NA,NA,NA
+"RPORGYSATLC","Red porgy Southern Atlantic coast","Pagrus pagrus","Recruitment","HRate","No",FALSE,0.284210503101349,0.0855147838592529,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA1","Red rock lobster New Zealand Area CRA1","Jasus edwardsii","SST","Recruitment","No",FALSE,0.705263078212738,1.59740447998047e-05,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA1","Red rock lobster New Zealand Area CRA1","Jasus edwardsii","HRate","Recruitment","Yes",TRUE,0.96842098236084,0,0.0724666403755867,5.41553520581799e-53,-6.64419441636018e-05,0.397184576730461,0.0112248080246982
+"RROCKLOBSTERCRA1","Red rock lobster New Zealand Area CRA1","Jasus edwardsii","Recruitment","SST","No",FALSE,0.526315748691559,0.00131821632385254,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA1","Red rock lobster New Zealand Area CRA1","Jasus edwardsii","Recruitment","HRate","Yes",TRUE,0.768420994281769,2.50339508056641e-06,-0.0704677305537386,7.64275985743374e-30,0.00040138108930765,0.0286673206813078,0.0760754865782303
+"RROCKLOBSTERCRA2","Red rock lobster New Zealand Area CRA2","Jasus edwardsii","SST","Recruitment","No",FALSE,-0.305263131856918,0.0644110068678856,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA2","Red rock lobster New Zealand Area CRA2","Jasus edwardsii","HRate","Recruitment","No",TRUE,-0.536842048168182,0.00104963616468012,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA2","Red rock lobster New Zealand Area CRA2","Jasus edwardsii","Recruitment","SST","No",FALSE,0.505263090133667,0.00205469131469727,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA2","Red rock lobster New Zealand Area CRA2","Jasus edwardsii","Recruitment","HRate","No",FALSE,-0.768420994281769,2.54586711889715e-06,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA4","Red rock lobster New Zealand Area CRA4","Jasus edwardsii","SST","Recruitment","No",FALSE,0.8315789103508,3.57627868652344e-07,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA4","Red rock lobster New Zealand Area CRA4","Jasus edwardsii","HRate","Recruitment","No",FALSE,0.72631573677063,8.82148742675781e-06,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA4","Red rock lobster New Zealand Area CRA4","Jasus edwardsii","Recruitment","SST","No",FALSE,0.378947347402573,0.0212482213973999,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA4","Red rock lobster New Zealand Area CRA4","Jasus edwardsii","Recruitment","HRate","No",FALSE,-0.821052551269531,4.93393372380524e-07,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA7","Red rock lobster New Zealand Area CRA7","Jasus edwardsii","SST","Recruitment","No",FALSE,-0.736842036247253,6.49023286314332e-06,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA7","Red rock lobster New Zealand Area CRA7","Jasus edwardsii","HRate","Recruitment","No",FALSE,-0.747368335723877,4.77030289403046e-06,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA7","Red rock lobster New Zealand Area CRA7","Jasus edwardsii","Recruitment","SST","Yes",TRUE,0.652631521224976,6.5922737121582e-05,-0.270978768342114,8.93400330025355e-10,0.0120707212451381,1.17085165160795e-07,0.467592847858519
+"RROCKLOBSTERCRA7","Red rock lobster New Zealand Area CRA7","Jasus edwardsii","Recruitment","HRate","No",FALSE,0.494736790657043,0.00255024433135986,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA8","Red rock lobster New Zealand Area CRA8","Jasus edwardsii","SST","Recruitment","No",FALSE,0.0947368368506432,0.581254720687866,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA8","Red rock lobster New Zealand Area CRA8","Jasus edwardsii","HRate","Recruitment","No",FALSE,0.610526263713837,0.000190615653991699,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA8","Red rock lobster New Zealand Area CRA8","Jasus edwardsii","Recruitment","SST","No",FALSE,0.305263131856918,0.0644110441207886,NA,NA,NA,NA,NA
+"RROCKLOBSTERCRA8","Red rock lobster New Zealand Area CRA8","Jasus edwardsii","Recruitment","HRate","No",FALSE,-0.0105263153091073,0.974117755889893,NA,NA,NA,NA,NA
+"RSNAPGM","Red snapper Gulf of Mexico","Lutjanus campechanus","SST","Recruitment","No",FALSE,0.0947368368506432,0.581254720687866,NA,NA,NA,NA,NA
+"RSNAPGM","Red snapper Gulf of Mexico","Lutjanus campechanus","HRate","Recruitment","No",FALSE,-0.22105261683464,0.18344721198082,NA,NA,NA,NA,NA
+"RSNAPGM","Red snapper Gulf of Mexico","Lutjanus campechanus","Recruitment","SST","No",FALSE,0.452631533145905,0.00581979751586914,NA,NA,NA,NA,NA
+"RSNAPGM","Red snapper Gulf of Mexico","Lutjanus campechanus","Recruitment","HRate","No",FALSE,-0.547368347644806,0.000832486082799733,NA,NA,NA,NA,NA
+"RSNAPSATLC","Red snapper Southern Atlantic coast","Lutjanus campechanus","SST","Recruitment","No",FALSE,0.926315724849701,0,NA,NA,NA,NA,NA
+"RSNAPSATLC","Red snapper Southern Atlantic coast","Lutjanus campechanus","HRate","Recruitment","Yes",TRUE,0.947368323802948,0,0.0900272874966787,7.11342528894445e-52,-0.000239195453748668,0.0174499409369276,0.0826448886131794
+"RSNAPSATLC","Red snapper Southern Atlantic coast","Lutjanus campechanus","Recruitment","SST","No",FALSE,-0.705263078212738,1.5953812180669e-05,NA,NA,NA,NA,NA
+"RSNAPSATLC","Red snapper Southern Atlantic coast","Lutjanus campechanus","Recruitment","HRate","No",FALSE,-0.72631573677063,8.79462186276214e-06,NA,NA,NA,NA,NA
+"RSOLE5AB","Rock sole Queen Charlotte Sound","Lepidopsetta bilineata","SST","Recruitment","Yes",TRUE,0.978947281837463,0,0.0986252319650301,0.00470898343988829,0.00433948015654011,0.0104767830785201,0.0951814648078804
+"RSOLE5AB","Rock sole Queen Charlotte Sound","Lepidopsetta bilineata","HRate","Recruitment","No",FALSE,0.368421018123627,0.0251783132553101,NA,NA,NA,NA,NA
+"RSOLE5AB","Rock sole Queen Charlotte Sound","Lepidopsetta bilineata","Recruitment","SST","No",FALSE,0.957894682884216,0,NA,NA,NA,NA,NA
+"RSOLE5AB","Rock sole Queen Charlotte Sound","Lepidopsetta bilineata","Recruitment","HRate","No",FALSE,0.199999988079071,0.229969024658203,NA,NA,NA,NA,NA
+"RSOLEGA","Rock sole Gulf of Alaska","Lepidopsetta bilineata","SST","Recruitment","No",FALSE,0.821052551269531,4.76837158203125e-07,NA,NA,NA,NA,NA
+"RSOLEGA","Rock sole Gulf of Alaska","Lepidopsetta bilineata","HRate","Recruitment","Yes",TRUE,0.842105209827423,2.38418579101562e-07,0.332399477751725,6.46318204494176e-07,0.0096242748542948,0.0810716612642887,0.092069783152674
+"RSOLEGA","Rock sole Gulf of Alaska","Lepidopsetta bilineata","Recruitment","SST","No",FALSE,0.547368347644806,0.000832438468933105,NA,NA,NA,NA,NA
+"RSOLEGA","Rock sole Gulf of Alaska","Lepidopsetta bilineata","Recruitment","HRate","No",FALSE,0.894736766815186,0,NA,NA,NA,NA,NA
+"RSOLEHSTR","Rock sole Hecate Strait","Lepidopsetta bilineata","SST","Recruitment","No",FALSE,-0.421052604913712,0.0103742619976401,NA,NA,NA,NA,NA
+"RSOLEHSTR","Rock sole Hecate Strait","Lepidopsetta bilineata","HRate","Recruitment","No",FALSE,0.873684167861938,1.19209289550781e-07,NA,NA,NA,NA,NA
+"RSOLEHSTR","Rock sole Hecate Strait","Lepidopsetta bilineata","Recruitment","SST","No",FALSE,-0.768420994281769,2.54586711889715e-06,NA,NA,NA,NA,NA
+"RSOLEHSTR","Rock sole Hecate Strait","Lepidopsetta bilineata","Recruitment","HRate","Yes",TRUE,0.631578922271729,0.000113010406494141,0.0295706900490001,5.43603422109889e-23,1.53141706103361e-05,0.88355663561077,0.000343148229839387
+"RSROCKBCWN","Redstripe rockfish British Columbia Waters North","Sebastes proriger","SST","Recruitment","No",FALSE,0.715789437294006,1.19209289550781e-05,NA,NA,NA,NA,NA
+"RSROCKBCWN","Redstripe rockfish British Columbia Waters North","Sebastes proriger","HRate","Recruitment","Yes",TRUE,0.96842098236084,0,-0.0984360110156554,0.0676728057453163,0.00289983636807232,0.245847226801833,0.0186587163440924
+"RSROCKBCWN","Redstripe rockfish British Columbia Waters North","Sebastes proriger","Recruitment","SST","No",FALSE,-0.915789425373077,1.99008383106047e-08,NA,NA,NA,NA,NA
+"RSROCKBCWN","Redstripe rockfish British Columbia Waters North","Sebastes proriger","Recruitment","HRate","No",FALSE,-0.210526302456856,0.205754071474075,NA,NA,NA,NA,NA
+"RSROCKBCWS","Redstripe rockfish British Columbia Waters South","Sebastes proriger","SST","Recruitment","No",FALSE,0.0526315756142139,0.770287752151489,NA,NA,NA,NA,NA
+"RSROCKBCWS","Redstripe rockfish British Columbia Waters South","Sebastes proriger","HRate","Recruitment","No",TRUE,-0.652631521224976,6.58932694932446e-05,NA,NA,NA,NA,NA
+"RSROCKBCWS","Redstripe rockfish British Columbia Waters South","Sebastes proriger","Recruitment","SST","No",FALSE,-0.821052551269531,4.93393372380524e-07,NA,NA,NA,NA,NA
+"RSROCKBCWS","Redstripe rockfish British Columbia Waters South","Sebastes proriger","Recruitment","HRate","No",FALSE,-0.842105209827423,2.48748364128915e-07,NA,NA,NA,NA,NA
+"SABLEFEBSAIGA","Sablefish Eastern Bering Sea / Aleutian Islands / Gulf of Alaska","Anoplopoma fimbria","SST","Recruitment","Not relevant",FALSE,0.86315780878067,1.19209289550781e-07,NA,NA,NA,NA,NA
+"SABLEFEBSAIGA","Sablefish Eastern Bering Sea / Aleutian Islands / Gulf of Alaska","Anoplopoma fimbria","HRate","Recruitment","Not relevant",TRUE,0.842105209827423,2.38418579101562e-07,NA,NA,NA,NA,NA
+"SABLEFEBSAIGA","Sablefish Eastern Bering Sea / Aleutian Islands / Gulf of Alaska","Anoplopoma fimbria","Recruitment","SST","Yes",TRUE,0.768420994281769,2.50339508056641e-06,0.0263690764043333,5.29903904398286e-05,0.00046789280662834,0.252218604525942,0.0266663072191851
+"SABLEFEBSAIGA","Sablefish Eastern Bering Sea / Aleutian Islands / Gulf of Alaska","Anoplopoma fimbria","Recruitment","HRate","No",FALSE,0.778947293758392,1.9073486328125e-06,NA,NA,NA,NA,NA
+"SABLEFPCAN","Sablefish Pacific Coast of Canada","Anoplopoma fimbria","SST","Recruitment","No",FALSE,0.0947368368506432,0.581254720687866,NA,NA,NA,NA,NA
+"SABLEFPCAN","Sablefish Pacific Coast of Canada","Anoplopoma fimbria","HRate","Recruitment","Yes",TRUE,0.873684167861938,1.19209289550781e-07,-0.469699376986581,0.00346643923109335,0.01004564435386,0.303582396885485,0.0199567702561575
+"SABLEFPCAN","Sablefish Pacific Coast of Canada","Anoplopoma fimbria","Recruitment","SST","No",FALSE,0.547368347644806,0.000832438468933105,NA,NA,NA,NA,NA
+"SABLEFPCAN","Sablefish Pacific Coast of Canada","Anoplopoma fimbria","Recruitment","HRate","No",FALSE,-0.86315780878067,1.23378640637384e-07,NA,NA,NA,NA,NA
+"SABLEFPCOAST","Sablefish Pacific Coast","Anoplopoma fimbria","SST","Recruitment","No",TRUE,0.315789461135864,0.0555930137634277,NA,NA,NA,NA,NA
+"SABLEFPCOAST","Sablefish Pacific Coast","Anoplopoma fimbria","HRate","Recruitment","Yes",TRUE,0.989473581314087,0,0.301186640253768,0.184149489960327,0.00743673796393351,0.217321427460021,0.0118659290402623
+"SABLEFPCOAST","Sablefish Pacific Coast","Anoplopoma fimbria","Recruitment","SST","No",FALSE,-0.547368347644806,0.000832486082799733,NA,NA,NA,NA,NA
+"SABLEFPCOAST","Sablefish Pacific Coast","Anoplopoma fimbria","Recruitment","HRate","No",FALSE,0.284210503101349,0.0855147838592529,NA,NA,NA,NA,NA
+"SBARSHARATL","Sandbar shark Atlantic","Carcharhinus plumbeus","SST","Recruitment","No",FALSE,-0.642105221748352,8.64568137330934e-05,NA,NA,NA,NA,NA
+"SBARSHARATL","Sandbar shark Atlantic","Carcharhinus plumbeus","HRate","Recruitment","No",FALSE,0.0105263153091073,0.974117755889893,NA,NA,NA,NA,NA
+"SBARSHARATL","Sandbar shark Atlantic","Carcharhinus plumbeus","Recruitment","SST","No",FALSE,0.957894682884216,0,NA,NA,NA,NA,NA
+"SBARSHARATL","Sandbar shark Atlantic","Carcharhinus plumbeus","Recruitment","HRate","Yes",TRUE,0.947368323802948,0,-0.192305364460102,0.0198286762693637,0.000775427950891017,0.877401374814498,0.000444693902468963
+"SBWHITCH","Southern blue whiting Central-Southern Chile","Micromesistius australis","SST","Recruitment","No",FALSE,0.747368335723877,4.76837158203125e-06,NA,NA,NA,NA,NA
+"SBWHITCH","Southern blue whiting Central-Southern Chile","Micromesistius australis","HRate","Recruitment","Yes",TRUE,0.768420994281769,2.50339508056641e-06,-0.330661990895707,9.44448799560455e-23,0.00661153808292319,4.30709807441224e-09,0.62094364957446
+"SBWHITCH","Southern blue whiting Central-Southern Chile","Micromesistius australis","Recruitment","SST","No",FALSE,-0.505263090133667,0.00205471809022129,NA,NA,NA,NA,NA
+"SBWHITCH","Southern blue whiting Central-Southern Chile","Micromesistius australis","Recruitment","HRate","No",FALSE,-0.578947305679321,0.000405578495701775,NA,NA,NA,NA,NA
+"SKJCWPAC","Skipjack tuna Central Western Pacific Ocean","Katsuwonus pelamis","SST","Recruitment","No",TRUE,0.168421044945717,0.31452488899231,NA,NA,NA,NA,NA
+"SKJCWPAC","Skipjack tuna Central Western Pacific Ocean","Katsuwonus pelamis","HRate","Recruitment","No",FALSE,-0.368421018123627,0.0251783393323421,NA,NA,NA,NA,NA
+"SKJCWPAC","Skipjack tuna Central Western Pacific Ocean","Katsuwonus pelamis","Recruitment","SST","No",FALSE,-0.72631573677063,8.79462186276214e-06,NA,NA,NA,NA,NA
+"SKJCWPAC","Skipjack tuna Central Western Pacific Ocean","Katsuwonus pelamis","Recruitment","HRate","No",FALSE,0.663157820701599,5.00679016113281e-05,NA,NA,NA,NA,NA
+"SMOOTHOREOCR","Smooth oreo Chatham Rise","Pseudocyttus maculatus","SST","Recruitment","No",FALSE,-0.768420994281769,2.54586711889715e-06,NA,NA,NA,NA,NA
+"SMOOTHOREOCR","Smooth oreo Chatham Rise","Pseudocyttus maculatus","HRate","Recruitment","Yes",TRUE,0.799999952316284,9.5367431640625e-07,-0.152490849897621,0.000135530962152416,-0.00988164729054911,1.86283713165175e-06,0.340941220715799
+"SMOOTHOREOCR","Smooth oreo Chatham Rise","Pseudocyttus maculatus","Recruitment","SST","No",FALSE,0.263157874345779,0.111886620521545,NA,NA,NA,NA,NA
+"SMOOTHOREOCR","Smooth oreo Chatham Rise","Pseudocyttus maculatus","Recruitment","HRate","No",FALSE,-0.842105209827423,2.48748364128915e-07,NA,NA,NA,NA,NA
+"SMOOTHOREOWECR","Smooth oreo West end of Chatham Rise","Pseudocyttus maculatus","SST","Recruitment","No",FALSE,0.915789425373077,0,NA,NA,NA,NA,NA
+"SMOOTHOREOWECR","Smooth oreo West end of Chatham Rise","Pseudocyttus maculatus","HRate","Recruitment","Yes",TRUE,0.96842098236084,0,-0.117921594209966,4.44355324952537e-59,-6.33636890879412e-06,0.900166362932443,0.000443181574699147
+"SMOOTHOREOWECR","Smooth oreo West end of Chatham Rise","Pseudocyttus maculatus","Recruitment","SST","No",FALSE,0.273684173822403,0.0979937314987183,NA,NA,NA,NA,NA
+"SMOOTHOREOWECR","Smooth oreo West end of Chatham Rise","Pseudocyttus maculatus","Recruitment","HRate","Yes",TRUE,0.72631573677063,8.82148742675781e-06,-0.866372335555174,4.17237797450507e-06,0.0671847122581076,8.18665017143712e-09,0.587367572415634
+"SNOWGROUPSATLC","Snowy grouper Southern Atlantic coast","Epinephelus niveatus","SST","Recruitment","No",FALSE,0.547368347644806,0.000832438468933105,NA,NA,NA,NA,NA
+"SNOWGROUPSATLC","Snowy grouper Southern Atlantic coast","Epinephelus niveatus","HRate","Recruitment","No",TRUE,-0.0526315756142139,0.770287692546844,NA,NA,NA,NA,NA
+"SNOWGROUPSATLC","Snowy grouper Southern Atlantic coast","Epinephelus niveatus","Recruitment","SST","No",FALSE,-0.705263078212738,1.5953812180669e-05,NA,NA,NA,NA,NA
+"SNOWGROUPSATLC","Snowy grouper Southern Atlantic coast","Epinephelus niveatus","Recruitment","HRate","Yes",TRUE,0.884210467338562,1.19209289550781e-07,0.151369415293819,7.07338621144874e-09,-0.000387005729024787,0.818808766387058,0.00126360042555767
+"SNROCKPCOAST","Splitnose rockfish Pacific Coast","Sebastes diploproa","SST","Recruitment","Yes",TRUE,0.905263066291809,0,0.053762584459223,3.50690201184965e-09,0.001782060966727,1.51202749375625e-12,0.395122656159665
+"SNROCKPCOAST","Splitnose rockfish Pacific Coast","Sebastes diploproa","HRate","Recruitment","Yes",TRUE,0.936842024326324,0,-0.0373266954160884,4.47302292529972e-06,0.00153136293403143,1.27602837540606e-10,0.339956413268727
+"SNROCKPCOAST","Splitnose rockfish Pacific Coast","Sebastes diploproa","Recruitment","SST","No",FALSE,-0.48421049118042,0.00315283588133752,NA,NA,NA,NA,NA
+"SNROCKPCOAST","Splitnose rockfish Pacific Coast","Sebastes diploproa","Recruitment","HRate","No",FALSE,0.673684179782867,3.77893447875977e-05,NA,NA,NA,NA,NA
+"SOLECS","Common sole Celtic Sea","Solea solea","SST","Recruitment","No",FALSE,0.778947293758392,1.9073486328125e-06,NA,NA,NA,NA,NA
+"SOLECS","Common sole Celtic Sea","Solea solea","HRate","Recruitment","No",FALSE,-0.789473593235016,1.33683192871104e-06,NA,NA,NA,NA,NA
+"SOLECS","Common sole Celtic Sea","Solea solea","Recruitment","SST","No",FALSE,-0.115789465606213,0.495662719011307,NA,NA,NA,NA,NA
+"SOLECS","Common sole Celtic Sea","Solea solea","Recruitment","HRate","No",FALSE,-0.799999952316284,9.62830426942674e-07,NA,NA,NA,NA,NA
+"SOLEIS","Common sole Irish Sea","Solea solea","SST","Recruitment","Yes",TRUE,0.515789449214935,0.00164902210235596,-0.475859688983448,3.99101989453895e-52,0.00117052989126198,0.00363756589303601,0.173029463826584
+"SOLEIS","Common sole Irish Sea","Solea solea","HRate","Recruitment","Yes",TRUE,0.884210467338562,1.19209289550781e-07,0.121429553789958,3.7628296971513e-34,-0.000868673196918226,0.000565506035555258,0.234344276694659
+"SOLEIS","Common sole Irish Sea","Solea solea","Recruitment","SST","Yes",TRUE,0.789473593235016,1.31130218505859e-06,-0.192160746407162,7.58370832946539e-44,5.40441255733874e-05,0.832123708975366,0.00103238457188446
+"SOLEIS","Common sole Irish Sea","Solea solea","Recruitment","HRate","No",FALSE,0.231578931212425,0.162984371185303,NA,NA,NA,NA,NA
+"SOLENS","Common sole North Sea","Solea solea","SST","Recruitment","No",FALSE,-0.494736790657043,0.0025502173230052,NA,NA,NA,NA,NA
+"SOLENS","Common sole North Sea","Solea solea","HRate","Recruitment","No",FALSE,0.915789425373077,0,NA,NA,NA,NA,NA
+"SOLENS","Common sole North Sea","Solea solea","Recruitment","SST","No",FALSE,-0.210526302456856,0.205754071474075,NA,NA,NA,NA,NA
+"SOLENS","Common sole North Sea","Solea solea","Recruitment","HRate","No",FALSE,-0.96842098236084,2.89747048576317e-09,NA,NA,NA,NA,NA
+"SOLEVIIe","Common sole Western English Channel","Solea solea","SST","Recruitment","No",FALSE,0.642105221748352,8.64267349243164e-05,NA,NA,NA,NA,NA
+"SOLEVIIe","Common sole Western English Channel","Solea solea","HRate","Recruitment","No",FALSE,0.652631521224976,6.5922737121582e-05,NA,NA,NA,NA,NA
+"SOLEVIIe","Common sole Western English Channel","Solea solea","Recruitment","SST","No",FALSE,0.736842036247253,6.43730163574219e-06,NA,NA,NA,NA,NA
+"SOLEVIIe","Common sole Western English Channel","Solea solea","Recruitment","HRate","No",FALSE,0.810526251792908,7.15255737304688e-07,NA,NA,NA,NA,NA
+"SOUTHHAKECH","Southern hake Central-Southern Chile","Merluccius australis","SST","Recruitment","No",FALSE,0.852631509304047,1.19209289550781e-07,NA,NA,NA,NA,NA
+"SOUTHHAKECH","Southern hake Central-Southern Chile","Merluccius australis","HRate","Recruitment","No",FALSE,0.799999952316284,9.5367431640625e-07,NA,NA,NA,NA,NA
+"SOUTHHAKECH","Southern hake Central-Southern Chile","Merluccius australis","Recruitment","SST","No",FALSE,-0.410526275634766,0.0124822231009603,NA,NA,NA,NA,NA
+"SOUTHHAKECH","Southern hake Central-Southern Chile","Merluccius australis","Recruitment","HRate","No",FALSE,0.757894694805145,3.45706939697266e-06,NA,NA,NA,NA,NA
+"SOUTHHAKESA","Southern hake Sub-Antarctic","Merluccius australis","SST","Recruitment","No",FALSE,0.86315780878067,1.19209289550781e-07,NA,NA,NA,NA,NA
+"SOUTHHAKESA","Southern hake Sub-Antarctic","Merluccius australis","HRate","Recruitment","No",FALSE,-0.957894682884216,4.29490620845741e-09,NA,NA,NA,NA,NA
+"SOUTHHAKESA","Southern hake Sub-Antarctic","Merluccius australis","Recruitment","SST","No",FALSE,0.72631573677063,8.82148742675781e-06,NA,NA,NA,NA,NA
+"SOUTHHAKESA","Southern hake Sub-Antarctic","Merluccius australis","Recruitment","HRate","No",FALSE,-0.494736790657043,0.0025502173230052,NA,NA,NA,NA,NA
+"SPHAKECH","South Pacific hake Central-Southern Chile","Merluccius gayi","SST","Recruitment","No",FALSE,0.96842098236084,0,NA,NA,NA,NA,NA
+"SPHAKECH","South Pacific hake Central-Southern Chile","Merluccius gayi","HRate","Recruitment","No",FALSE,0.736842036247253,6.43730163574219e-06,NA,NA,NA,NA,NA
+"SPHAKECH","South Pacific hake Central-Southern Chile","Merluccius gayi","Recruitment","SST","No",FALSE,0.947368323802948,0,NA,NA,NA,NA,NA
+"SPHAKECH","South Pacific hake Central-Southern Chile","Merluccius gayi","Recruitment","HRate","Yes",TRUE,0.86315780878067,1.19209289550781e-07,0.0636461325062356,1.48279405049099e-08,0.00109132190139435,0.0124711387615452,0.0783572407732966
+"SPSDOGPCOAST","Spotted spiny dogfish Pacific Coast","Squalus suckleyi","SST","Recruitment","No",FALSE,0.936842024326324,0,NA,NA,NA,NA,NA
+"SPSDOGPCOAST","Spotted spiny dogfish Pacific Coast","Squalus suckleyi","HRate","Recruitment","No",FALSE,0.989473581314087,0,NA,NA,NA,NA,NA
+"SPSDOGPCOAST","Spotted spiny dogfish Pacific Coast","Squalus suckleyi","Recruitment","SST","No",FALSE,-0.178947359323502,0.284321665763855,NA,NA,NA,NA,NA
+"SPSDOGPCOAST","Spotted spiny dogfish Pacific Coast","Squalus suckleyi","Recruitment","HRate","Yes",TRUE,0.926315724849701,0,0.19946745436063,6.2493880860903e-12,-0.00682827347541963,2.8621062091922e-17,0.557846291040831
+"SSTHORNHPCOAST","Shortspine thornyhead Pacific Coast","Sebastolobus alascanus","SST","Recruitment","No",FALSE,0.0105263153091073,0.974117755889893,NA,NA,NA,NA,NA
+"SSTHORNHPCOAST","Shortspine thornyhead Pacific Coast","Sebastolobus alascanus","HRate","Recruitment","No",FALSE,-0.58947366476059,0.000316610850859433,NA,NA,NA,NA,NA
+"SSTHORNHPCOAST","Shortspine thornyhead Pacific Coast","Sebastolobus alascanus","Recruitment","SST","No",FALSE,-0.821052551269531,4.93393372380524e-07,NA,NA,NA,NA,NA
+"SSTHORNHPCOAST","Shortspine thornyhead Pacific Coast","Sebastolobus alascanus","Recruitment","HRate","No",FALSE,-0.494736790657043,0.0025502173230052,NA,NA,NA,NA,NA
+"SWHITSE","School whiting Southeast Australia","Sillago flindersi","SST","Recruitment","No",TRUE,-0.536842048168182,0.00104963616468012,NA,NA,NA,NA,NA
+"SWHITSE","School whiting Southeast Australia","Sillago flindersi","HRate","Recruitment","Yes",TRUE,0.96842098236084,0,-0.556714057273587,5.30194231131189e-114,-0.000106169355048677,0.271076021728674,0.0161270089798029
+"SWHITSE","School whiting Southeast Australia","Sillago flindersi","Recruitment","SST","No",TRUE,-0.62105256319046,0.000147060563904233,NA,NA,NA,NA,NA
+"SWHITSE","School whiting Southeast Australia","Sillago flindersi","Recruitment","HRate","No",FALSE,-0.747368335723877,4.77030289403046e-06,NA,NA,NA,NA,NA
+"SWORDNPAC","Swordfish North Pacific Ocean","Xiphias gladius","SST","Recruitment","No",TRUE,0.273684173822403,0.0979937314987183,NA,NA,NA,NA,NA
+"SWORDNPAC","Swordfish North Pacific Ocean","Xiphias gladius","HRate","Recruitment","No",FALSE,0.431578904390335,0.00858914852142334,NA,NA,NA,NA,NA
+"SWORDNPAC","Swordfish North Pacific Ocean","Xiphias gladius","Recruitment","SST","No",FALSE,-0.736842036247253,6.49023286314332e-06,NA,NA,NA,NA,NA
+"SWORDNPAC","Swordfish North Pacific Ocean","Xiphias gladius","Recruitment","HRate","No",FALSE,0.936842024326324,0,NA,NA,NA,NA,NA
+"TANNERCRABBSAI","Tanner crab Bering Sea and Aleutian Islands","Chionoecetes bairdi","SST","Recruitment","No",FALSE,-0.8315789103508,3.51044434410142e-07,NA,NA,NA,NA,NA
+"TANNERCRABBSAI","Tanner crab Bering Sea and Aleutian Islands","Chionoecetes bairdi","HRate","Recruitment","No",FALSE,0.989473581314087,0,NA,NA,NA,NA,NA
+"TANNERCRABBSAI","Tanner crab Bering Sea and Aleutian Islands","Chionoecetes bairdi","Recruitment","SST","No",FALSE,0.368421018123627,0.0251783132553101,NA,NA,NA,NA,NA
+"TANNERCRABBSAI","Tanner crab Bering Sea and Aleutian Islands","Chionoecetes bairdi","Recruitment","HRate","No",FALSE,0.957894682884216,0,NA,NA,NA,NA,NA
+"TIGERFLATSE","Tiger flathead Southeast Australia","Neoplatycephalus richardsoni","SST","Recruitment","Yes",TRUE,0.736842036247253,6.43730163574219e-06,0.0822578642478205,2.33636089352782e-22,0.00042014107426261,0.0641548422341766,0.0348845774468512
+"TIGERFLATSE","Tiger flathead Southeast Australia","Neoplatycephalus richardsoni","HRate","Recruitment","Yes",TRUE,0.894736766815186,0,0.157106512971894,3.48378861515272e-22,0.000872126923273697,0.045313611311103,0.0406710800681001
+"TIGERFLATSE","Tiger flathead Southeast Australia","Neoplatycephalus richardsoni","Recruitment","SST","Yes",TRUE,0.894736766815186,0,-0.00465389206883964,1.37567191199801e-09,-5.23677514977362e-05,0.0373737439571221,0.0457645185272544
+"TIGERFLATSE","Tiger flathead Southeast Australia","Neoplatycephalus richardsoni","Recruitment","HRate","No",FALSE,0.86315780878067,1.19209289550781e-07,NA,NA,NA,NA,NA
+"TILEMATLC","Tilefish Mid-Atlantic Coast","Lopholatilus chamaeleonticeps","SST","Recruitment","No",FALSE,0.72631573677063,8.82148742675781e-06,NA,NA,NA,NA,NA
+"TILEMATLC","Tilefish Mid-Atlantic Coast","Lopholatilus chamaeleonticeps","HRate","Recruitment","No",FALSE,0.747368335723877,4.76837158203125e-06,NA,NA,NA,NA,NA
+"TILEMATLC","Tilefish Mid-Atlantic Coast","Lopholatilus chamaeleonticeps","Recruitment","SST","No",FALSE,0.652631521224976,6.5922737121582e-05,NA,NA,NA,NA,NA
+"TILEMATLC","Tilefish Mid-Atlantic Coast","Lopholatilus chamaeleonticeps","Recruitment","HRate","No",FALSE,-0.873684167861938,8.63610551959937e-08,NA,NA,NA,NA,NA
+"TILESATLC","Tilefish Southern Atlantic coast","Lopholatilus chamaeleonticeps","SST","Recruitment","No",FALSE,0.757894694805145,3.45706939697266e-06,NA,NA,NA,NA,NA
+"TILESATLC","Tilefish Southern Atlantic coast","Lopholatilus chamaeleonticeps","HRate","Recruitment","No",FALSE,0.610526263713837,0.000190615653991699,NA,NA,NA,NA,NA
+"TILESATLC","Tilefish Southern Atlantic coast","Lopholatilus chamaeleonticeps","Recruitment","SST","No",FALSE,0.368421018123627,0.0251783132553101,NA,NA,NA,NA,NA
+"TILESATLC","Tilefish Southern Atlantic coast","Lopholatilus chamaeleonticeps","Recruitment","HRate","Yes",TRUE,0.947368323802948,0,-0.0372279642548928,8.86985358093475e-13,0.000102907459796302,0.726447923112143,0.00287560650344151
+"TREVALLYTRE7","Trevally New Zealand Areas TRE 7","Pseudocaranx dentex","SST","Recruitment","No",FALSE,0.894736766815186,0,NA,NA,NA,NA,NA
+"TREVALLYTRE7","Trevally New Zealand Areas TRE 7","Pseudocaranx dentex","HRate","Recruitment","Yes",TRUE,0.852631509304047,1.19209289550781e-07,-0.273897554252902,2.59326052618876e-94,3.60271619234828e-05,0.623502105236989,0.00361703087703461
+"TREVALLYTRE7","Trevally New Zealand Areas TRE 7","Pseudocaranx dentex","Recruitment","SST","No",FALSE,-0.326315760612488,0.0478045903146267,NA,NA,NA,NA,NA
+"TREVALLYTRE7","Trevally New Zealand Areas TRE 7","Pseudocaranx dentex","Recruitment","HRate","No",FALSE,-0.736842036247253,6.49023286314332e-06,NA,NA,NA,NA,NA
+"TURBLKGSA29","Turbot Black Sea","Psetta maxima","SST","Recruitment","No",FALSE,0.284210503101349,0.0855147838592529,NA,NA,NA,NA,NA
+"TURBLKGSA29","Turbot Black Sea","Psetta maxima","HRate","Recruitment","No",FALSE,-0.568421006202698,0.000517485139425844,NA,NA,NA,NA,NA
+"TURBLKGSA29","Turbot Black Sea","Psetta maxima","Recruitment","SST","No",FALSE,0.86315780878067,1.19209289550781e-07,NA,NA,NA,NA,NA
+"TURBLKGSA29","Turbot Black Sea","Psetta maxima","Recruitment","HRate","Yes",TRUE,0.947368323802948,0,-0.0380006502033538,0.10435600233157,0.00110398262473975,0.366027569208528,0.0127848787875982
+"VSNAPGM","Vermilion snapper Gulf of Mexico","Rhomboplites aurorubens","SST","Recruitment","No",FALSE,0.705263078212738,1.59740447998047e-05,NA,NA,NA,NA,NA
+"VSNAPGM","Vermilion snapper Gulf of Mexico","Rhomboplites aurorubens","HRate","Recruitment","No",TRUE,-0.294736832380295,0.0743529051542282,NA,NA,NA,NA,NA
+"VSNAPGM","Vermilion snapper Gulf of Mexico","Rhomboplites aurorubens","Recruitment","SST","No",FALSE,0.62105256319046,0.000147104263305664,NA,NA,NA,NA,NA
+"VSNAPGM","Vermilion snapper Gulf of Mexico","Rhomboplites aurorubens","Recruitment","HRate","No",FALSE,-0.8315789103508,3.51044434410142e-07,NA,NA,NA,NA,NA
+"VSNAPSATLC","Vermilion snapper Southern Atlantic coast","Rhomboplites aurorubens","SST","Recruitment","Not relevant",TRUE,0.673684179782867,3.77893447875977e-05,NA,NA,NA,NA,NA
+"VSNAPSATLC","Vermilion snapper Southern Atlantic coast","Rhomboplites aurorubens","HRate","Recruitment","Not relevant",TRUE,-0.0631578862667084,0.721176266670227,NA,NA,NA,NA,NA
+"VSNAPSATLC","Vermilion snapper Southern Atlantic coast","Rhomboplites aurorubens","Recruitment","SST","No",FALSE,-0.947368323802948,6.34022923051702e-09,NA,NA,NA,NA,NA
+"VSNAPSATLC","Vermilion snapper Southern Atlantic coast","Rhomboplites aurorubens","Recruitment","HRate","No",FALSE,-0.0631578862667084,0.721176266670227,NA,NA,NA,NA,NA
+"WHAKEGBGOM","White hake Gulf of Maine / Georges Bank","Urophycis tenuis","SST","Recruitment","No",TRUE,0.22105261683464,0.183447241783142,NA,NA,NA,NA,NA
+"WHAKEGBGOM","White hake Gulf of Maine / Georges Bank","Urophycis tenuis","HRate","Recruitment","Yes",TRUE,0.821052551269531,4.76837158203125e-07,-0.0432725952446715,1.25687499164168e-21,-1.34174039897427e-05,0.940226837154471,0.000109167805307585
+"WHAKEGBGOM","White hake Gulf of Maine / Georges Bank","Urophycis tenuis","Recruitment","SST","No",FALSE,0.768420994281769,2.50339508056641e-06,NA,NA,NA,NA,NA
+"WHAKEGBGOM","White hake Gulf of Maine / Georges Bank","Urophycis tenuis","Recruitment","HRate","No",FALSE,0.978947281837463,0,NA,NA,NA,NA,NA
+"WHITVIIa","Whiting Irish Sea","Merlangius merlangus","SST","Recruitment","No",FALSE,-0.578947305679321,0.000405578495701775,NA,NA,NA,NA,NA
+"WHITVIIa","Whiting Irish Sea","Merlangius merlangus","HRate","Recruitment","No",FALSE,-0.557894706726074,0.000657654542010278,NA,NA,NA,NA,NA
+"WHITVIIa","Whiting Irish Sea","Merlangius merlangus","Recruitment","SST","Yes",TRUE,0.757894694805145,3.45706939697266e-06,-0.319671789880339,4.7639343949549e-42,0.000171969735720083,0.672412337875536,0.00488598372372824
+"WHITVIIa","Whiting Irish Sea","Merlangius merlangus","Recruitment","HRate","No",TRUE,0.0947368368506432,0.581254720687866,NA,NA,NA,NA,NA
+"WHITVIa","Whiting West of Scotland","Merlangius merlangus","SST","Recruitment","Yes",TRUE,0.642105221748352,8.64267349243164e-05,0.0745890569448451,2.28586575861381e-12,0.00149254385074852,0.0291476183879497,0.136172441684408
+"WHITVIa","Whiting West of Scotland","Merlangius merlangus","HRate","Recruitment","Yes",TRUE,0.852631509304047,1.19209289550781e-07,-0.291258309016179,1.5260222095583e-31,-0.000766399460133772,0.248650815456528,0.0401159674808171
+"WHITVIa","Whiting West of Scotland","Merlangius merlangus","Recruitment","SST","Yes",TRUE,0.947368323802948,0,-0.484822360093152,3.69044597561412e-48,0.00061694849461985,0.126294133893525,0.0637125544731609
+"WHITVIa","Whiting West of Scotland","Merlangius merlangus","Recruitment","HRate","No",FALSE,-0.263157874345779,0.111886657774448,NA,NA,NA,NA,NA
+"WINFLOUNSNEMATL","Winter flounder Southern New England /Mid Atlantic","Pseudopleuronectes americanus","SST","Recruitment","Yes",TRUE,0.86315780878067,1.19209289550781e-07,-0.130215663716742,9.94255430911324e-40,-0.000164610017850885,0.396918718135118,0.0189530808910622
+"WINFLOUNSNEMATL","Winter flounder Southern New England /Mid Atlantic","Pseudopleuronectes americanus","HRate","Recruitment","Yes",TRUE,0.8315789103508,3.57627868652344e-07,0.0390211292175908,9.31677025894024e-19,-1.29180471505213e-05,0.952097271473412,9.62214473719675e-05
+"WINFLOUNSNEMATL","Winter flounder Southern New England /Mid Atlantic","Pseudopleuronectes americanus","Recruitment","SST","No",FALSE,-0.72631573677063,8.79462186276214e-06,NA,NA,NA,NA,NA
+"WINFLOUNSNEMATL","Winter flounder Southern New England /Mid Atlantic","Pseudopleuronectes americanus","Recruitment","HRate","Yes",TRUE,0.884210467338562,1.19209289550781e-07,0.327364795984662,1.37907331670763e-36,0.000519690393525882,0.350557481010564,0.0249393990549144
+"WMARLINATL","White marlin Atlantic Ocean","Tetrapturus albidus","SST","Recruitment","No",FALSE,-0.926315724849701,1.36477851242489e-08,NA,NA,NA,NA,NA
+"WMARLINATL","White marlin Atlantic Ocean","Tetrapturus albidus","HRate","Recruitment","No",FALSE,0.810526251792908,7.15255737304688e-07,NA,NA,NA,NA,NA
+"WMARLINATL","White marlin Atlantic Ocean","Tetrapturus albidus","Recruitment","SST","Yes",TRUE,0.852631509304047,1.19209289550781e-07,-0.0719016113771124,1.4675756570395e-38,7.49039275769126e-06,0.954648226485676,6.40397969189684e-05
+"WMARLINATL","White marlin Atlantic Ocean","Tetrapturus albidus","Recruitment","HRate","No",FALSE,0.189473673701286,0.256144881248474,NA,NA,NA,NA,NA
+"WPOLLAI","Walleye pollock Aleutian Islands","Theragra chalcogramma","SST","Recruitment","No",FALSE,0.58947366476059,0.000316619873046875,NA,NA,NA,NA,NA
+"WPOLLAI","Walleye pollock Aleutian Islands","Theragra chalcogramma","HRate","Recruitment","No",FALSE,-0.642105221748352,8.64568137330934e-05,NA,NA,NA,NA,NA
+"WPOLLAI","Walleye pollock Aleutian Islands","Theragra chalcogramma","Recruitment","SST","No",FALSE,0.694736778736115,2.13384628295898e-05,NA,NA,NA,NA,NA
+"WPOLLAI","Walleye pollock Aleutian Islands","Theragra chalcogramma","Recruitment","HRate","No",FALSE,0.705263078212738,1.59740447998047e-05,NA,NA,NA,NA,NA
+"WPOLLEBS","Walleye pollock Eastern Bering Sea","Theragra chalcogramma","SST","Recruitment","No",FALSE,0.96842098236084,0,NA,NA,NA,NA,NA
+"WPOLLEBS","Walleye pollock Eastern Bering Sea","Theragra chalcogramma","HRate","Recruitment","No",FALSE,-0.0526315756142139,0.770287692546844,NA,NA,NA,NA,NA
+"WPOLLEBS","Walleye pollock Eastern Bering Sea","Theragra chalcogramma","Recruitment","SST","No",FALSE,0.368421018123627,0.0251783132553101,NA,NA,NA,NA,NA
+"WPOLLEBS","Walleye pollock Eastern Bering Sea","Theragra chalcogramma","Recruitment","HRate","No",FALSE,0.378947347402573,0.0212482213973999,NA,NA,NA,NA,NA
+"WPOLLGA","Walleye pollock Gulf of Alaska","Theragra chalcogramma","SST","Recruitment","No",FALSE,-0.715789437294006,1.18690904855612e-05,NA,NA,NA,NA,NA
+"WPOLLGA","Walleye pollock Gulf of Alaska","Theragra chalcogramma","HRate","Recruitment","No",FALSE,0.894736766815186,0,NA,NA,NA,NA,NA
+"WPOLLGA","Walleye pollock Gulf of Alaska","Theragra chalcogramma","Recruitment","SST","No",FALSE,0.336842089891434,0.04095458984375,NA,NA,NA,NA,NA
+"WPOLLGA","Walleye pollock Gulf of Alaska","Theragra chalcogramma","Recruitment","HRate","No",FALSE,0.0421052612364292,0.820338249206543,NA,NA,NA,NA,NA
+"WROCKPCOAST","Widow rockfish Pacific Coast","Sebastes entomelas","SST","Recruitment","Not relevant",TRUE,0.305263131856918,0.0644110441207886,NA,NA,NA,NA,NA
+"WROCKPCOAST","Widow rockfish Pacific Coast","Sebastes entomelas","HRate","Recruitment","Not relevant",TRUE,-0.421052604913712,0.0103742619976401,NA,NA,NA,NA,NA
+"WROCKPCOAST","Widow rockfish Pacific Coast","Sebastes entomelas","Recruitment","SST","No",FALSE,0.642105221748352,8.64267349243164e-05,NA,NA,NA,NA,NA
+"WROCKPCOAST","Widow rockfish Pacific Coast","Sebastes entomelas","Recruitment","HRate","No",FALSE,-0.926315724849701,1.36477851242489e-08,NA,NA,NA,NA,NA
+"YELLSNEMATL","Yellowtail flounder Southern New England /Mid Atlantic","Limanda ferruginea","SST","Recruitment","Yes",TRUE,0.705263078212738,1.59740447998047e-05,0.170247376915787,3.14384046616098e-13,-0.00329112298985373,0.0060184137297065,0.152770955619103
+"YELLSNEMATL","Yellowtail flounder Southern New England /Mid Atlantic","Limanda ferruginea","HRate","Recruitment","No",FALSE,-0.147368416190147,0.381032347679138,NA,NA,NA,NA,NA
+"YELLSNEMATL","Yellowtail flounder Southern New England /Mid Atlantic","Limanda ferruginea","Recruitment","SST","No",FALSE,-0.157894730567932,0.346764117479324,NA,NA,NA,NA,NA
+"YELLSNEMATL","Yellowtail flounder Southern New England /Mid Atlantic","Limanda ferruginea","Recruitment","HRate","No",FALSE,-0.189473673701286,0.256144911050797,NA,NA,NA,NA,NA
+"YEYEROCKPCOAST","Yelloweye rockfish Pacific Coast","Sebastes ruberrimus","SST","Recruitment","No",TRUE,-0.126315772533417,0.455535411834717,NA,NA,NA,NA,NA
+"YEYEROCKPCOAST","Yelloweye rockfish Pacific Coast","Sebastes ruberrimus","HRate","Recruitment","Yes",TRUE,0.631578922271729,0.000113010406494141,0.0466098143010965,2.0958559179995e-21,-0.000482446580309153,5.29924613107143e-06,0.152222274572556
+"YEYEROCKPCOAST","Yelloweye rockfish Pacific Coast","Sebastes ruberrimus","Recruitment","SST","No",FALSE,-0.62105256319046,0.000147060563904233,NA,NA,NA,NA,NA
+"YEYEROCKPCOAST","Yelloweye rockfish Pacific Coast","Sebastes ruberrimus","Recruitment","HRate","No",FALSE,0.557894706726074,0.00065767765045166,NA,NA,NA,NA,NA
+"YFINEIO","Yellowfin tuna Indian Ocean","Thunnus albacares","SST","Recruitment","Not relevant",FALSE,0.473684161901474,0.00388264656066895,NA,NA,NA,NA,NA
+"YFINEIO","Yellowfin tuna Indian Ocean","Thunnus albacares","HRate","Recruitment","Not relevant",TRUE,0.936842024326324,0,NA,NA,NA,NA,NA
+"YFINEIO","Yellowfin tuna Indian Ocean","Thunnus albacares","Recruitment","SST","No",FALSE,0.631578922271729,0.000113010406494141,NA,NA,NA,NA,NA
+"YFINEIO","Yellowfin tuna Indian Ocean","Thunnus albacares","Recruitment","HRate","No",FALSE,-0.673684179782867,3.78175463993102e-05,NA,NA,NA,NA,NA
+"YFINEPAC","Yellowfin tuna Eastern Pacific","Thunnus albacares","SST","Recruitment","No",FALSE,-0.789473593235016,1.33683192871104e-06,NA,NA,NA,NA,NA
+"YFINEPAC","Yellowfin tuna Eastern Pacific","Thunnus albacares","HRate","Recruitment","No",FALSE,-0.0315789431333542,0.871131479740143,NA,NA,NA,NA,NA
+"YFINEPAC","Yellowfin tuna Eastern Pacific","Thunnus albacares","Recruitment","SST","No",FALSE,0.936842024326324,0,NA,NA,NA,NA,NA
+"YFINEPAC","Yellowfin tuna Eastern Pacific","Thunnus albacares","Recruitment","HRate","No",FALSE,0.610526263713837,0.000190615653991699,NA,NA,NA,NA,NA
+"YSOLEBSAI","Yellowfin sole Bering Sea and Aleutian Islands","Limanda aspera","SST","Recruitment","No",FALSE,0.810526251792908,7.15255737304688e-07,NA,NA,NA,NA,NA
+"YSOLEBSAI","Yellowfin sole Bering Sea and Aleutian Islands","Limanda aspera","HRate","Recruitment","No",FALSE,-0.147368416190147,0.381032347679138,NA,NA,NA,NA,NA
+"YSOLEBSAI","Yellowfin sole Bering Sea and Aleutian Islands","Limanda aspera","Recruitment","SST","No",FALSE,-0.747368335723877,4.77030289403046e-06,NA,NA,NA,NA,NA
+"YSOLEBSAI","Yellowfin sole Bering Sea and Aleutian Islands","Limanda aspera","Recruitment","HRate","Yes",TRUE,0.515789449214935,0.00164902210235596,-0.0331599506784195,0.0411008504679017,0.00268684469759682,0.00263414353810443,0.1455356271899
+"YTROCKNPCOAST","Yellowtail rockfish Northern Pacific Coast","Sebastes flavidus","SST","Recruitment","Yes",TRUE,0.926315724849701,0,0.167918844512941,0.249587322457064,0.00568397112648969,0.148723161557029,0.0164784203740792
+"YTROCKNPCOAST","Yellowtail rockfish Northern Pacific Coast","Sebastes flavidus","HRate","Recruitment","Yes",TRUE,0.96842098236084,0,0.527726379087289,0.0517468841066175,0.00334964500373492,0.646941724919897,0.00167012476086363
+"YTROCKNPCOAST","Yellowtail rockfish Northern Pacific Coast","Sebastes flavidus","Recruitment","SST","No",FALSE,-0.842105209827423,2.48748364128915e-07,NA,NA,NA,NA,NA
+"YTROCKNPCOAST","Yellowtail rockfish Northern Pacific Coast","Sebastes flavidus","Recruitment","HRate","No",FALSE,0.452631533145905,0.00581979751586914,NA,NA,NA,NA,NA

@@ -121,3 +121,5 @@ Supplementary figures are created in `figAdd4` and `figAdd7` to `figAdd11`.
 The traits of the stocks are analyzed to determine whether they are related to the presence or strength of causality. The results are plotted in `figAdd5` and `figAdd6`.
 
 ## Comparison with Pierre et al. 's analysis
+
+The comparison with the analysis of Pierre et al. (2018) is performed in the `comparison_with_pierre_et_al_2018.R` script. The results are stored in `out/comparison_with_pierre_et_al_2018.csv`.

@@ -4,11 +4,15 @@ main.nb.html
 
 # Remove outputs except the folder out/20240923-test/computations
 out/*
-!out/20240923-test/
-out/20240923-test/*
-!out/20240923-test/computations/
+!out/20260215_141155-on_SProd/
+out/20260215_141155-on_SProd/png/*
+out/20260215_141155-on_SProd/pdf/figAdd*
+!out/20260215_143248-on_Recruitment/
+out/20260215_143248-on_Recruitment/png/*
+out/20260215_143248-on_Recruitment/pdf/figAdd*
+!out/comparison_with_pierre_et_al_2018.csv
 
-comparison Pierre et al/boundaries_pierre_et_al
+comparison Pierre et al/*
 
 data/*
 !data/timeseries_clean-v4.66.csv
@@ -17,7 +21,19 @@ data/*
 !data/traits/
 data/traits/traits_subset-traj_SProd_classif_traits.csv
 
+utils/*
+!utils/00-prepare_data.R
+!utils/plots_map.R
+!utils/plots_timeseries.R
+
+main-previous version*
+Rshiny_app.R
+draft*
+
 params/
+
+*.Rproj
+.lintr
 
 
 # History files
